@@ -1,16 +1,206 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from "react-router-dom";
+import { ArrowRight, Download, MapPin } from "lucide-react";
+import SEO from "@/components/SEO";
+import Section from "@/components/Section";
+import { profile, metrics, experiences, caseStudies, capabilities } from "@/data/portfolio";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+export default function Index() {
+  const previewExperience = experiences.slice(0, 4);
+  const previewCaseStudies = caseStudies.slice(0, 3);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <>
+      <SEO
+        title="Sadman Ishraq Mohiuddin | Senior Business Analyst & Operations Strategy Professional"
+        description="Senior Business Analyst based in Montreal specializing in requirements engineering, enterprise systems, cloud transformation, operations strategy, process improvement, data analytics, and platform delivery across financial services, healthcare, government, logistics, renewable energy, and technology sectors."
+        path="/"
+      />
+
+      {/* Hero */}
+      <section className="relative bg-navy text-navy-foreground overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, hsl(var(--primary-foreground)) 0, transparent 40%), radial-gradient(circle at 80% 60%, hsl(var(--primary-foreground)) 0, transparent 35%)",
+          }}
+        />
+        <div className="container-prose relative pt-24 pb-24 sm:pt-32 sm:pb-32">
+          <div className="max-w-4xl">
+            <p className="eyebrow text-white/70 animate-fade-in">
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="h-3 w-3" />
+                {profile.location}
+              </span>
+            </p>
+            <h1 className="mt-6 font-display text-4xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-balance animate-fade-up">
+              {profile.headline}
+            </h1>
+            <p className="mt-8 max-w-3xl text-lg sm:text-xl text-white/75 leading-relaxed text-balance animate-fade-up [animation-delay:120ms]">
+              {profile.subheadline}
+            </p>
+            <p className="mt-6 text-sm text-white/55 animate-fade-up [animation-delay:200ms]">
+              {profile.positioning}
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-3 animate-fade-up [animation-delay:280ms]">
+              <Link
+                to="/experience"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-white text-navy text-sm font-medium hover:bg-white/90 transition-colors"
+              >
+                View Experience <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/case-studies"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-sm border border-white/25 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+              >
+                View Case Studies
+              </Link>
+              <a
+                href={profile.cvPath}
+                download
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-sm border border-white/25 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+              >
+                <Download className="h-4 w-4" /> Download CV
+              </a>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-sm border border-white/25 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+              >
+                Contact Me
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Credibility metrics */}
+      <section className="border-b border-border bg-secondary/40">
+        <div className="container-prose py-14">
+          <p className="eyebrow mb-8">Selected outcomes at scale</p>
+          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {metrics.map((m) => (
+              <div key={m.label} className="border-l-2 border-primary pl-5">
+                <p className="font-display text-3xl sm:text-4xl text-foreground tracking-tight">
+                  {m.value}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {m.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Selected experience */}
+      <Section
+        eyebrow="Selected experience"
+        title="Cross-industry delivery across enterprise systems"
+        intro="From a major Canadian financial institution's cloud transformation to a national fiscal compliance platform, healthcare logistics, and global engineering at ExxonMobil."
+      >
+        <div className="grid gap-px bg-border md:grid-cols-2">
+          {previewExperience.map((e) => (
+            <article
+              key={`${e.company}-${e.period}`}
+              className="bg-background p-8 hover:bg-secondary/40 transition-colors"
+            >
+              <p className="text-xs uppercase tracking-[0.18em] text-primary font-medium">
+                {e.period}
+              </p>
+              <h3 className="mt-3 font-display text-xl tracking-tight">{e.role}</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                {e.company} · {e.location}
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-foreground/80">
+                {e.summary}
+              </p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Link
+            to="/experience"
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-hover"
+          >
+            View full experience <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
+
+      {/* Selected case studies */}
+      <Section
+        eyebrow="Selected case studies"
+        title="Engagements with measurable, enterprise-grade impact"
+        intro="Structured case studies covering enterprise cloud transformation, national government platforms, healthcare logistics, and renewable infrastructure."
+        className="bg-secondary/30"
+      >
+        <div className="grid gap-6 lg:grid-cols-3">
+          {previewCaseStudies.map((c) => (
+            <Link
+              key={c.slug}
+              to={`/case-studies#${c.slug}`}
+              className="group bg-background border border-border p-8 flex flex-col hover:border-primary transition-colors"
+            >
+              <p className="eyebrow">{c.sector}</p>
+              <h3 className="mt-4 font-display text-xl tracking-tight">{c.title}</h3>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed flex-1">
+                {c.context}
+              </p>
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary">
+                Read case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      {/* Capabilities */}
+      <Section
+        eyebrow="Core capabilities"
+        title="Where business analysis meets operations strategy"
+        intro="Disciplined requirements engineering, operational analytics, and enterprise system delivery — applied across financial services, government, healthcare, energy, and platform businesses."
+      >
+        <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
+          {capabilities.map((cap) => (
+            <div key={cap.group} className="bg-background p-8">
+              <h3 className="font-display text-lg tracking-tight">{cap.group}</h3>
+              <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+                {cap.items.map((it) => (
+                  <li key={it} className="leading-relaxed">{it}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Contact CTA */}
+      <section className="bg-navy text-navy-foreground">
+        <div className="container-prose py-20 sm:py-24 grid gap-10 lg:grid-cols-3 lg:items-end">
+          <div className="lg:col-span-2">
+            <p className="eyebrow text-white/70">Let's talk</p>
+            <h2 className="mt-4 font-display text-3xl sm:text-5xl tracking-tight text-balance">
+              Interested in discussing a Senior Business Analyst, Operations Strategy, or Consulting opportunity?
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-white text-navy text-sm font-medium hover:bg-white/90 transition-colors"
+            >
+              Send a message <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-sm border border-white/25 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+            >
+              Email directly
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
   );
-};
-
-const Index = PlaceholderIndex;
-
-export default Index;
+}
