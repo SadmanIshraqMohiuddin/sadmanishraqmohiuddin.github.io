@@ -22,6 +22,11 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
+        },
+        navy: {
+          DEFAULT: "hsl(var(--navy))",
+          foreground: "hsl(var(--navy-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -63,6 +68,10 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'sans-serif'],
+        display: ['Fraunces', 'SF Pro Display', 'Georgia', 'serif'],
+      },
       keyframes: {
         "accordion-down": {
           from: {
@@ -80,10 +89,20 @@ export default {
             height: "0",
           },
         },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-up": "fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "fade-in": "fade-in 0.7s ease-out both",
       },
     },
   },
