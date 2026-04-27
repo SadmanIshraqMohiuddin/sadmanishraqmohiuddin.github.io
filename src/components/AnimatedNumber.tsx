@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   value: string;
@@ -12,24 +12,29 @@ type Props = {
  * any prefix/suffix characters (e.g. "~", "+", " MW+").
  */
 export default function AnimatedNumber({ value, durationMs = 1800, startSignal }: Props) {
-  // Find the first numeric run (digits + commas + optional decimal).
-  const match = value.match(/([\d,]+(?:\.\d+)?)/);
-  const numericStr = match?.[1] ?? "";
-  const target = numericStr ? parseFloat(numericStr.replace(/,/g, "")) : 0;
-  const prefix = match ? value.slice(0, match.index) : value;
-  const suffix = match ? value.slice((match.index ?? 0) + numericStr.length) : "";
-  const hasComma = numericStr.includes(",");
-  const decimals = numericStr.includes(".") ? numericStr.split(".")[1].length : 0;
+  const parsed = useMemo(() => {
+    const m = value.match(/(\d[\d,]*(?:\.\d+)?)/);
+    if (!m || m.index === undefined) {
+      return null;
+    }
+    const numericStr = m[1];
+    const target = parseFloat(numericStr.replace(/,/g, ""));
+    return {
+      target,
+      prefix: value.slice(0, m.index),
+      suffix: value.slice(m.index + numericStr.length),
+      hasComma: numericStr.includes(","),
+      decimals: numericStr.includes(".") ? numericStr.split(".")[1].length : 0,
+    };
+  }, [value]);
 
   const [display, setDisplay] = useState(0);
-  const rafRef = useRef<number | null>(null);
-  const startedRef = useRef(false);
 
   useEffect(() => {
-    if (!startSignal || startedRef.current || !match) return;
-    startedRef.current = true;
-
+    if (!startSignal || !parsed) return;
+    let rafId = 0;
     const start = performance.now();
+    const target = parsed.target;
     const tick = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(1, elapsed / durationMs);
@@ -37,30 +42,27 @@ export default function AnimatedNumber({ value, durationMs = 1800, startSignal }
       const eased = 1 - Math.pow(1 - progress, 3);
       setDisplay(target * eased);
       if (progress < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        setDisplay(target);
+        rafId = requestAnimationFrame(tick);
       }
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [startSignal, target, durationMs, match]);
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [startSignal, parsed, durationMs]);
 
-  if (!match) return <>{value}</>;
+  if (!parsed) return <>{value}</>;
 
-  const formatted = decimals
-    ? display.toFixed(decimals)
-    : hasComma
-      ? Math.round(display).toLocaleString("en-US")
-      : Math.round(display).toString();
+  const safe = Math.max(0, display);
+  const formatted = parsed.decimals
+    ? safe.toFixed(parsed.decimals)
+    : parsed.hasComma
+      ? Math.round(safe).toLocaleString("en-US")
+      : Math.round(safe).toString();
 
   return (
     <>
-      {prefix}
+      {parsed.prefix}
       {formatted}
-      {suffix}
+      {parsed.suffix}
     </>
   );
 }
