@@ -12,7 +12,7 @@ export default function About() {
       />
 
       <section className="bg-navy text-navy-foreground">
-        <div className="container-prose py-24 sm:py-28">
+        <div className="container-prose pt-12 pb-24 sm:pt-14 sm:pb-28">
           <p className="eyebrow text-white/70">About</p>
           <h1 className="mt-6 font-display text-4xl sm:text-6xl tracking-tight text-balance">
             Translating complex enterprise problems into structured, scalable systems.
