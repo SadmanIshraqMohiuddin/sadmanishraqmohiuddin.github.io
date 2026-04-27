@@ -1,12 +1,35 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Download, MapPin } from "lucide-react";
 import SEO from "@/components/SEO";
 import Section from "@/components/Section";
+import AnimatedNumber from "@/components/AnimatedNumber";
 import { profile, metrics, experiences, caseStudies, capabilities } from "@/data/portfolio";
 
 export default function Index() {
   const previewExperience = experiences.slice(0, 4);
   const previewCaseStudies = caseStudies.slice(0, 3);
+
+  const metricsRef = useRef<HTMLDivElement | null>(null);
+  const [metricsInView, setMetricsInView] = useState(false);
+
+  useEffect(() => {
+    const node = metricsRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setMetricsInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -77,13 +100,13 @@ export default function Index() {
 
       {/* Credibility metrics */}
       <section className="border-b border-border bg-secondary/40">
-        <div className="container-prose py-14">
+        <div className="container-prose py-14" ref={metricsRef}>
           <p className="eyebrow mb-8">Selected outcomes at scale</p>
           <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {metrics.map((m) => (
               <div key={m.label} className="border-l-2 border-primary pl-5">
-                <p className="font-display text-3xl sm:text-4xl text-foreground tracking-tight">
-                  {m.value}
+                <p className="font-display text-3xl sm:text-4xl text-foreground tracking-tight tabular-nums">
+                  <AnimatedNumber value={m.value} startSignal={metricsInView} durationMs={1800} />
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {m.label}
