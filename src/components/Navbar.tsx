@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, ChevronDown } from "lucide-react";
 import { profile } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 const links = [
   { to: "/", label: "Home" },
@@ -11,6 +17,10 @@ const links = [
   { to: "/case-studies", label: "Case Studies" },
   { to: "/certifications", label: "Certifications" },
   { to: "/contact", label: "Contact" },
+];
+
+const cvs = [
+  { label: "Full CV", path: profile.cvPath },
 ];
 
 export default function Navbar() {
@@ -60,10 +70,11 @@ export default function Navbar() {
               end={l.to === "/"}
               className={({ isActive }) =>
                 cn(
-                  "text-sm transition-colors",
+                  "text-sm px-3 py-1.5 rounded-full transition-all duration-200",
+                  "hover:bg-primary hover:text-primary-foreground",
                   isActive
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-primary text-primary-foreground font-medium"
+                    : "text-muted-foreground"
                 )
               }
             >
@@ -73,14 +84,23 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
-          <a
-            href={profile.cvPath}
-            download
-            className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-sm bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"
-          >
-            <Download className="h-4 w-4" />
-            Download CV
-          </a>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary-hover transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <Download className="h-4 w-4" />
+              Download CV
+              <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="rounded-xl">
+              {cvs.map((cv) => (
+                <DropdownMenuItem key={cv.path} asChild>
+                  <a href={cv.path} download className="cursor-pointer">
+                    <Download className="h-4 w-4 mr-2" />
+                    {cv.label}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <button
@@ -113,7 +133,7 @@ export default function Navbar() {
             <a
               href={profile.cvPath}
               download
-              className="mt-3 inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-3 rounded-sm bg-primary text-primary-foreground"
+              className="mt-3 inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-3 rounded-full bg-primary text-primary-foreground"
             >
               <Download className="h-4 w-4" />
               Download CV
