@@ -86,10 +86,56 @@ export default function Certifications() {
           </div>
           <div>
             <p className="eyebrow mb-5">Publication</p>
-            <ul className="space-y-3">
+            <ul className="space-y-8">
               {publications.map((p) => (
-                <li key={p} className="text-foreground/85 leading-relaxed">
-                  {p}
+                <li
+                  key={p.title}
+                  className="rounded-lg border border-border bg-background p-6 shadow-sm"
+                >
+                  <dl className="space-y-4 text-foreground/85 leading-relaxed">
+                    <div>
+                      <dt className="font-bold text-foreground">Title</dt>
+                      <dd className="mt-1">{p.title}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-foreground">Publisher</dt>
+                      <dd className="mt-1">{p.publisher}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-foreground">Conference</dt>
+                      <dd className="mt-1">{p.conference}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-foreground">Description</dt>
+                      <dd className="mt-1">{p.description}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-foreground">Link</dt>
+                      <dd className="mt-1">
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline underline-offset-4 hover:no-underline break-all"
+                        >
+                          {p.link}
+                        </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-foreground">Keywords</dt>
+                      <dd className="mt-2 flex flex-wrap gap-2">
+                        {p.keywords.map((k) => (
+                          <span
+                            key={k}
+                            className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground"
+                          >
+                            {k}
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  </dl>
                 </li>
               ))}
             </ul>
