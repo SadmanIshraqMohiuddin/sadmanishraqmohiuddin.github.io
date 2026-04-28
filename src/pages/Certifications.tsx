@@ -15,7 +15,7 @@ export default function Certifications() {
         <div className="container-prose py-24 sm:py-28">
           <p className="eyebrow text-white/70">Credentials</p>
           <h1 className="mt-6 font-display text-4xl sm:text-6xl tracking-tight text-balance">
-            Certifications, education, and recognition.
+            Certifications, education, publications Languages & recognition.
           </h1>
           <p className="mt-8 max-w-3xl text-lg text-white/75 leading-relaxed text-balance">
             A foundation in engineering and analytics, complemented by structured business analysis training
