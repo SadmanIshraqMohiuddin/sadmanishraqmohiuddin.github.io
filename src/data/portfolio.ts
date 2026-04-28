@@ -482,8 +482,31 @@ export const honors = [
   "3rd Best PDS AI",
 ];
 
-export const publications = [
-  "A Fast Resource Efficient Method for Human Action Recognition",
+export type Publication = {
+  title: string;
+  publisher: string;
+  conference: string;
+  description: string;
+  link: string;
+  keywords: string[];
+};
+
+export const publications: Publication[] = [
+  {
+    title: "A Fast Resource Efficient Method for Human Action Recognition",
+    publisher: "Association for Computing Machinery (ACM)",
+    conference: "ACM UbiComp 2018",
+    description:
+      "[Inference] Co authored a peer reviewed research paper presented at ACM UbiComp 2018 proposing a computationally efficient human action recognition framework trained on the Sussex Huawei locomotion dataset. The method emphasized lightweight feature design and efficient training to enable fast activity classification while operating under constrained computational resources, achieving 82.8 percent classification accuracy.",
+    link: "https://dl.acm.org/doi/10.1145/3267305.3267527",
+    keywords: [
+      "Machine Learning",
+      "Human Action Recognition",
+      "Signal Processing",
+      "Pattern Analysis",
+      "Multimodal Sensor Data",
+    ],
+  },
 ];
 
 export const opportunityTypes = [
