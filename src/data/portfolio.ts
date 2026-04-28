@@ -475,7 +475,7 @@ export const languages = [
 ];
 
 export const honors = [
-  "International Science & Engineering Excellence Award",
+  "International Science and Engineering Excellence Award - Merit Based Academic Scholarship (Awarded for the Full Duration of the Degree)",
   "Overall Outstanding Cadet — Alpha Platoon",
   "Overall Outstanding Cadet Award — Senior Specialist Course Platoon",
   "Best Cadet — Senior Specialist Course Platoon",
