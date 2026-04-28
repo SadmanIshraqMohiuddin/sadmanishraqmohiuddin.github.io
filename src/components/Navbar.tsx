@@ -15,7 +15,11 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/experience", label: "Experience" },
   { to: "/case-studies", label: "Case Studies" },
-  { to: "/certifications", label: "Certifications" },
+  {
+    to: "/certifications",
+    label: "Certifications",
+    hoverLabel: "Certifications, publications, education & awards",
+  },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -70,7 +74,7 @@ export default function Navbar() {
               end={l.to === "/"}
               className={({ isActive }) =>
                 cn(
-                  "text-sm px-3 py-1.5 rounded-full transition-all duration-200",
+                  "group/navlink relative text-sm px-3 py-1.5 rounded-full transition-all duration-200 overflow-hidden whitespace-nowrap",
                   "hover:bg-primary hover:text-primary-foreground",
                   isActive
                     ? "bg-primary text-primary-foreground font-medium"
@@ -78,7 +82,21 @@ export default function Navbar() {
                 )
               }
             >
-              {l.label}
+              {l.hoverLabel ? (
+                <>
+                  <span className="inline-block transition-all duration-300 group-hover/navlink:opacity-0 group-hover/navlink:max-w-0 max-w-xs">
+                    {l.label}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 flex items-center justify-center px-3 opacity-0 transition-opacity duration-300 group-hover/navlink:opacity-100"
+                  >
+                    {l.hoverLabel}
+                  </span>
+                </>
+              ) : (
+                l.label
+              )}
             </NavLink>
           ))}
         </nav>
