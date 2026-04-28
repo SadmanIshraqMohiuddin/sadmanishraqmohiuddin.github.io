@@ -476,9 +476,9 @@ export const languages = [
 
 export const honors = [
   "International Science and Engineering Excellence Award - Merit Based Academic Scholarship (Awarded for the Full Duration of the Degree)",
-  "Overall Outstanding Cadet — Alpha Platoon",
-  "Overall Outstanding Cadet Award — Senior Specialist Course Platoon",
-  "Best Cadet — Senior Specialist Course Platoon",
+  "Overall Outstanding Cadet - Alpha Platoon",
+  "Overall Outstanding Cadet Award - Senior Specialist Course Platoon",
+  "Best Cadet - Senior Specialist Course Platoon",
   "3rd Best PDS AI",
 ];
 
@@ -497,7 +497,7 @@ export const publications: Publication[] = [
     publisher: "Association for Computing Machinery (ACM)",
     conference: "ACM UbiComp 2018",
     description:
-      "[Inference] Co authored a peer reviewed research paper presented at ACM UbiComp 2018 proposing a computationally efficient human action recognition framework trained on the Sussex Huawei locomotion dataset. The method emphasized lightweight feature design and efficient training to enable fast activity classification while operating under constrained computational resources, achieving 82.8 percent classification accuracy.",
+      "Co authored a peer reviewed research paper presented at ACM UbiComp 2018 proposing a computationally efficient human action recognition framework trained on the Sussex Huawei locomotion dataset. The method emphasized lightweight feature design and efficient training to enable fast activity classification while operating under constrained computational resources, achieving 82.8 percent classification accuracy.",
     link: "https://dl.acm.org/doi/10.1145/3267305.3267527",
     keywords: [
       "Machine Learning",
