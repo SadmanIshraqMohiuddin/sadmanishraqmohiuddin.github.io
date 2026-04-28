@@ -62,7 +62,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
             <NavLink
               key={l.to}
