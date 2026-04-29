@@ -110,16 +110,23 @@ export default function Certifications() {
                       <dd className="mt-1">{p.description}</dd>
                     </div>
                     <div>
-                      <dt className="font-bold text-foreground">Link</dt>
-                      <dd className="mt-1">
-                        <a
-                          href={p.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary underline underline-offset-4 hover:no-underline break-all"
-                        >
-                          {p.link}
-                        </a>
+                      <dt className="font-bold text-foreground">Links</dt>
+                      <dd className="mt-2 space-y-3">
+                        {p.links.map((ln) => (
+                          <div key={ln.url}>
+                            <p className="font-semibold text-foreground text-sm">
+                              {ln.label}
+                            </p>
+                            <a
+                              href={ln.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary underline underline-offset-4 hover:no-underline break-all text-sm"
+                            >
+                              {ln.url}
+                            </a>
+                          </div>
+                        ))}
                       </dd>
                     </div>
                     <div>

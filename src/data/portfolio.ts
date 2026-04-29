@@ -487,7 +487,7 @@ export type Publication = {
   publisher: string;
   conference: string;
   description: string;
-  link: string;
+  links: { label: string; url: string }[];
   keywords: string[];
 };
 
@@ -498,7 +498,16 @@ export const publications: Publication[] = [
     conference: "ACM UbiComp 2018",
     description:
       "Co authored a peer reviewed research paper presented at ACM UbiComp 2018 proposing a computationally efficient human action recognition framework trained on the Sussex Huawei locomotion dataset. The method emphasized lightweight feature design and efficient training to enable fast activity classification while operating under constrained computational resources, achieving 82.8 percent classification accuracy.",
-    link: "https://dl.acm.org/doi/10.1145/3267305.3267527",
+    links: [
+      {
+        label: "Official Publication (ACM Digital Library)",
+        url: "https://dl.acm.org/doi/10.1145/3267305.3267527",
+      },
+      {
+        label: "Alternative Access (ResearchGate)",
+        url: "https://www.researchgate.net/publication/328679107_A_Fast_Resource_Efficient_Method_for_Human_Action_Recognition",
+      },
+    ],
     keywords: [
       "Machine Learning",
       "Human Action Recognition",
