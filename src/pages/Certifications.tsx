@@ -135,7 +135,7 @@ export default function Certifications() {
                         {p.keywords.map((k) => (
                           <span
                             key={k}
-                            className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground"
+                            className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
                           >
                             {k}
                           </span>
