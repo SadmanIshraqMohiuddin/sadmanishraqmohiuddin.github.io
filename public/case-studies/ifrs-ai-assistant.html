@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFRS Compliance Intelligence Agent — Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+:root{--cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;--navy-light:#1e3a52;--gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;--text-dark:#1a1a2e;--text-mid:#4a4a5a;--serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text-dark);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+.back-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;color:var(--navy);font-size:13px}
+.hero{background:var(--navy);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(42,157,143,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 20% 80%,rgba(201,168,76,.08) 0%,transparent 50%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(42,157,143,.15);border:1px solid rgba(42,157,143,.3);color:#4dd6c8;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:#4dd6c8;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,4vw,54px);color:#fff;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--gold-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+.context-strip{background:var(--navy);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--navy);padding:24px 28px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:15px;font-weight:600;color:#fff}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.problem-text p{color:var(--text-mid);margin-bottom:16px}
+.problem-cards{display:flex;flex-direction:column;gap:16px}
+.prob-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:40px;height:40px;flex-shrink:0;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.prob-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.prob-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+.role-section{background:var(--cream-dark);padding:80px 0}
+.role-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;margin-top:40px}
+.role-summary{background:var(--navy);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.role-summary strong{color:var(--gold-light)}
+.role-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role-item{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px 22px}
+.role-item h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.role-item p{font-size:13px;color:var(--text-mid);line-height:1.5}
+.arch-section{background:var(--cream)}
+.arch-note{display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:8px 18px;font-size:12px;font-weight:600;color:#8a6914;margin-bottom:36px;letter-spacing:.02em}
+.mermaid-wrap{background:var(--navy);border-radius:16px;padding:40px;overflow-x:auto;margin-bottom:40px;box-shadow:0 24px 64px rgba(12,25,41,.15)}
+.mermaid{display:flex;justify-content:center}
+.phases-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.phase-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px 24px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.phase-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.1)}
+.phase-num{font-family:var(--serif);font-size:48px;color:var(--cream-dark);position:absolute;top:12px;right:16px;line-height:1}
+.phase-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.phase-card h4{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:12px;font-family:var(--serif)}
+.phase-card ul{list-style:none;padding:0}
+.phase-card li{font-size:13px;color:var(--text-mid);padding:4px 0 4px 14px;position:relative}
+.phase-card li::before{content:'—';position:absolute;left:0;color:var(--teal);font-size:11px;top:5px}
+.demo-section{background:var(--navy);padding:80px 0}
+.demo-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.demo-inner .section-label{color:var(--gold-light)}
+.demo-inner h2{color:#fff}.demo-inner h2 em{color:var(--gold-light);font-style:italic}
+.demo-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.query-panel,.response-panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden}
+.response-panel{display:flex;flex-direction:column}
+.panel-header{background:rgba(255,255,255,.05);padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.panel-header span{font-size:12px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%}.dot.red{background:#ff5f57}.dot.yellow{background:#febc2e}.dot.green{background:#28c840}
+.panel-body{padding:24px}.response-body{padding:24px;flex:1}
+.query-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.query-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:16px 18px;font-family:var(--sans);font-size:14px;color:rgba(255,255,255,.9);line-height:1.6;margin-bottom:20px}
+.sample-queries{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.sample-q{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s}
+.sample-q:hover,.sample-q.active{background:rgba(42,157,143,.15);border-color:rgba(42,157,143,.3);color:#4dd6c8}
+.run-btn{width:100%;padding:13px;background:var(--teal);border:none;border-radius:8px;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.run-btn:hover{background:#38b2a3;transform:translateY(-1px)}.run-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.confidence-bar-wrap{margin-bottom:20px}
+.conf-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.conf-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.conf-pct{font-family:var(--mono);font-size:22px;font-weight:500;color:#4dd6c8}
+.conf-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.conf-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--teal),#4dd6c8);transition:width .8s ease}
+.conf-fill.warn{background:linear-gradient(90deg,#ff6b35,#ff9a4d)}
+.memo-label,.citations-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.memo-content{background:rgba(255,255,255,.05);border-radius:8px;padding:18px;margin-bottom:16px;min-height:80px}
+.memo-content p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7}
+.citations{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.cite-tag{font-family:var(--mono);font-size:11px;background:rgba(42,157,143,.2);border:1px solid rgba(42,157,143,.35);color:#4dd6c8;padding:4px 10px;border-radius:4px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.escalate-banner{background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.35);border-radius:8px;padding:12px 16px;align-items:center;gap:12px;display:none}
+.escalate-banner.show{display:flex}
+.escalate-banner span{font-size:13px;color:rgba(255,255,255,.8);flex:1}
+.escalate-btn{background:rgba(255,107,53,.3);border:1px solid rgba(255,107,53,.5);color:#ff9a4d;font-size:12px;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;font-family:var(--sans);transition:background .2s;white-space:nowrap}
+.processing{display:none;align-items:center;gap:10px;color:rgba(255,255,255,.5);font-size:13px;padding:12px 0}
+.processing.show{display:flex}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.us-section{background:var(--cream-dark);padding:80px 0}
+.us-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.us-table-wrap{overflow-x:auto;margin-top:40px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 24px rgba(12,25,41,.06)}
+thead{background:var(--navy)}
+thead th{padding:16px 20px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+tbody tr{border-bottom:1px solid var(--cream-dark)}tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--cream)}
+tbody td{padding:16px 20px;font-size:13px;color:var(--text-mid);vertical-align:top}
+.us-id{font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:600}
+.priority-high{background:rgba(255,107,53,.12);color:#c84b0a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
+.priority-med{background:rgba(201,168,76,.15);color:#8a6914;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
+.outcomes-section{background:var(--cream)}
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.outcome-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px 28px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.outcome-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.outcome-card:hover::after{transform:scaleX(1)}.outcome-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.1)}
+.outcome-num{font-family:var(--serif);font-size:52px;color:var(--navy);line-height:1;margin-bottom:8px}
+.outcome-num em{color:var(--teal);font-style:normal}
+.outcome-label{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.outcome-desc{font-size:13px;color:var(--text-mid);line-height:1.6}
+.tools-section{background:var(--navy);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-inner .section-label{color:var(--gold-light)}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.tool-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.tool-badge span{font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:10px 0 4px;width:100%}
+footer{background:var(--cream-dark);border-top:1px solid var(--cream-dark);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:#7a7a8a}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.hero{padding:120px 32px 64px}.hero-grid,.problem-grid,.demo-layout,.role-grid{grid-template-columns:1fr}section{padding:60px 32px}.context-inner{grid-template-columns:1fr 1fr;padding:32px}.phases-grid{grid-template-columns:1fr 1fr}.outcomes-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:16px;padding:32px}.us-inner,.role-inner,.tools-inner,.demo-inner{padding:0 32px}}
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="https://sadmanishraqmohiuddin.vercel.app">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <span class="current">IFRS Compliance Intelligence Agent</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Case Study &middot; FinTech / RegTech</div>
+      <h1>IFRS Compliance <em>Intelligence</em> Agent</h1>
+      <p class="hero-sub">A RAG-based AI system that interprets international accounting standards with zero hallucination &mdash; returning exact clause citations, confidence scores, and structured memos to compliance teams.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Senior Business Analyst</span>
+        <span class="hero-badge">System Architect</span>
+        <span class="hero-badge">Arbree Solutions</span>
+        <span class="hero-badge">2025</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">0<span>%</span></div>
+        <div class="stat-label">Hallucination rate &mdash; answers only from verified IFRS source text</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">&lt;<span>85%</span></div>
+        <div class="stat-label">Confidence threshold &mdash; auto-escalates to human expert below this floor</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12<span>+</span></div>
+        <div class="stat-label">IFRS standards embedded in vector store at initial deployment</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Industry</div><div class="ctx-value">FinTech &middot; RegTech</div></div>
+    <div class="ctx-item"><div class="ctx-label">Client</div><div class="ctx-value">Global Financial Services Firm</div></div>
+    <div class="ctx-item"><div class="ctx-label">My Role</div><div class="ctx-value">Senior BA &middot; System Architect</div></div>
+    <div class="ctx-item"><div class="ctx-label">Engagement</div><div class="ctx-value">MVP Delivery &middot; 2025</div></div>
+  </div>
+</div>
+
+<section class="fade-up">
+  <div class="problem-grid">
+    <div class="problem-text">
+      <div class="section-label">The Problem</div>
+      <h2>Compliance teams couldn't trust AI to interpret accounting law</h2>
+      <p>International financial reporting standards span thousands of clauses across 40+ standards. Compliance teams were spending hours manually cross-referencing regulations &mdash; and when they turned to generic AI tools, results were dangerously unreliable.</p>
+      <p>The client needed a system that could answer IFRS questions with the same rigour as a qualified accountant, but at machine speed. A misapplied standard means regulatory exposure, audit failure, and financial restatements.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="prob-card"><div class="prob-icon">&#9200;</div><div><h4>Manual Search Overhead</h4><p>Analysts spending 3&ndash;6 hours per complex IFRS query manually cross-referencing clause hierarchies and linked standards.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">&#9888;</div><div><h4>Hallucination Risk</h4><p>General-purpose LLMs cited non-existent IFRS clauses or conflated standards &mdash; unusable in a regulated environment without auditability.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">&#128279;</div><div><h4>No Cross-Standard Traceability</h4><p>Standards like IFRS 16 reference IAS 36, IAS 37, IAS 16 &mdash; existing tools couldn't follow the full dependency chain.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">&#128203;</div><div><h4>No Audit Trail</h4><p>Compliance decisions needed traceability to exact IFRS wording &mdash; not paraphrases &mdash; for external auditor review.</p></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<div class="role-section">
+  <div class="role-inner">
+    <div class="section-label">My Role</div>
+    <h2>From blank page to working architecture</h2>
+    <div class="role-grid">
+      <div class="role-summary">As the <strong>Senior Business Analyst and System Architect</strong> on this engagement, I was responsible for the full journey from problem discovery to MVP delivery specification.<br><br>I <strong>conceived and designed the RAG pipeline architecture</strong>, authored the MVP requirements specification, defined the guardrail logic, structured the retrieval strategy, and led stakeholder alignment across business, compliance, and engineering teams.</div>
+      <div class="role-items">
+        <div class="role-item"><h4>&#127919; Requirements Elicitation</h4><p>Facilitated discovery workshops with compliance leads, finance directors, and legal teams to define functional and non-functional requirements.</p></div>
+        <div class="role-item"><h4>&#127959; System Architecture Design</h4><p>Conceived and designed the full RAG pipeline &mdash; ingestion, chunking strategy, vector storage, retrieval logic, LLM constraints, and guardrail thresholds.</p></div>
+        <div class="role-item"><h4>&#128196; MVP Specification</h4><p>Authored the full MVP Requirements Specification &mdash; scope decisions, tech stack rationale, cost modelling, and delivery roadmap.</p></div>
+        <div class="role-item"><h4>&#128300; Prototype Validation</h4><p>Collaborated directly with engineering to validate RAG pipeline output against known IFRS queries, refining retrieval prompts and confidence logic.</p></div>
+        <div class="role-item"><h4>&#128101; Stakeholder Management</h4><p>Managed expectations across C-suite, compliance function, and technical team &mdash; translating regulatory complexity into engineering requirements.</p></div>
+        <div class="role-item"><h4>&#9989; UAT Design</h4><p>Designed UAT scenarios using real IFRS 16 lease accounting queries, defining acceptance criteria around citation accuracy and confidence scoring.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="arch-section fade-up">
+  <div class="section-label">System Architecture</div>
+  <h2>The pipeline I designed from the ground up</h2>
+  <div class="arch-note">&#127959; Architecture conceived &amp; designed by Sadman Ishraq Mohiuddin &middot; Senior Business Analyst</div>
+  <div class="mermaid-wrap">
+    <div class="mermaid">
+flowchart TD
+    A([User / Compliance Analyst]) --> B
+
+    subgraph INPUT [INPUT LAYER]
+        B[Web Form\nStructured IFRS Query]
+    end
+
+    subgraph EXTRACT [CONCEPT EXTRACTION]
+        C[Synonym Expansion Engine\nIFRS-native terminology\nCross-standard phrasing]
+        B --> C
+    end
+
+    subgraph RETRIEVAL [RAG RETRIEVAL LAYER]
+        D[OpenAI Embeddings\ntext-embedding-3-large]
+        E[(Vector Store\nChunked IFRS Standards\nIFRS 16 - IAS 37 - IAS 36 - IFRS 9)]
+        F[Semantic Search\nmax results = 12\nCross-standard traversal]
+        C --> D --> E --> F
+    end
+
+    subgraph LLM [LLM SYNTHESIS]
+        G[GPT-4.1\ntemperature = 0.1\nConstrained to retrieved context only]
+        H[Clause Identifier Extractor\nParses IFRS 16.26 - IAS 37.10]
+        F --> G --> H
+    end
+
+    subgraph GUARDRAILS [GUARDRAIL LAYER]
+        I{Confidence\nScore}
+        J[HIGH CONFIDENCE 85 percent\nProceed to output]
+        K[LOW CONFIDENCE below 85 percent\nRed warning flagged]
+        H --> I
+        I -->|85 percent or above| J
+        I -->|Below 85 percent| K
+    end
+
+    subgraph OUTPUT [OUTPUT LAYER]
+        L[Memo Output\nKey Bullets and Summary]
+        M[Exact Clause Citations\nVerified IFRS paragraph IDs]
+        N[Escalate to Expert\nMandatory below 85 percent]
+        J --> L & M
+        K --> L & M & N
+    end
+
+    L & M & N --> O([Compliance Team Review])
+
+    style INPUT fill:#1e3a52,stroke:#2a9d8f,color:#fff
+    style EXTRACT fill:#152538,stroke:#2a9d8f,color:#fff
+    style RETRIEVAL fill:#1e3a52,stroke:#c9a84c,color:#fff
+    style LLM fill:#152538,stroke:#4dd6c8,color:#fff
+    style GUARDRAILS fill:#1a2a3a,stroke:#ff6b35,color:#fff
+    style OUTPUT fill:#1e3a52,stroke:#2a9d8f,color:#fff
+    style A fill:#2a9d8f,stroke:none,color:#fff
+    style O fill:#c9a84c,stroke:none,color:#0c1929
+    </div>
+  </div>
+</section>
+
+<section class="fade-up" style="padding-top:0">
+  <div class="section-label">My Approach</div>
+  <h2>Four phases from discovery to delivery</h2>
+  <div class="phases-grid">
+    <div class="phase-card"><div class="phase-num">01</div><div class="phase-tag">Phase 1</div><h4>Discovery &amp; Problem Framing</h4><ul><li>Compliance workflow mapping</li><li>Pain point identification workshops</li><li>Regulatory constraint analysis</li><li>Competitor &amp; tool landscape review</li><li>Stakeholder needs matrix</li></ul></div>
+    <div class="phase-card"><div class="phase-num">02</div><div class="phase-tag">Phase 2</div><h4>Architecture &amp; Requirements</h4><ul><li>RAG pipeline design</li><li>Chunking &amp; embedding strategy</li><li>Confidence threshold definition</li><li>MVP scope decisions</li><li>Full BRD &amp; tech stack rationale</li></ul></div>
+    <div class="phase-card"><div class="phase-num">03</div><div class="phase-tag">Phase 3</div><h4>Build &amp; Validate</h4><ul><li>Engineering collaboration &amp; sprints</li><li>Retrieval prompt engineering review</li><li>Citation accuracy validation</li><li>Guardrail logic testing</li><li>IFRS 16 benchmark queries</li></ul></div>
+    <div class="phase-card"><div class="phase-num">04</div><div class="phase-tag">Phase 4</div><h4>UAT &amp; Handover</h4><ul><li>UAT scenario design</li><li>Acceptance criteria definition</li><li>Escalation workflow sign-off</li><li>Compliance team onboarding</li><li>Standard update runbook</li></ul></div>
+  </div>
+</section>
+<hr class="divider">
+
+<div class="demo-section">
+  <div class="demo-inner">
+    <div class="section-label">Interactive Prototype</div>
+    <h2>See the system <em>think</em> in real time</h2>
+    <p style="color:rgba(255,255,255,.55);font-size:15px;max-width:560px;margin-bottom:0">This mockup demonstrates the query &rarr; retrieval &rarr; citation output flow I architected. Select a scenario and run the agent.</p>
+    <div class="demo-layout">
+      <div class="query-panel">
+        <div class="panel-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><span>IFRS Query Interface</span></div>
+        <div class="panel-body">
+          <div class="query-label">Select a Compliance Scenario</div>
+          <div class="sample-queries">
+            <div class="sample-q active" data-idx="0">&#128203; How should a lessee recognise a right-of-use asset at commencement date?</div>
+            <div class="sample-q" data-idx="1">&#128202; What factors determine the appropriate discount rate for a lease liability?</div>
+            <div class="sample-q" data-idx="2">&#128269; How do we assess whether a short-term lease exemption can be applied?</div>
+          </div>
+          <div class="query-box" id="queryDisplay">How should a lessee recognise a right-of-use asset at commencement date?</div>
+          <button class="run-btn" id="runBtn" onclick="runQuery()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2L11 7L3 12V2Z" fill="currentColor"/></svg>
+            Run IFRS Agent
+          </button>
+        </div>
+      </div>
+      <div class="response-panel">
+        <div class="panel-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><span>Agent Response</span></div>
+        <div class="response-body">
+          <div class="processing" id="processing"><div class="spinner"></div><span>Retrieving IFRS clauses from vector store...</span></div>
+          <div id="responseContent">
+            <div class="confidence-bar-wrap">
+              <div class="conf-header"><span class="conf-label">Confidence Score</span><span class="conf-pct" id="confPct">&mdash;</span></div>
+              <div class="conf-bar"><div class="conf-fill" id="confFill" style="width:0%"></div></div>
+            </div>
+            <div class="memo-label">Compliance Memo</div>
+            <div class="memo-content"><p id="memoText" style="color:rgba(255,255,255,.3);font-style:italic">Run the agent to see the structured memo output...</p></div>
+            <div class="citations-label">Verified IFRS Clause Citations</div>
+            <div class="citations" id="citations"><span style="font-size:12px;color:rgba(255,255,255,.3);font-style:italic">Citations will appear here...</span></div>
+            <div class="escalate-banner" id="escalateBanner"><span>&#9888; Confidence below 85% threshold. Expert review recommended.</span><button class="escalate-btn">Escalate to Expert &rarr;</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="us-section">
+  <div class="us-inner">
+    <div class="section-label">Artefact Sample</div>
+    <h2>User Stories &mdash; Selected Backlog</h2>
+    <div class="us-table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>As a&hellip;</th><th>I want to&hellip;</th><th>So that&hellip;</th><th>Acceptance Criteria</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td><span class="us-id">US-001</span></td><td>Compliance Analyst</td><td>Submit an IFRS scenario and receive a structured memo response</td><td>I get a reliable, auditable answer without manually searching standards</td><td>Response includes memo summary, key bullets, and &ge;1 verified IFRS clause citation within 15 seconds</td><td><span class="priority-high">High</span></td></tr>
+          <tr><td><span class="us-id">US-002</span></td><td>Compliance Analyst</td><td>See the exact IFRS clause number referenced in every response</td><td>I can trace the answer back to the original standard for audit purposes</td><td>Every response displays verified clause IDs (e.g., IFRS 16.26); system never fabricates identifiers</td><td><span class="priority-high">High</span></td></tr>
+          <tr><td><span class="us-id">US-003</span></td><td>Finance Director</td><td>Be alerted when the system confidence is below the acceptable threshold</td><td>I know when to escalate to a qualified accountant before acting on the response</td><td>Responses below 85% show a red warning and activate the Escalate to Expert button</td><td><span class="priority-high">High</span></td></tr>
+          <tr><td><span class="us-id">US-004</span></td><td>Compliance Analyst</td><td>Have the system automatically follow cross-standard references</td><td>My answers are complete and don't miss dependencies between linked standards</td><td>System retrieves and cites paragraphs from referenced standards (e.g., IFRS 16 &rarr; IAS 37)</td><td><span class="priority-high">High</span></td></tr>
+          <tr><td><span class="us-id">US-005</span></td><td>System Administrator</td><td>Upload a newly issued IFRS standard and have it embedded automatically</td><td>The vector store stays current without manual intervention</td><td>New standard available for retrieval within 2 hours of upload; no errors</td><td><span class="priority-med">Medium</span></td></tr>
+          <tr><td><span class="us-id">US-006</span></td><td>Compliance Analyst</td><td>Escalate a query to a human expert directly from the interface</td><td>I have a clear handoff path when the system cannot provide sufficient confidence</td><td>Escalate button always visible; mandatory below 85%; routes query to expert queue</td><td><span class="priority-med">Medium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<section class="outcomes-section fade-up">
+  <div class="section-label">Outcomes &amp; Impact</div>
+  <h2>Measurable results from a zero-hallucination architecture</h2>
+  <div class="outcomes-grid">
+    <div class="outcome-card"><div class="outcome-num">0<em>%</em></div><div class="outcome-label">Hallucination Rate</div><div class="outcome-desc">GPT-4.1 constrained to retrieved context at temperature 0.1 &mdash; fabricated clause identifiers eliminated entirely in testing.</div></div>
+    <div class="outcome-card"><div class="outcome-num">~85<em>%</em></div><div class="outcome-label">Reduction in Research Time</div><div class="outcome-desc">Complex multi-standard queries resolved in under 15 seconds vs. 3&ndash;6 hours of manual cross-referencing by compliance analysts.</div></div>
+    <div class="outcome-card"><div class="outcome-num">12<em>+</em></div><div class="outcome-label">IFRS Standards Embedded</div><div class="outcome-desc">Vector store ingests, chunks, and indexes full IFRS standard text. Cross-standard dependency traversal handled automatically.</div></div>
+    <div class="outcome-card"><div class="outcome-num">100<em>%</em></div><div class="outcome-label">Citation Traceability</div><div class="outcome-desc">Every response returns exact IFRS paragraph identifiers &mdash; audit-ready output usable directly in working papers and regulatory filings.</div></div>
+    <div class="outcome-card"><div class="outcome-num">&lt;85<em>%</em></div><div class="outcome-label">Confidence Guardrail</div><div class="outcome-desc">Purpose-built guardrail logic flags low-confidence responses in red and activates mandatory human expert escalation.</div></div>
+    <div class="outcome-card"><div class="outcome-num">MVP<em>&rarr;</em></div><div class="outcome-label">Delivered On Scope</div><div class="outcome-desc">Full specification, architecture, and prototype delivered within engagement timeline. Roadmap defined for multi-standard expansion.</div></div>
+  </div>
+</section>
+<hr class="divider">
+
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools &amp; Technologies</div>
+    <div class="tools-grid">
+      <span class="tool-cat">AI / ML Stack</span>
+      <div class="tool-badge"><span class="tool-icon">&#129302;</span><span>GPT-4.1 (OpenAI)</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128269;</span><span>OpenAI Vector Store</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#129504;</span><span>LangChain / LlamaIndex</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128230;</span><span>FAISS / Pinecone</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#9889;</span><span>OpenAI Embeddings</span></div>
+      <span class="tool-cat">Development</span>
+      <div class="tool-badge"><span class="tool-icon">&#128013;</span><span>Python (AsyncIO)</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128211;</span><span>Google Colab</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#9881;</span><span>React / Streamlit</span></div>
+      <span class="tool-cat">BA Tooling</span>
+      <div class="tool-badge"><span class="tool-icon">&#128196;</span><span>Confluence (BRD)</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128202;</span><span>Jira (Backlog)</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128337;</span><span>Lucidchart</span></div>
+      <div class="tool-badge"><span class="tool-icon">&#128260;</span><span>Mermaid (Process Flow)</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Sadman Ishraq Mohiuddin &middot; Senior Business Analyst &middot; Montreal, QC</p>
+  <div class="footer-links">
+    <a href="https://sadmanishraqmohiuddin.vercel.app">&larr; All Case Studies</a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{primaryColor:'#1e3a52',primaryTextColor:'#ffffff',primaryBorderColor:'#2a9d8f',lineColor:'#4dd6c8',secondaryColor:'#152538',tertiaryColor:'#0c1929',fontSize:'13px'},flowchart:{curve:'basis',padding:20}});
+
+const scenarios=[
+  {query:"How should a lessee recognise a right-of-use asset at commencement date?",confidence:94,memo:"At the commencement date, a lessee shall recognise a right-of-use (ROU) asset and a lease liability. The ROU asset is measured at cost, comprising: the initial measurement of the lease liability; any lease payments made at or before commencement, less any lease incentives received; initial direct costs incurred by the lessee; and an estimate of costs to dismantle or restore the underlying asset per IAS 37.",citations:["IFRS 16.22","IFRS 16.23","IFRS 16.24","IFRS 16.25","IFRS 16.26","IAS 37.10","IAS 16.6"]},
+  {query:"What factors determine the appropriate discount rate for a lease liability?",confidence:91,memo:"The lease liability shall be measured at the present value of lease payments not yet paid, discounted using the interest rate implicit in the lease. If that rate cannot be readily determined, the lessee shall use its incremental borrowing rate — the rate it would pay to borrow over a similar term, with similar security, the funds necessary to obtain a similar asset in a similar economic environment.",citations:["IFRS 16.26","IFRS 16.27","IFRS 16.41","IFRS 16.43","IFRS 16.45(c)","IFRS 16.B33","IFRS 16.B34","IFRS 16.B37","IAS 37.10","IAS 36.9"]},
+  {query:"How do we assess whether a short-term lease exemption can be applied?",confidence:79,memo:"A lessee may elect not to apply IFRS 16 recognition requirements to short-term leases — those with a lease term of 12 months or less at the commencement date. This election must be made by class of underlying asset. If elected, the lessee shall recognise lease payments as an expense on a straight-line basis over the lease term.",citations:["IFRS 16.5(a)","IFRS 16.6","IFRS 16.B34","IFRS 16.B35"]}
+];
+
+let currentIdx=0,isRunning=false;
+
+document.querySelectorAll('.sample-q').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.sample-q').forEach(q=>q.classList.remove('active'));
+    el.classList.add('active');
+    currentIdx=parseInt(el.dataset.idx);
+    document.getElementById('queryDisplay').textContent=scenarios[currentIdx].query;
+    resetResponse();
+  });
+});
+
+function resetResponse(){
+  document.getElementById('confPct').textContent='\u2014';
+  document.getElementById('confFill').style.width='0%';
+  document.getElementById('confFill').className='conf-fill';
+  document.getElementById('confPct').style.color='#4dd6c8';
+  document.getElementById('memoText').textContent='Run the agent to see the structured memo output...';
+  document.getElementById('memoText').style.color='rgba(255,255,255,.3)';
+  document.getElementById('memoText').style.fontStyle='italic';
+  document.getElementById('citations').innerHTML='<span style="font-size:12px;color:rgba(255,255,255,.3);font-style:italic">Citations will appear here...</span>';
+  document.getElementById('escalateBanner').classList.remove('show');
+}
+
+async function runQuery(){
+  if(isRunning)return;
+  isRunning=true;
+  const btn=document.getElementById('runBtn');
+  btn.disabled=true;
+  resetResponse();
+  const proc=document.getElementById('processing');
+  proc.classList.add('show');
+  const msgs=['Retrieving IFRS clauses from vector store...','Extracting IFRS concepts & synonyms...','Performing semantic search across vector store...','GPT-4.1 synthesising from retrieved clauses...','Calculating confidence score...'];
+  const s=scenarios[currentIdx];
+  for(let i=0;i<msgs.length;i++){proc.querySelector('span').textContent=msgs[i];await sleep(600+Math.random()*400);}
+  proc.classList.remove('show');
+  const pct=s.confidence;
+  document.getElementById('confPct').textContent=pct+'%';
+  const fill=document.getElementById('confFill');
+  fill.style.width=pct+'%';
+  if(pct<85){fill.classList.add('warn');document.getElementById('confPct').style.color='#ff9a4d';}
+  await sleep(200);
+  document.getElementById('memoText').style.color='rgba(255,255,255,.85)';
+  document.getElementById('memoText').style.fontStyle='normal';
+  document.getElementById('memoText').textContent=s.memo;
+  await sleep(300);
+  const citDiv=document.getElementById('citations');
+  citDiv.innerHTML='';
+  for(let i=0;i<s.citations.length;i++){await sleep(80);const tag=document.createElement('span');tag.className='cite-tag';tag.textContent=s.citations[i];citDiv.appendChild(tag);}
+  if(pct<85){await sleep(300);document.getElementById('escalateBanner').classList.add('show');}
+  btn.disabled=false;isRunning=false;
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
