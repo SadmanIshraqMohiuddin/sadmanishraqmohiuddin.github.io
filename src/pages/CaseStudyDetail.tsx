@@ -9,6 +9,17 @@ export default function CaseStudyDetail() {
 
   if (!study) return <Navigate to="/case-studies" replace />;
 
+  // Custom pre-built HTML page for this case study
+  if (slug === "ifrs-ai-assistant") {
+    return (
+      <iframe
+        src="/case-studies/ifrs-ai-assistant.html"
+        title={study.title}
+        className="fixed inset-0 w-screen h-screen border-0 z-50 bg-background"
+      />
+    );
+  }
+
   return (
     <>
       <SEO
