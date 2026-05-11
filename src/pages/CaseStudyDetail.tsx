@@ -13,7 +13,7 @@ export default function CaseStudyDetail() {
   if (slug === "ifrs-ai-assistant") {
     return (
       <iframe
-        src="/case-studies/ifrs-ai-assistant.html"
+        src="/embedded/ifrs-ai-assistant.html"
         title={study.title}
         className="fixed inset-0 w-screen h-screen border-0 z-50 bg-background"
       />
