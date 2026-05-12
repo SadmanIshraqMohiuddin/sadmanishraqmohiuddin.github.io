@@ -5,7 +5,7 @@ export const profile = {
   location: "Montreal, Quebec, Canada",
   email: "sadman.mohiuddin@gmail.com",
   linkedin: "https://www.linkedin.com/in/sadmanishraqmohiuddin",
-  cvPath: "/Sadman-Ishraq-Mohiuddin-CV.pdf",
+  cvPath: "/Sadman_Ishraq_Mohiuddin.pdf",
   headline:
     "Senior Business Analyst & Operations Strategy Professional",
   subheadline:
