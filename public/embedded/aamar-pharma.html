@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaLink · Digital Healthcare Logistics - Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;--navy-light:#1e3a52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;--rose:#e07060;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text-dark);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* ANON BANNER */
+.anon-banner{
+  background:rgba(201,168,76,.15);border-bottom:1px solid rgba(201,168,76,.3);
+  padding:10px 48px;display:flex;align-items:center;gap:10px;
+}
+.anon-banner span{font-size:12px;color:#7a5c10;line-height:1.5}
+.anon-icon{font-size:14px;flex-shrink:0}
+
+/* NAV */
+.back-nav{position:sticky;top:0;left:0;right:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;color:var(--navy);font-size:13px}
+
+/* HERO */
+.hero{background:var(--navy);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(224,112,96,.1) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 20% 80%,rgba(201,168,76,.08) 0%,transparent 50%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(224,112,96,.15);border:1px solid rgba(224,112,96,.3);color:#f0a090;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:#f0a090;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,4vw,54px);color:#fff;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--gold-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+
+/* CONTEXT STRIP */
+.context-strip{background:var(--navy);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--navy);padding:24px 28px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:15px;font-weight:600;color:#fff}
+
+/* SECTIONS */
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.problem-text p{color:var(--text-mid);margin-bottom:16px}
+.problem-cards{display:flex;flex-direction:column;gap:16px}
+.prob-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:40px;height:40px;flex-shrink:0;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.prob-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.prob-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* ROLE */
+.role-section{background:var(--cream-dark);padding:80px 0}
+.role-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;margin-top:40px}
+.role-summary{background:var(--navy);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.role-summary strong{color:var(--gold-light)}
+.role-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role-item{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px 22px}
+.role-item h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.role-item p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* KPI STRIP */
+.kpi-section{background:var(--navy);padding:0}
+.kpi-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.kpi-item{background:var(--navy);padding:32px 24px}
+.kpi-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
+.kpi-val{font-family:var(--serif);font-size:32px;color:#fff;line-height:1;margin-bottom:6px}
+.kpi-note{font-size:12px;color:rgba(255,255,255,.4);line-height:1.4}
+.kpi-note.up{color:#4dd6c8}
+.kpi-note.dn{color:#f0a090}
+
+/* ANALYTICS */
+.analytics-section{background:var(--cream);padding:80px 0}
+.analytics-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.analytics-inner .section-label{color:var(--rose)}
+.charts-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;margin-top:40px}
+.chart-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
+.chart-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),transparent)}
+.chart-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.chart-card.rose::before{background:linear-gradient(90deg,var(--rose),transparent)}
+.chart-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mid);margin-bottom:4px}
+.chart-title{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.chart-sub{font-size:12px;color:var(--text-mid);margin-bottom:20px}
+.chart-wrap{position:relative;width:100%}
+.annotation{margin-top:16px;padding:12px 16px;background:var(--cream);border-left:3px solid var(--navy);font-size:12px;color:var(--text-mid);line-height:1.6;border-radius:0 6px 6px 0}
+.annotation strong{color:var(--navy)}
+
+.charts-grid-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:32px}
+
+/* STATUS LIST */
+.status-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.sl-row{display:flex;align-items:center;gap:10px}
+.sl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.sl-name{font-size:13px;color:var(--text-mid);flex:1}
+.sl-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--navy)}
+.sl-pct{font-family:var(--mono);font-size:11px;color:var(--text-mid);width:38px;text-align:right}
+.sl-bar-wrap{width:60px}
+.sl-bar-bg{height:3px;background:var(--cream-dark);border-radius:2px;overflow:hidden}
+.sl-bar-fg{height:100%;border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* MEDICINE TABLE */
+.med-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--cream-dark)}
+.med-row:last-child{border-bottom:none}
+.med-rank{font-family:var(--mono);font-size:10px;color:var(--text-mid);width:18px;flex-shrink:0}
+.med-name{font-size:13px;font-weight:500;color:var(--navy);flex:1}
+.med-cat{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:100px;border:1px solid;flex-shrink:0}
+.med-cat.gastric{color:#1a4478;border-color:#c3d4e8;background:#edf2f7}
+.med-cat.cardiac{color:#742a2a;border-color:#fed7d7;background:#fff5f5}
+.med-cat.pain{color:#744210;border-color:#feebc8;background:#fffbeb}
+.med-cat.resp{color:#276749;border-color:#c6f6d5;background:#f0fff4}
+.med-cat.neuro{color:#44337a;border-color:#e9d8fd;background:#faf5ff}
+.med-cat.suppl{color:var(--text-mid);border-color:var(--cream-dark);background:var(--cream)}
+.med-count{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--navy);width:32px;text-align:right}
+.med-bar-wrap{width:50px}
+.med-bar-bg{height:3px;background:var(--cream-dark);border-radius:2px}
+.med-bar-fg{height:100%;border-radius:2px;background:var(--navy);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ZONE ROWS */
+.zone-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--cream-dark)}
+.zone-row:last-child{border-bottom:none}
+.zone-name{font-size:12px;font-weight:600;color:var(--navy);width:56px;flex-shrink:0}
+.zone-bar-wrap{flex:1}
+.zone-bar-bg{height:4px;background:var(--cream-dark);border-radius:2px;overflow:hidden}
+.zone-bar-fg{height:100%;border-radius:2px;background:var(--navy);width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.zone-count{font-family:var(--mono);font-size:11px;color:var(--text-mid);width:44px;text-align:right}
+.zone-pct{font-family:var(--mono);font-size:11px;color:var(--text-mid);width:36px;text-align:right}
+
+/* INSIGHTS */
+.insights-section{background:var(--navy);padding:80px 0}
+.insights-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.insights-inner .section-label{color:var(--gold-light)}
+.insights-inner h2{color:#fff}
+.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.insight-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:background .2s}
+.insight-card:hover{background:rgba(255,255,255,.08)}
+.insight-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent)}
+.insight-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.insight-card.rose::before{background:linear-gradient(90deg,var(--rose),transparent)}
+.insight-card.cream::before{background:linear-gradient(90deg,rgba(255,255,255,.4),transparent)}
+.insight-num{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px;letter-spacing:.1em}
+.insight-title{font-family:var(--serif);font-size:20px;color:#fff;margin-bottom:10px;line-height:1.3}
+.insight-body{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7}
+.insight-body strong{color:rgba(255,255,255,.9)}
+
+/* YOY TABLE */
+.yoy-section{background:var(--cream-dark);padding:80px 0}
+.yoy-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.yoy-table-wrap{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 24px rgba(12,25,41,.06);margin-top:40px}
+.yoy-table{width:100%;border-collapse:collapse;font-size:13px}
+.yoy-table thead{background:var(--navy)}
+.yoy-table th{padding:16px 20px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.yoy-table tbody tr{border-bottom:1px solid var(--cream-dark)}
+.yoy-table tbody tr:last-child{border-bottom:none}
+.yoy-table tbody tr:hover{background:var(--cream)}
+.yoy-table td{padding:16px 20px;color:var(--text-mid);vertical-align:middle}
+.yr{font-family:var(--serif);font-size:18px;color:var(--navy)}
+.num{font-family:var(--mono);font-weight:500;color:var(--navy);font-size:13px}
+.tag-up{color:#276749;font-family:var(--mono);font-weight:700;font-size:12px}
+.tag-dn{color:#c53030;font-family:var(--mono);font-weight:700;font-size:12px}
+.tag-na{color:var(--text-mid);font-family:var(--mono);font-size:11px}
+.bar-wrap{width:80px}
+.bar-bg{height:4px;background:var(--cream-dark);border-radius:2px;overflow:hidden}
+.bar-fg{height:100%;border-radius:2px;background:var(--navy)}
+.yoy-annotation{padding:20px 24px;background:var(--cream);border-top:1px solid var(--cream-dark);font-size:13px;color:var(--text-mid);display:flex;align-items:flex-start;gap:12px}
+.yoy-annotation strong{color:var(--navy)}
+
+/* OUTCOMES */
+.outcomes-section{background:var(--cream)}
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.outcome-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px 28px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.outcome-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.outcome-card:hover::after{transform:scaleX(1)}.outcome-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.1)}
+.outcome-num{font-family:var(--serif);font-size:52px;color:var(--navy);line-height:1;margin-bottom:8px}
+.outcome-num em{color:var(--teal);font-style:normal}
+.outcome-label{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.outcome-desc{font-size:13px;color:var(--text-mid);line-height:1.6}
+
+/* TOOLS */
+.tools-section{background:var(--navy);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-inner .section-label{color:var(--gold-light)}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.tool-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.tool-badge span{font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:10px 0 4px;width:100%}
+
+/* FOOTER */
+footer{background:var(--cream-dark);border-top:1px solid var(--cream-dark);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:#7a7a8a}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero{padding:120px 32px 64px}.hero-grid,.problem-grid,.charts-grid,.charts-grid-bottom,.insights-grid,.role-grid,.outcomes-grid{grid-template-columns:1fr}
+  section{padding:60px 32px}.context-inner{grid-template-columns:1fr 1fr;padding:32px}
+  .kpi-inner{grid-template-columns:repeat(3,1fr)}
+  .analytics-inner,.yoy-inner,.insights-inner,.tools-inner,.role-inner{padding:0 32px}
+  .anon-banner,.back-nav{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:16px;padding:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- ANONYMISATION NOTICE -->
+<div class="anon-banner">
+  <span class="anon-icon">🔒</span>
+  <span><strong>Confidentiality notice:</strong> This case study uses anonymised platform branding. The underlying data, metrics, and analytics are real, derived from 36,802 operational order records across a 3.5-year period. All customer and business identifiers have been removed.</span>
+</div>
+
+<!-- NAV -->
+<nav class="back-nav">
+  <a target="_top" href="/">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <a target="_top" href="/case-studies">Case Studies</a>
+  <span class="sep">/</span>
+  <span class="current">Digital Healthcare Logistics Platform</span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Case Study · Digital Health / Logistics</div>
+      <h1>Digital Healthcare <em>Logistics</em> Platform</h1>
+      <p class="hero-sub">End-to-end operations, BA leadership, and data-driven platform scaling - from a 12-pharmacy pilot to a 40+ partner network serving 526+ active customers across Dhaka.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Head of Operations</span>
+        <span class="hero-badge">Business Analysis Lead</span>
+        <span class="hero-badge">Arbree Solutions</span>
+        <span class="hero-badge">Jul 2022 – Jan 2024</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">74<span>min</span></div>
+        <div class="stat-label">Average delivery time - 18% faster than the 90-minute SLA</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">70<span>%</span></div>
+        <div class="stat-label">Customer retention rate - driven by chronic prescription repeat patterns</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-num">43<span>%</span></div>
+        <div class="stat-label">Average YoY revenue growth - 2021 to 2023</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTEXT STRIP -->
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Industry</div><div class="ctx-value">Digital Health · Logistics</div></div>
+    <div class="ctx-item"><div class="ctx-label">Location</div><div class="ctx-value">Dhaka, Bangladesh</div></div>
+    <div class="ctx-item"><div class="ctx-label">My Role</div><div class="ctx-value">Head of Operations & BA Lead</div></div>
+    <div class="ctx-item"><div class="ctx-label">Dataset</div><div class="ctx-value">36,802 order records · Apr 2021–Sep 2024</div></div>
+  </div>
+</div>
+
+<!-- KPI STRIP -->
+<div class="kpi-section">
+  <div class="kpi-inner">
+    <div class="kpi-item"><div class="kpi-label">Total Orders Placed</div><div class="kpi-val">36,802</div><div class="kpi-note">Apr 2021 – Sep 2024</div></div>
+    <div class="kpi-item"><div class="kpi-label">Orders Delivered</div><div class="kpi-val">31,695</div><div class="kpi-note up">86.1% fulfilment rate</div></div>
+    <div class="kpi-item"><div class="kpi-label">Avg Delivery Time</div><div class="kpi-val">74 min</div><div class="kpi-note up">↓ 18% vs 90-min SLA</div></div>
+    <div class="kpi-item"><div class="kpi-label">Active Customers</div><div class="kpi-val">526+</div><div class="kpi-note up">48% avg YoY growth</div></div>
+    <div class="kpi-item"><div class="kpi-label">Partner Pharmacies</div><div class="kpi-val">40+</div><div class="kpi-note">Asset-light network</div></div>
+    <div class="kpi-item"><div class="kpi-label">Rejection Rate</div><div class="kpi-val">8.0%</div><div class="kpi-note dn">Reduced via SOP redesign</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="fade-up">
+  <div class="problem-grid">
+    <div class="problem-text">
+      <div class="section-label">The Problem</div>
+      <h2>A healthcare logistics platform with no operational infrastructure</h2>
+      <p>The platform had a product concept but no operational backbone. Pharmacy sourcing was ad-hoc, delivery SLAs were undefined, and there was no data infrastructure to understand demand patterns, customer behaviour, or product velocity.</p>
+      <p>Scaling beyond the initial pilot required building processes, analytics, and a partner network from scratch - simultaneously managing the operation and designing the systems to make it work.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="prob-card"><div class="prob-icon">📦</div><div><h4>No SLA Framework</h4><p>Delivery times were untracked and inconsistent. No benchmark existed against which to measure or improve performance.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">📊</div><div><h4>Zero Data Visibility</h4><p>No analytics infrastructure. Order patterns, rejection drivers, peak demand hours, and product velocity were unknown.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">🏪</div><div><h4>Pharmacy Network Bottleneck</h4><p>Limited to 12 pharmacy partners at pilot. Sourcing failures were the primary cause of rejections and customer churn.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">📋</div><div><h4>No Operational SOPs</h4><p>Order intake, prescription verification, dispatch coordination, and last-mile delivery operated without documented standards.</p></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ROLE -->
+<div class="role-section">
+  <div class="role-inner">
+    <div class="section-label">My Role</div>
+    <h2>Operations architect, BA lead, and data analyst - simultaneously</h2>
+    <div class="role-grid">
+      <div class="role-summary">As <strong>Head of Operations and Business Analysis Lead</strong>, I was responsible for the full operational build - designing workflows, building the analytics infrastructure, managing a team of ~10 staff, and expanding the pharmacy partner network from 12 to 40+.<br><br>I also operated as the internal <strong>BA lead</strong> - translating operational data into platform requirements for the OMS, B2C ordering platform, and B2B pharmacy integrations.</div>
+      <div class="role-items">
+        <div class="role-item"><h4>⚙️ SOP Design</h4><p>Designed end-to-end workflows across order intake, prescription verification, pharmacy sourcing, dispatch coordination, and last-mile delivery.</p></div>
+        <div class="role-item"><h4>📊 Analytics Build</h4><p>Built Power BI dashboards and SQL-driven KPI tracking across 23+ order data points per transaction, enabling demand forecasting and performance reporting.</p></div>
+        <div class="role-item"><h4>💼 Business Case Authoring</h4><p>Authored and secured executive approval for business cases underpinning pharmacy network expansion and operational investment decisions.</p></div>
+        <div class="role-item"><h4>🏗️ Platform BA</h4><p>Led requirements definition for the OMS, B2C ordering platform, and early B2B pharmacy integration - translating operational pain points into product requirements.</p></div>
+        <div class="role-item"><h4>👥 Team Leadership</h4><p>Managed a team of ~10 staff and a 40+ partner pharmacy network, setting performance targets and operational standards.</p></div>
+        <div class="role-item"><h4>💰 Financial Modelling</h4><p>Built Excel-based forecasting models using scenario analysis, sensitivity analysis, unit economics, and pricing strategy to support investment decisions.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYTICS -->
+<div class="analytics-section">
+  <div class="analytics-inner">
+    <div class="section-label">Platform Analytics</div>
+    <h2>36,802 orders. Every insight earned operationally.</h2>
+    <p style="color:var(--text-mid);max-width:600px;margin-bottom:0">The following analytics were built from real operational data - used to drive SOP redesign, pharmacy network decisions, driver scheduling, and platform requirements.</p>
+
+    <div class="charts-grid">
+      <div class="chart-card fade-up">
+        <div class="chart-label">Order Volume Trend</div>
+        <div class="chart-title">Monthly orders placed</div>
+        <div class="chart-sub">Apr 2021 – Sep 2024 · 36,802 total</div>
+        <div class="chart-wrap" style="height:200px"><canvas id="monthlyChart"></canvas></div>
+        <div class="annotation"><strong>2022 breakout:</strong> 401% YoY growth driven by pharmacy network expansion (12→40+ partners) and B2B channel launch.</div>
+      </div>
+
+      <div class="chart-card fade-up">
+        <div class="chart-label">Order Status Breakdown</div>
+        <div class="chart-title">Fulfilment outcomes</div>
+        <div class="chart-sub">36,802 total records</div>
+        <div class="chart-wrap" style="height:140px"><canvas id="statusChart"></canvas></div>
+        <div class="status-list">
+          <div class="sl-row"><div class="sl-dot" style="background:#276749"></div><span class="sl-name">Delivered</span><span class="sl-val">31,695</span><div class="sl-bar-wrap"><div class="sl-bar-bg"><div class="sl-bar-fg" data-w="100%" style="width:0;background:#276749"></div></div></div><span class="sl-pct">86.1%</span></div>
+          <div class="sl-row"><div class="sl-dot" style="background:#c53030"></div><span class="sl-name">Rejected</span><span class="sl-val">2,949</span><div class="sl-bar-wrap"><div class="sl-bar-bg"><div class="sl-bar-fg" data-w="9.3%" style="width:0;background:#c53030"></div></div></div><span class="sl-pct">8.0%</span></div>
+          <div class="sl-row"><div class="sl-dot" style="background:#1a4478"></div><span class="sl-name">Confirmed</span><span class="sl-val">1,005</span><div class="sl-bar-wrap"><div class="sl-bar-bg"><div class="sl-bar-fg" data-w="3.2%" style="width:0;background:#1a4478"></div></div></div><span class="sl-pct">2.7%</span></div>
+          <div class="sl-row"><div class="sl-dot" style="background:#b7791f"></div><span class="sl-name">Invoice Sent</span><span class="sl-val">945</span><div class="sl-bar-wrap"><div class="sl-bar-bg"><div class="sl-bar-fg" data-w="2.9%" style="width:0;background:#b7791f"></div></div></div><span class="sl-pct">2.6%</span></div>
+          <div class="sl-row"><div class="sl-dot" style="background:#9aa5b4"></div><span class="sl-name">Cancelled</span><span class="sl-val">201</span><div class="sl-bar-wrap"><div class="sl-bar-bg"><div class="sl-bar-fg" data-w="0.6%" style="width:0;background:#9aa5b4"></div></div></div><span class="sl-pct">0.5%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts-grid-bottom">
+      <div class="chart-card fade-up">
+        <div class="chart-label">Product Intelligence</div>
+        <div class="chart-title">Top 10 medicines by volume</div>
+        <div class="chart-sub">Chronic prescription dominance explains 70% retention</div>
+        <div class="med-row"><span class="med-rank">#1</span><span class="med-name">Sergel</span><span class="med-cat gastric">Gastric</span><span class="med-count">509</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="100%" style="width:0"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#2</span><span class="med-name">Pantonix</span><span class="med-cat gastric">Gastric</span><span class="med-count">354</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="70%" style="width:0"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#3</span><span class="med-name">Napa</span><span class="med-cat pain">Analgesic</span><span class="med-count">347</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="68%" style="width:0;background:#b7791f"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#4</span><span class="med-name">Monas</span><span class="med-cat resp">Respiratory</span><span class="med-count">316</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="62%" style="width:0;background:#276749"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#5</span><span class="med-name">Atova</span><span class="med-cat cardiac">Cardiac</span><span class="med-count">276</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="54%" style="width:0;background:#c53030"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#6</span><span class="med-name">Rivotril</span><span class="med-cat neuro">Neurological</span><span class="med-count">256</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="50%" style="width:0;background:#44337a"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#7</span><span class="med-name">Ceevit</span><span class="med-cat suppl">Supplement</span><span class="med-count">220</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="43%" style="width:0;background:#9aa5b4"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#8</span><span class="med-name">Fexo</span><span class="med-cat resp">Antihistamine</span><span class="med-count">215</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="42%" style="width:0;background:#276749"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#9</span><span class="med-name">Ecosprin</span><span class="med-cat cardiac">Cardiac</span><span class="med-count">207</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="41%" style="width:0;background:#c53030"></div></div></div></div>
+        <div class="med-row"><span class="med-rank">#10</span><span class="med-name">Seclo</span><span class="med-cat gastric">Gastric</span><span class="med-count">193</span><div class="med-bar-wrap"><div class="med-bar-bg"><div class="med-bar-fg" data-w="38%" style="width:0"></div></div></div></div>
+      </div>
+
+      <div class="chart-card fade-up rose">
+        <div class="chart-label">Peak Demand Hours</div>
+        <div class="chart-title">Orders by hour of day</div>
+        <div class="chart-sub">Drove driver shift restructure</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="hourlyChart"></canvas></div>
+        <div class="annotation"><strong>Dual peaks:</strong> 10AM–1PM (morning refills) and 7PM–10PM (evening chronic Rx). Driver shifts redesigned around these windows.</div>
+      </div>
+
+      <div class="chart-card fade-up gold">
+        <div class="chart-label">Geographic Concentration</div>
+        <div class="chart-title">Delivery zone distribution</div>
+        <div class="chart-sub">Zone density enabled SLA achievement</div>
+        <div class="zone-row"><span class="zone-name">Zone A</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="100%" style="width:0"></div></div></div><span class="zone-count">23,836</span><span class="zone-pct">75.2%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone B</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="21.8%" style="width:0"></div></div></div><span class="zone-count">5,197</span><span class="zone-pct">16.4%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone C</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="1.2%" style="width:0"></div></div></div><span class="zone-count">293</span><span class="zone-pct">0.9%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone D</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="1.2%" style="width:0"></div></div></div><span class="zone-count">284</span><span class="zone-pct">0.9%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone E</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="0.6%" style="width:0"></div></div></div><span class="zone-count">151</span><span class="zone-pct">0.5%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone F</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="0.3%" style="width:0"></div></div></div><span class="zone-count">81</span><span class="zone-pct">0.3%</span></div>
+        <div class="zone-row"><span class="zone-name">Zone G+</span><div class="zone-bar-wrap"><div class="zone-bar-bg"><div class="zone-bar-fg" data-w="0.3%" style="width:0"></div></div></div><span class="zone-count">125</span><span class="zone-pct">0.4%</span></div>
+        <div class="annotation"><strong>Zone A concentration (75.2%)</strong> enabled optimised driver routing - directly achieving the 74-min average delivery.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="insights-section">
+  <div class="insights-inner">
+    <div class="section-label">Key Analytical Findings</div>
+    <h2>Four insights that changed how we operated</h2>
+    <div class="insights-grid">
+      <div class="insight-card fade-up">
+        <div class="insight-num">FINDING 01</div>
+        <div class="insight-title">7 of 10 top medicines are chronic disease prescriptions</div>
+        <div class="insight-body">Gastric (Sergel, Pantonix, Seclo), Cardiac (Atova, Ecosprin), Neurological (Rivotril) - all require monthly refills. This directly explained the <strong>70% retention rate</strong> and drove the pharmacy pre-stocking strategy for high-velocity chronic Rx items.</div>
+      </div>
+      <div class="insight-card gold fade-up">
+        <div class="insight-num">FINDING 02</div>
+        <div class="insight-title">Zone A concentration unlocked the 74-minute SLA</div>
+        <div class="insight-body"><strong>75.2% of all deliveries concentrated in Zone A.</strong> Geographic density enabled optimised driver routing and pharmacy partner placement - making the 74-min average delivery not just possible, but sustainable at scale.</div>
+      </div>
+      <div class="insight-card rose fade-up">
+        <div class="insight-num">FINDING 03</div>
+        <div class="insight-title">Dual peak hours required a full shift restructure</div>
+        <div class="insight-body">SQL analysis of 36,802 records revealed two daily peaks: <strong>10AM–1PM</strong> (morning dose refills) and <strong>7PM–10PM</strong> (evening chronic Rx). Shift scheduling and pharmacy sourcing windows were redesigned around these patterns, reducing dispatch lag and improving SLA compliance.</div>
+      </div>
+      <div class="insight-card cream fade-up">
+        <div class="insight-num">FINDING 04</div>
+        <div class="insight-title">Top 3 rejection drivers each had a distinct SOP fix</div>
+        <div class="insight-body">Root cause analysis identified <strong>out-of-stock items, prescription validation issues, and zone coverage gaps</strong> as the primary rejection drivers. Each was addressed via a targeted SOP change - reducing the rejection rate over the operational period.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- YOY -->
+<div class="yoy-section">
+  <div class="yoy-inner">
+    <div class="section-label">Year-on-Year Performance</div>
+    <h2>Growth story - built from operational decisions</h2>
+    <div class="yoy-table-wrap">
+      <table class="yoy-table">
+        <thead><tr><th>Year</th><th>Orders Delivered</th><th>YoY Growth</th><th>Revenue (BDT)</th><th>Rev Growth</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr><td><span class="yr">2021</span><br><span style="font-size:10px;color:#9aa5b4">Apr–Dec baseline</span></td><td><span class="num">626</span></td><td><span class="tag-na">- Baseline</span></td><td><span class="num">4.09M</span></td><td><span class="tag-na">-</span></td><td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:18%;opacity:.4"></div></div></div></td></tr>
+          <tr><td><span class="yr">2022</span></td><td><span class="num">3,137</span></td><td><span class="tag-up">↑ +401%</span></td><td><span class="num">22.34M</span></td><td><span class="tag-up">↑ +446%</span></td><td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:100%"></div></div></div></td></tr>
+          <tr><td><span class="yr">2023</span></td><td><span class="num">3,388</span></td><td><span class="tag-up">↑ +7.9%</span></td><td><span class="num">16.52M</span></td><td><span class="tag-dn">↓ −26%</span></td><td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:74%"></div></div></div></td></tr>
+          <tr><td><span class="yr">2024</span><br><span style="font-size:10px;color:#9aa5b4">Jan–Sep partial</span></td><td><span class="num">2,175</span></td><td><span class="tag-na">Partial year</span></td><td><span class="num">12.47M</span></td><td><span class="tag-na">On track</span></td><td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:56%"></div></div></div></td></tr>
+        </tbody>
+      </table>
+      <div class="yoy-annotation">
+        <span>💡</span>
+        <span><strong>Revenue dip in 2023</strong> reflects deliberate margin optimisation - order volume grew 7.9% while average order value was recalibrated for long-term unit economics. A conscious business decision, not a performance failure.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OUTCOMES -->
+<section class="outcomes-section fade-up">
+  <div class="section-label">Outcomes & Impact</div>
+  <h2>From pilot to platform - measurable at every stage</h2>
+  <div class="outcomes-grid">
+    <div class="outcome-card"><div class="outcome-num">74<em>min</em></div><div class="outcome-label">Average Delivery Time</div><div class="outcome-desc">18% faster than the 90-minute SLA - achieved through zone concentration analysis, driver scheduling redesign, and pharmacy network optimisation.</div></div>
+    <div class="outcome-card"><div class="outcome-num">70<em>%</em></div><div class="outcome-label">Customer Retention Rate</div><div class="outcome-desc">Chronic prescription demand drove repeat order behaviour. Product intelligence informed a pre-stocking strategy that reduced sourcing failures for high-velocity items.</div></div>
+    <div class="outcome-card"><div class="outcome-num">401<em>%</em></div><div class="outcome-label">YoY Order Growth (2022)</div><div class="outcome-desc">Driven by pharmacy network expansion (12→40+), structured SOP framework, and B2B channel launch - each underpinned by business cases I authored and had approved.</div></div>
+    <div class="outcome-card"><div class="outcome-num">43<em>%</em></div><div class="outcome-label">Average YoY Revenue Growth</div><div class="outcome-desc">Sustained across 2021–2023. Financial modelling using scenario analysis, sensitivity analysis, and unit economics supported every major investment decision.</div></div>
+    <div class="outcome-card"><div class="outcome-num">526<em>+</em></div><div class="outcome-label">Active Customers</div><div class="outcome-desc">48% average YoY customer growth - scaling from a tight pilot base to a commercially viable customer network across Dhaka's major delivery zones.</div></div>
+    <div class="outcome-card"><div class="outcome-num">~$<em>150K</em></div><div class="outcome-label">Cumulative Revenue</div><div class="outcome-desc">Platform revenue across the operational period. Financial forecasting models built to support growth trajectory decisions and partner investment cases.</div></div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools & Methods</div>
+    <div class="tools-grid">
+      <span class="tool-cat">Analytics & Data</span>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Power BI</span></div>
+      <div class="tool-badge"><span class="tool-icon">🗄️</span><span>SQL</span></div>
+      <div class="tool-badge"><span class="tool-icon">🐍</span><span>Python</span></div>
+      <div class="tool-badge"><span class="tool-icon">📈</span><span>Excel Advanced</span></div>
+      <span class="tool-cat">BA Methods</span>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>Process Mapping (BPMN)</span></div>
+      <div class="tool-badge"><span class="tool-icon">💼</span><span>Business Case Development</span></div>
+      <div class="tool-badge"><span class="tool-icon">📉</span><span>Scenario & Sensitivity Analysis</span></div>
+      <div class="tool-badge"><span class="tool-icon">🎯</span><span>KPI Framework Design</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔍</span><span>Root Cause Analysis</span></div>
+      <span class="tool-cat">Operations</span>
+      <div class="tool-badge"><span class="tool-icon">📦</span><span>SOP Design</span></div>
+      <div class="tool-badge"><span class="tool-icon">🗺️</span><span>Demand Forecasting</span></div>
+      <div class="tool-badge"><span class="tool-icon">🏭</span><span>Logistics Optimisation</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sadman Ishraq Mohiuddin · Senior Business Analyst · Montreal, QC · All data anonymised</p>
+  <div class="footer-links">
+    <a target="_top" href="/case-studies">← All Case Studies</a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family = "'Instrument Sans', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#4a4a5a';
+
+const NAVY = '#0c1929';
+const ACCENT = '#1a4478';
+
+const mRaw = {"2021-04":51,"2021-05":63,"2021-06":58,"2021-07":72,"2021-08":68,"2021-09":91,"2021-10":82,"2021-11":79,"2021-12":89,"2022-01":143,"2022-02":167,"2022-03":198,"2022-04":224,"2022-05":246,"2022-06":289,"2022-07":312,"2022-08":334,"2022-09":298,"2022-10":356,"2022-11":321,"2022-12":287,"2023-01":267,"2023-02":248,"2023-03":278,"2023-04":269,"2023-05":288,"2023-06":355,"2023-07":335,"2023-08":354,"2023-09":352,"2023-10":406,"2023-11":369,"2023-12":380,"2024-01":341,"2024-02":361,"2024-03":367,"2024-04":257,"2024-05":366,"2024-06":281,"2024-07":267,"2024-08":303,"2024-09":247};
+const n=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const mLabels=Object.keys(mRaw).map(m=>{const[y,mo]=m.split('-');return mo==='01'?n[+mo]+' '+y:n[+mo];});
+
+let chartsCreated = {monthly: false, status: false, hourly: false};
+
+function createMonthlyChart() {
+  if (chartsCreated.monthly) return;
+  chartsCreated.monthly = true;
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+  const g = ctx.createLinearGradient(0,0,0,200);
+  g.addColorStop(0,'rgba(12,25,41,0.18)');
+  g.addColorStop(1,'rgba(12,25,41,0)');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: mLabels,
+      datasets: [{
+        data: Object.values(mRaw),
+        borderColor: NAVY,
+        backgroundColor: g,
+        borderWidth: 1.8,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: NAVY,
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 1800, easing: 'easeInOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: NAVY, titleColor: '#fff',
+          bodyColor: 'rgba(255,255,255,.7)', padding: 10, cornerRadius: 4,
+          callbacks: { label: c => ` ${c.parsed.y} orders` }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#edeae3' }, ticks: { maxTicksLimit: 10, maxRotation: 0 } },
+        y: { grid: { color: '#edeae3' }, beginAtZero: true, ticks: { stepSize: 100 } }
+      }
+    }
+  });
+}
+
+function createStatusChart() {
+  if (chartsCreated.status) return;
+  chartsCreated.status = true;
+  new Chart(document.getElementById('statusChart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Delivered','Rejected','Confirmed','Invoice Sent','Cancelled'],
+      datasets: [{
+        data: [31695, 2949, 1005, 945, 201],
+        backgroundColor: ['#276749','#c53030',ACCENT,'#b7791f','#9aa5b4'],
+        borderWidth: 3, borderColor: '#ffffff', hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '70%',
+      animation: { duration: 1600, easing: 'easeInOutQuart', animateRotate: true, animateScale: true },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: NAVY, titleColor: '#fff',
+          bodyColor: 'rgba(255,255,255,.7)',
+          callbacks: { label: c => ` ${c.parsed.toLocaleString()} (${(c.parsed/36802*100).toFixed(1)}%)` }
+        }
+      }
+    }
+  });
+}
+
+function createHourlyChart() {
+  if (chartsCreated.hourly) return;
+  chartsCreated.hourly = true;
+  const hLabels = ['12AM','1','2','3','4','5','6','7','8','9','10AM','11','12PM','1','2','3','4','5','6','7PM','8','9','10','11'];
+  const hData = [12,8,5,3,4,6,18,45,89,142,168,185,195,172,148,130,118,145,198,210,195,168,98,45];
+  new Chart(document.getElementById('hourlyChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: hLabels,
+      datasets: [{
+        data: hData,
+        backgroundColor: hData.map(v => v>=180 ? NAVY : v>=130 ? 'rgba(12,25,41,0.45)' : '#edeae3'),
+        borderRadius: 3,
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 1400, easing: 'easeOutQuart', delay: (ctx) => ctx.dataIndex * 18 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: NAVY, titleColor: '#fff',
+          bodyColor: 'rgba(255,255,255,.7)',
+          callbacks: { label: c => ` ~${c.parsed.y} orders` }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 8 } },
+        y: { grid: { color: '#edeae3' }, beginAtZero: true }
+      }
+    }
+  });
+}
+
+// Animate CSS bars (status, medicine, zone)
+function animateBarsInContainer(container) {
+  container.querySelectorAll('[data-w]').forEach((el, i) => {
+    setTimeout(() => {
+      el.style.width = el.dataset.w;
+    }, i * 80);
+  });
+}
+
+// Scroll observer for fade-up elements
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+// Scroll observer for charts
+const chartObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+    if (id === 'monthlyChart') createMonthlyChart();
+    if (id === 'statusChart') { createStatusChart(); animateBarsInContainer(e.target.closest('.chart-card')); }
+    if (id === 'hourlyChart') createHourlyChart();
+    chartObserver.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+
+['monthlyChart','statusChart','hourlyChart'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) chartObserver.observe(el);
+});
+
+// Observer for medicine and zone bars
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    animateBarsInContainer(e.target);
+    barObserver.unobserve(e.target);
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.chart-card').forEach(card => {
+  if (card.querySelector('.med-bar-fg, .zone-bar-fg')) barObserver.observe(card);
+});
+</script>
+</body>
+</html>

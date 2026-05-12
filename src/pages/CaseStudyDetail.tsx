@@ -13,6 +13,7 @@ export default function CaseStudyDetail() {
   const embeddedPages: Record<string, string> = {
     "ifrs-ai-assistant": "/embedded/ifrs-ai-assistant.html",
     "efdms": "/embedded/efdms.html",
+    "aamar-pharma": "/embedded/aamar-pharma.html",
   };
   if (slug && embeddedPages[slug]) {
     return (
