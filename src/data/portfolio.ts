@@ -371,32 +371,6 @@ export const caseStudies: CaseStudy[] = [
       "Enterprise platform requirements",
     ],
   },
-  {
-    slug: "ev-charging-network",
-    title: "EV Charging Network Management Platform",
-    sector: "EV Infrastructure · Platform Operations",
-    context:
-      "Platform for monitoring EV charging stations, usage analytics, and payment transactions across a distributed network.",
-    challenge:
-      "Define platform requirements covering real-time station monitoring, usage analytics, and reliable payment workflows.",
-    role: "Senior Business Analyst contributing to requirements and platform design.",
-    actions: [
-      "Captured business requirements covering station monitoring, usage analytics, and payment workflows.",
-      "Mapped operational workflows for charging session lifecycle and exception handling.",
-      "Defined reporting and analytics requirements supporting operational decision-making.",
-    ],
-    tools: ["Requirements engineering", "Workflow mapping", "Analytics design"],
-    outcomes: [
-      "Established a structured requirements baseline for an EV charging operations platform.",
-      "Aligned stakeholders on monitoring, usage analytics, and payment behavior.",
-    ],
-    skills: [
-      "Platform requirements",
-      "Operational analytics",
-      "Workflow design",
-      "Cross-functional coordination",
-    ],
-  },
 ];
 
 export const capabilities = [
