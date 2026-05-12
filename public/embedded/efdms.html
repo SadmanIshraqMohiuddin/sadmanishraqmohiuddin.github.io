@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFDMS & SDC - National Fiscal Compliance Platform · Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;--navy-light:#1e3a52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;--green:#3a7d44;--green-light:#4aad5e;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--cream)!important;color:var(--text-dark)!important;font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.back-nav{position:sticky;top:0;left:0;right:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;color:var(--navy);font-size:13px}
+
+/* HERO */
+.hero{background:var(--navy);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(58,125,68,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 15% 80%,rgba(201,168,76,.08) 0%,transparent 50%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(58,125,68,.18);border:1px solid rgba(58,125,68,.35);color:#6dd48a;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:#6dd48a;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,4vw,52px);color:#fff!important;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green-light),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--gold-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+
+/* CONTEXT STRIP */
+.context-strip{background:var(--navy);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--navy);padding:24px 20px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+
+/* SHARED */
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.problem-text p{color:var(--text-mid);margin-bottom:16px}
+.problem-cards{display:flex;flex-direction:column;gap:16px}
+.prob-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:40px;height:40px;flex-shrink:0;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.prob-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.prob-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* ROLE */
+.role-section{background:var(--cream-dark);padding:80px 0}
+.role-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;margin-top:40px}
+.role-summary{background:var(--navy);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.role-summary strong{color:var(--gold-light)}
+.role-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role-item{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px 22px}
+.role-item h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.role-item p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* ARCHITECTURE */
+.arch-section{background:var(--cream);padding:80px 0}
+.arch-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.arch-note{display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:8px 18px;font-size:12px;font-weight:600;color:#8a6914;margin-bottom:36px;letter-spacing:.02em}
+.mermaid-wrap{background:var(--navy);border-radius:16px;padding:40px;overflow-x:auto;margin-bottom:40px;box-shadow:0 24px 64px rgba(12,25,41,.15)}
+.mermaid{display:flex;justify-content:center}
+
+/* DEVICE EXPLAINER */
+.device-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.device-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden}
+.device-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),transparent)}
+.device-card.sdc::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.device-tag{display:inline-flex;font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;margin-bottom:16px;letter-spacing:.08em}
+.device-tag.efd{background:rgba(12,25,41,.08);color:var(--navy)}
+.device-tag.sdc{background:rgba(42,157,143,.12);color:var(--teal)}
+.device-card h3{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:10px}
+.device-card p{font-size:14px;color:var(--text-mid);line-height:1.6;margin-bottom:16px}
+.device-detail{font-size:13px;color:var(--text-mid);padding:8px 0;border-top:1px solid var(--cream-dark);display:flex;gap:8px}
+.device-detail::before{content:'→';color:var(--teal);font-weight:600;flex-shrink:0}
+
+/* API SECTION */
+.api-section{background:var(--navy);padding:80px 0}
+.api-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.api-inner .section-label{color:var(--gold-light)}
+.api-inner h2{color:#fff}
+.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.api-panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden}
+.api-panel-header{background:rgba(255,255,255,.05);padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.api-panel-header span{font-size:12px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%}.dot.red{background:#ff5f57}.dot.yellow{background:#febc2e}.dot.green{background:#28c840}
+.api-panel-body{padding:20px}
+.endpoint-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.endpoint-row:last-child{border-bottom:none}
+.method-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;width:42px;text-align:center}
+.method-badge.get{background:rgba(42,157,143,.25);color:#4dd6c8}
+.method-badge.post{background:rgba(201,168,76,.2);color:#e8c97a}
+.method-badge.put{background:rgba(255,107,53,.2);color:#ff9a4d}
+.endpoint-path{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.7);flex:1}
+.endpoint-name{font-size:11px;color:rgba(255,255,255,.4);text-align:right;flex-shrink:0}
+
+.version-timeline{display:flex;flex-direction:column;gap:16px;margin-top:40px}
+.version-item{display:flex;gap:20px;align-items:flex-start}
+.version-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.version-dot{width:12px;height:12px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:4px}
+.version-line{width:2px;flex:1;background:rgba(255,255,255,.1);min-height:40px}
+.version-item:last-child .version-line{display:none}
+.version-content{padding-bottom:8px}
+.version-date{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px}
+.version-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.version-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* SCOPE */
+.scope-section{background:var(--cream-dark);padding:80px 0}
+.scope-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.scope-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:24px;display:flex;gap:16px;align-items:flex-start;position:relative;overflow:hidden;transition:box-shadow .2s}
+.scope-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.08)}
+.scope-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--teal)}
+.scope-num{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--teal);background:rgba(42,157,143,.1);padding:4px 8px;border-radius:6px;flex-shrink:0;margin-top:2px}
+.scope-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.scope-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* STAKEHOLDERS */
+.stakeholder-section{background:var(--cream)}
+.stakeholder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.stakeholder-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px;text-align:center;position:relative;overflow:hidden;transition:box-shadow .2s}
+.stakeholder-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.08)}
+.stakeholder-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.stakeholder-card:hover::after{transform:scaleX(1)}
+.stakeholder-icon{font-size:36px;margin-bottom:16px;display:block}
+.stakeholder-card h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:8px}
+.stakeholder-card p{font-size:13px;color:var(--text-mid);line-height:1.6}
+.stakeholder-tag{display:inline-block;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:rgba(42,157,143,.1);padding:4px 12px;border-radius:100px}
+
+/* OUTCOMES */
+.outcomes-section{background:var(--navy);padding:80px 0}
+.outcomes-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.outcomes-inner .section-label{color:var(--gold-light)}
+.outcomes-inner h2{color:#fff}
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.outcome-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:32px 28px;position:relative;overflow:hidden;transition:background .2s}
+.outcome-card:hover{background:rgba(255,255,255,.08)}
+.outcome-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent)}
+.outcome-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.outcome-card.green::before{background:linear-gradient(90deg,var(--green-light),transparent)}
+.outcome-num{font-family:var(--serif);font-size:48px;color:#fff;line-height:1;margin-bottom:8px}
+.outcome-num em{color:var(--gold-light);font-style:normal}
+.outcome-label{font-size:14px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:8px}
+.outcome-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+
+/* TOOLS */
+.tools-section{background:var(--cream-dark);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-inner .section-label{color:var(--teal)}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.tool-badge{background:#fff;border:1px solid var(--cream-dark);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{border-color:var(--navy);box-shadow:0 4px 12px rgba(12,25,41,.08)}
+.tool-badge span{font-size:13px;font-weight:500;color:var(--navy)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);padding:10px 0 4px;width:100%}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:rgba(255,255,255,.4)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero{padding:120px 32px 64px}.hero-grid,.problem-grid,.role-grid,.device-grid,.api-grid,.scope-grid,.stakeholder-grid,.outcomes-grid{grid-template-columns:1fr}
+  section{padding:60px 32px}.context-inner{grid-template-columns:1fr 1fr;padding:32px}
+  .arch-inner,.api-inner,.scope-inner,.outcomes-inner,.tools-inner,.role-inner{padding:0 32px}
+  .back-nav{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:16px;padding:32px;text-align:center}
+}
+.api-category{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.api-category:last-child{border-bottom:none}
+.api-cat-icon{font-size:18px;width:32px;text-align:center;flex-shrink:0}
+.api-cat-name{font-size:14px;font-weight:500;color:rgba(255,255,255,.8);letter-spacing:.01em}
+@keyframes badgePop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="back-nav">
+  <a href="/" target="_top">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <a href="/case-studies" target="_top">Case Studies</a>
+  <span class="sep">/</span>
+  <span class="current">EFDMS & SDC - National Fiscal Compliance</span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Case Study · Government / RegTech</div>
+      <h1>National Fiscal <em>Compliance</em> Platform</h1>
+      <p class="hero-sub">Lead sub-contractor BA on Bangladesh's nationwide EFDMS & SDC rollout - automating VAT compliance for 30,000+ retail outlets through a government-mandated fiscal device programme, designed to scale to 600,000+ devices.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Lead BA · Sub-contractor</span>
+        <span class="hero-badge">Arbree Solutions</span>
+        <span class="hero-badge">National Board of Revenue</span>
+        <span class="hero-badge">Bangladesh</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">30,000<span>+</span></div>
+        <div class="stat-label">Retail Business Identification Number (BIN) holders currently active on the platform at initial rollout</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">600,000<span>+</span></div>
+        <div class="stat-label">Devices the platform architecture was designed and specified to scale to</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-num">0<span>%</span></div>
+        <div class="stat-label">Transaction Data Loss - Offline-first architecture with local SQLite storage and periodic sync - every transaction captured and eventually transmitted to NBR regardless of connectivity</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTEXT STRIP -->
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Industry</div><div class="ctx-value">Government · RegTech · Fiscal Compliance</div></div>
+    <div class="ctx-item"><div class="ctx-label">Client</div><div class="ctx-value">National Board of Revenue (NBR), Bangladesh</div></div>
+    <div class="ctx-item"><div class="ctx-label">Implementation Partner</div><div class="ctx-value">GENEX Infosys Ltd.</div></div>
+    <div class="ctx-item"><div class="ctx-label">My Role</div><div class="ctx-value">Lead BA · Sub-contractor (Arbree)</div></div>
+    <div class="ctx-item"><div class="ctx-label">Scope</div><div class="ctx-value">Requirements · API Docs · Scope Management</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="fade-up">
+  <div class="problem-grid">
+    <div class="problem-text">
+      <div class="section-label">The Problem</div>
+      <h2>Bangladesh's VAT system ran entirely on manual bookkeeping</h2>
+      <p>Every business with a trade licence - every Business Identification Number (BIN) holder - was legally required to collect VAT from customers and remit it to the government. But the entire process was manual: handwritten ledgers, paper receipts, and self-reported tax submissions that were impossible to verify at scale.</p>
+      <p>The National Board of Revenue needed a centralised, automated fiscal compliance system that could reach every retail outlet in the country - from corner shops to major superstore chains - and transmit every transaction to the government in real time.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="prob-card"><div class="prob-icon">📒</div><div><h4>Fully Manual VAT Reporting</h4><p>Business Identification Number (BIN) holders maintained handwritten transaction records. No standardisation, no auditability, and significant scope for under-reporting.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">🔌</div><div><h4>No Existing Digital Infrastructure</h4><p>Small retailers had no POS systems. Large stores had existing POS but no government-compliant integration layer. Two entirely different solutions were required.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">📡</div><div><h4>Connectivity & Security Challenges</h4><p>Devices needed to communicate securely with NBR's central backend across Bangladesh's cellular network - without exposing sensitive fiscal data to open networks.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">⚡</div><div><h4>Offline Resilience Required</h4><p>Retailers couldn't be blocked from transacting during network outages. The system needed to work offline and sync reliably when connectivity returned.</p></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ROLE -->
+<div class="role-section">
+  <div class="role-inner">
+    <div class="section-label">My Role</div>
+    <h2>Lead BA managing requirements, API specs, and scope across a national programme</h2>
+    <div class="role-grid">
+      <div class="role-summary">As <strong>Lead sub-contractor Business Analyst</strong> on behalf of Arbree Solutions, I served as the primary BA point of contact on behalf of Arbree, working alongside BA teams across NBR, GENEX, and the wider programme.<br><br>I led requirements management activities, produced and iterated the REST API integration specifications for third-party POS vendors, managed significant out-of-scope delivery, and coordinated stakeholder relationships across a complex multi-party programme.</div>
+      <div class="role-items">
+        <div class="role-item"><h4>🏛️ Government Stakeholder Management</h4><p>Managed relationships and delivery oversight with NBR officials, GENEX implementation leads, and Business Identification Number (BIN) holder representatives end-to-end.</p></div>
+        <div class="role-item"><h4>📄 API Integration Documentation</h4><p>Produced and iterated the SDC Device Integration API Documentation across multiple versioned releases - authored for third-party POS developers integrating with the SDC device.</p></div>
+        <div class="role-item"><h4>🎯 Requirements Management</h4><p>Contributed to requirements elicitation, process mapping, and solution design sessions alongside the GENEX BA team to translate government compliance mandates into structured platform requirements.</p></div>
+        <div class="role-item"><h4>📋 Scope Control</h4><p>Coordinated scope tracking and prioritisation across 9+ significant feature additions beyond the original programme scope, working across delivery teams.</p></div>
+        <div class="role-item"><h4>🔄 Iterative Delivery Coordination</h4><p>Coordinated Agile delivery across engineering, government QA, and third-party integrators - managing sprint priorities, defect tracking, and business sign-off.</p></div>
+        <div class="role-item"><h4>✅ UAT & Business Sign-off</h4><p>Designed UAT scenarios against real fiscal compliance use cases and managed business sign-off with NBR and GENEX stakeholders.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div class="arch-section">
+  <div class="arch-inner">
+    <div class="section-label">System Architecture</div>
+    <h2>Two device types. One compliance platform.</h2>
+    <div class="arch-note">🏗️ System architecture requirements captured & documented by Sadman Ishraq Mohiuddin · Lead Business Analyst, in collaboration with engineering and programme teams across GENEX and the Government taskforce</div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+flowchart TD
+    subgraph RETAILERS [RETAIL LAYER]
+        A1([Small Retailer\nNo existing POS])
+        A2([Large Superstore\nExisting POS system])
+    end
+
+    subgraph DEVICES [DEVICE LAYER]
+        B1[EFD Device\nElectronic Fiscal Device\nFull POS functionality\nInventory · Sales · VAT]
+        B2[SDC Device\nSales Data Controller\nMiddleware aggregator\nSits between existing POS and NBR]
+        A1 --> B1
+        A2 --> B2
+    end
+
+    subgraph TELCO [SECURE CONNECTIVITY]
+        C[Custom APN\nNational Mobile Network Operators\nPrivate cellular network\nFirewall-protected data channel]
+        B1 & B2 --> C
+    end
+
+    subgraph MIDDLEWARE [MIDDLEWARE LAYER]
+        D[Encrypted Transport Layer\nTransaction logging\nOffline sync queue]
+        C --> D
+    end
+
+    subgraph NBR_BACKEND [GOVERNMENT BACKEND]
+        E[(NBR Central Server\nTransaction Repository\nVAT Reporting Engine\nCompliance Dashboard)]
+        D --> E
+    end
+
+    subgraph OUTPUT [COMPLIANCE OUTPUT]
+        F[Invoice Generation\nVAT Calculation\nReceipt Printing]
+        G[NBR Dashboard\nGovernment Officials\nAudit & Reporting]
+        E --> F & G
+    end
+
+    style RETAILERS fill:#1e3a52,stroke:#2a9d8f,color:#fff
+    style DEVICES fill:#152538,stroke:#c9a84c,color:#fff
+    style TELCO fill:#1a2a3a,stroke:#4dd6c8,color:#fff
+    style MIDDLEWARE fill:#1e3a52,stroke:#3a7d44,color:#fff
+    style NBR_BACKEND fill:#0c1929,stroke:#6dd48a,color:#fff
+    style OUTPUT fill:#152538,stroke:#2a9d8f,color:#fff
+    style A1 fill:#2a9d8f,stroke:none,color:#fff
+    style A2 fill:#2a9d8f,stroke:none,color:#fff
+    style E fill:#c9a84c,stroke:none,color:#0c1929
+      </div>
+    </div>
+
+    <div class="device-grid">
+      <div class="device-card">
+        <div class="device-tag efd">EFD - Electronic Fiscal Device</div>
+        <h3>For retailers without existing POS</h3>
+        <p>Small shops, independent traders, and any Business Identification Number (BIN) holder without an existing point-of-sale system. The EFD provides a complete fiscal device - inventory management, sales processing, VAT calculation, and invoice generation - all in one government-mandated unit.</p>
+        <div class="device-detail">Full POS functionality built into the device</div>
+        <div class="device-detail">Connects directly to NBR backend via custom APN</div>
+        <div class="device-detail">Offline-first with automatic sync on reconnection</div>
+        <div class="device-detail">Covers the mass market - majority of Business Identification Number (BIN) holders</div>
+      </div>
+      <div class="device-card sdc">
+        <div class="device-tag sdc">SDC - Sales Data Controller</div>
+        <h3>For large stores with existing POS</h3>
+        <p>Major superstores (Meena Bazar, Shwapno, UniMart) already had enterprise POS systems. Replacing these was impractical. The SDC sits between the existing POS and NBR - acting as a compliance aggregator that intercepts every transaction, validates it, and forwards it to the government backend.</p>
+        <div class="device-detail">Middleware integration - no POS replacement required</div>
+        <div class="device-detail">REST API server hosted on the SDC device for third-party POS integration</div>
+        <div class="device-detail">Third-party POS vendors integrate via government-compliant API specification</div>
+        <div class="device-detail">Handles bulk inventory - large product catalogues supported</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- API DOCUMENTATION -->
+<div class="api-section">
+  <div class="api-inner">
+    <div class="section-label">API Integration Documentation</div>
+    <h2>Iterative versioning. Authored for <em>third-party developers.</em></h2>
+    <p style="color:rgba(255,255,255,.55);font-size:15px;max-width:560px;margin-bottom:0">A structured REST API integration specification produced for third-party POS developers integrating their systems with the SDC device - iterated across multiple versioned releases in response to integration feedback.</p>
+
+    <div class="api-grid">
+      <div class="api-panel">
+        <div class="api-panel-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><span>SDC Device Integration API - Endpoint Reference</span></div>
+        <div class="api-panel-body">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08)">
+            <span class="method-badge post" style="animation:badgePop .4s ease .1s both">POST</span>
+            <span class="method-badge get" style="animation:badgePop .4s ease .2s both">GET</span>
+            <span class="method-badge post" style="animation:badgePop .4s ease .3s both">POST</span>
+            <span class="method-badge put" style="animation:badgePop .4s ease .4s both">PUT</span>
+          </div>
+          <div class="api-category" style="animation:slideIn .5s ease .2s both">
+            <div class="api-cat-icon">🔐</div>
+            <div class="api-cat-name">Authentication & Session Management</div>
+          </div>
+          <div class="api-category" style="animation:slideIn .5s ease .35s both">
+            <div class="api-cat-icon">📦</div>
+            <div class="api-cat-name">Inventory & Catalogue Management</div>
+          </div>
+          <div class="api-category" style="animation:slideIn .5s ease .5s both">
+            <div class="api-cat-icon">💳</div>
+            <div class="api-cat-name">Transaction Processing & Exchange</div>
+          </div>
+          <div class="api-category" style="animation:slideIn .5s ease .65s both">
+            <div class="api-cat-icon">🧾</div>
+            <div class="api-cat-name">Invoice Management</div>
+          </div>
+          <div class="api-category" style="animation:slideIn .5s ease .8s both">
+            <div class="api-cat-icon">📊</div>
+            <div class="api-cat-name">Reporting & Analytics</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="api-panel">
+          <div class="api-panel-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><span>Iterative Versioning - Documentation History</span></div>
+          <div class="api-panel-body">
+              <div class="version-timeline">
+              <div class="version-item">
+                <div class="version-dot-wrap"><div class="version-dot"></div><div class="version-line"></div></div>
+                <div class="version-content">
+                  <div class="version-date">Jan 2024 - v1.0</div>
+                  <div class="version-title">Initial API Specification</div>
+                  <div class="version-desc">First full specification released to third-party POS developers as the baseline integration reference.</div>
+                </div>
+              </div>
+              <div class="version-item">
+                <div class="version-dot-wrap"><div class="version-dot"></div><div class="version-line"></div></div>
+                <div class="version-content">
+                  <div class="version-date">Feb 2024 - v2.0</div>
+                  <div class="version-title">Change List & API Delta</div>
+                  <div class="version-desc">Structured change log documenting updates between new and legacy SDC API versions following initial integration review.</div>
+                </div>
+              </div>
+              <div class="version-item">
+                <div class="version-dot-wrap"><div class="version-dot"></div><div class="version-line"></div></div>
+                <div class="version-content">
+                  <div class="version-date">Feb 2024 - v3.0</div>
+                  <div class="version-title">Updated Integration Spec</div>
+                  <div class="version-desc">Revised specification incorporating feedback from third-party POS vendor integration testing.</div>
+                </div>
+              </div>
+              <div class="version-item">
+                <div class="version-dot-wrap"><div class="version-dot"></div></div>
+                <div class="version-content">
+                  <div class="version-date">Feb 2024 - v4.0</div>
+                  <div class="version-title">Final Release Specification</div>
+                  <div class="version-desc">Production-ready specification signed off for third-party developer use across the national rollout programme.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="api-panel">
+          <div class="api-panel-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><span>Security Architecture</span></div>
+          <div class="api-panel-body">
+            <div class="endpoint-row"><span class="method-badge get" style="background:rgba(58,125,68,.25);color:#6dd48a">APN</span><span class="endpoint-path" style="font-size:13px;font-family:var(--sans)">Custom private APN via national mobile network operators</span></div>
+            <div class="endpoint-row"><span class="method-badge get" style="background:rgba(58,125,68,.25);color:#6dd48a">ENC</span><span class="endpoint-path" style="font-size:13px;font-family:var(--sans)">Encryption type: confidential - all fiscal transaction data encrypted in transit and at rest</span></div>
+            <div class="endpoint-row"><span class="method-badge get" style="background:rgba(58,125,68,.25);color:#6dd48a">FW</span><span class="endpoint-path" style="font-size:13px;font-family:var(--sans)">Network firewall - only authorised devices can access APN</span></div>
+            <div class="endpoint-row"><span class="method-badge get" style="background:rgba(58,125,68,.25);color:#6dd48a">OTP</span><span class="endpoint-path" style="font-size:13px;font-family:var(--sans)">Device-level OTP authentication for setup and login</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCOPE MANAGEMENT -->
+<div class="scope-section">
+  <div class="scope-inner">
+    <div class="section-label">Scope Management</div>
+    <h2>Nine significant features delivered outside original scope</h2>
+    <p style="color:var(--text-mid);max-width:600px">A formal scope expansion document was produced tracking every out-of-scope feature. Each was assessed, prioritised, and delivered without disrupting the core programme timeline.</p>
+    <div class="scope-grid">
+      <div class="scope-card fade-up"><span class="scope-num">OOS-01</span><div><h4>Operator Selection</h4><p>Implemented multi-Telco operator selection (Major National Telcos) across device setup, sign-in, and settings screens.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-02</span><div><h4>Database Migration</h4><p>Built migration path from the existing legacy database - importing deviceInfo, shopInfo, invoices, and items into the new platform.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-03</span><div><h4>Invoice Reprint & Exchange Reprint</h4><p>Full dashboard modules for reprinting invoices and exchange invoices - including preview, search, and print functionality.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-04</span><div><h4>Failed Invoice Management</h4><p>Automated detection of invoices with 3+ failed sync attempts. Differentiated handling for new vs legacy platform invoices with intelligent retry logic.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-05</span><div><h4>Draft Sales Module</h4><p>Full draft sale capability - insert, delete, list incomplete sales, and resume a draft sale from the cart screen.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-06</span><div><h4>Bulk Item Upload</h4><p>CSV-based bulk item upload with downloadable template, validation, and batch item creation in the system.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-07</span><div><h4>Bluetooth & WiFi Printing</h4><p>PDF printing via Bluetooth and WiFi across cart, invoice reprint, exchange, and X/Z report screens.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-08</span><div><h4>Sales Reporting Suite</h4><p>SalesReport and SalesSummary modules with date/month/year/user/session filtering, PDF preview and printing.</p></div></div>
+      <div class="scope-card fade-up"><span class="scope-num">OOS-09</span><div><h4>App Localisation</h4><p>Full English/Bangla language localisation via sidebar language selector - critical for field adoption across Bangladesh.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- STAKEHOLDERS -->
+<section class="stakeholder-section fade-up">
+  <div class="section-label">Stakeholder Landscape</div>
+  <h2>Three distinct groups. One compliance mandate.</h2>
+  <div class="stakeholder-grid">
+    <div class="stakeholder-card">
+      <span class="stakeholder-icon">🏛️</span>
+      <h3>National Board of Revenue</h3>
+      <p>Bangladesh's tax authority and the programme mandate holder. Senior NBR officials including department chiefs were the ultimate sign-off authority - all business cases and solution recommendations were presented at this level.</p>
+      <span class="stakeholder-tag">Government Authority</span>
+    </div>
+    <div class="stakeholder-card">
+      <span class="stakeholder-icon">🤝</span>
+      <h3>GENEX Infosys Ltd.</h3>
+      <p>The government-appointed implementation partner responsible for programme delivery oversight. Arbree operated as sub-contractor BA within the wider programme - I served as the key interface between Arbree's engineering team, GENEX's programme management, and the government taskforce overseeing national rollout.</p>
+      <span class="stakeholder-tag">Implementation Partner</span>
+    </div>
+    <div class="stakeholder-card">
+      <span class="stakeholder-icon">🏪</span>
+      <h3>Business Identification Number (BIN) Holder Outlets</h3>
+      <p>30,000+ registered businesses - from independent corner shops using EFD devices to major superstore chains (Meena Bazar, Shwapno, UniMart, and leading food chains across Bangladesh) integrating via SDC. Field adoption and usability requirements informed by direct engagement with Business Identification Number (BIN) holders.</p>
+      <span class="stakeholder-tag">End Users · 30,000+</span>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- OUTCOMES -->
+<div class="outcomes-section">
+  <div class="outcomes-inner">
+    <div class="section-label">Outcomes & Impact</div>
+    <h2>A national compliance platform - delivered at scale</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-num">30,000<em>+</em></div>
+        <div class="outcome-label">Retail Outlets Active</div>
+        <div class="outcome-desc">Business Identification Number (BIN) holders across Bangladesh onboarded to the EFDMS/SDC platform at initial rollout - the largest government fiscal compliance programme of its kind in Bangladesh.</div>
+      </div>
+      <div class="outcome-card gold">
+        <div class="outcome-num">600,000<em>+</em></div>
+        <div class="outcome-label">Device Scalability</div>
+        <div class="outcome-desc">Platform architecture specified and documented to support a 20x scale increase - from 30,000 to 600,000+ devices - without fundamental redesign.</div>
+      </div>
+      <div class="outcome-card green">
+        <div class="outcome-num">~20<em></em></div>
+        <div class="outcome-label">REST API Endpoints Documented</div>
+        <div class="outcome-desc">Full integration specification authored across 4 iterative versions - production-ready documentation enabling third-party POS vendors to integrate with the SDC device.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">4<em>v</em></div>
+        <div class="outcome-label">API Specification Versions</div>
+        <div class="outcome-desc">Iterative documentation from v1 (Jan 2024) to v4 (Feb 2024) - each version responding to integration testing feedback and requirements changes from NBR and GENEX.</div>
+      </div>
+      <div class="outcome-card gold">
+        <div class="outcome-num">9<em>+</em></div>
+        <div class="outcome-label">Out-of-Scope Features Delivered</div>
+        <div class="outcome-desc">Formally tracked, scoped, and delivered scope expansions - from operator selection to bulk item upload to full app localisation - without disrupting core programme delivery.</div>
+      </div>
+      <div class="outcome-card green">
+        <div class="outcome-num">0<em>%</em></div>
+        <div class="outcome-label">Transaction Data Loss</div>
+        <div class="outcome-desc">Offline-first architecture with local SQLite storage and periodic sync - every transaction captured and eventually transmitted to NBR regardless of connectivity.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools & Methods</div>
+    <div class="tools-grid">
+      <span class="tool-cat">BA Artefacts</span>
+      <div class="tool-badge"><span class="tool-icon">📄</span><span>API Integration Specification</span></div>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>Requirements Documentation</span></div>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Task Tracking (EFD-SDC)</span></div>
+      <div class="tool-badge"><span class="tool-icon">🗂️</span><span>Scope Change Register</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔄</span><span>BPMN Process Mapping</span></div>
+      <span class="tool-cat">Technology Stack</span>
+      <div class="tool-badge"><span class="tool-icon">📱</span><span>Flutter / Dart (Android)</span></div>
+      <div class="tool-badge"><span class="tool-icon">🗄️</span><span>SQLite (Local Storage)</span></div>
+      <div class="tool-badge"><span class="tool-icon">☁️</span><span>REST API (Multi-Endpoint)</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔒</span><span>Encrypted Data Transport</span></div>
+      <div class="tool-badge"><span class="tool-icon">📡</span><span>Custom APN (Telco)</span></div>
+      <span class="tool-cat">Delivery</span>
+      <div class="tool-badge"><span class="tool-icon">⚡</span><span>Agile / Scrum</span></div>
+      <div class="tool-badge"><span class="tool-icon">🐛</span><span>Defect Tracking</span></div>
+      <div class="tool-badge"><span class="tool-icon">✅</span><span>UAT Design & Sign-off</span></div>
+      <div class="tool-badge"><span class="tool-icon">🤝</span><span>Government Stakeholder Management</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sadman Ishraq Mohiuddin · Senior Business Analyst · Montreal, QC, Canada</p>
+  <div class="footer-links">
+    <a href="/case-studies" target="_top">← All Case Studies</a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+mermaid.initialize({
+  startOnLoad:true,theme:'dark',
+  themeVariables:{primaryColor:'#1e3a52',primaryTextColor:'#ffffff',primaryBorderColor:'#2a9d8f',lineColor:'#4dd6c8',secondaryColor:'#152538',tertiaryColor:'#0c1929',fontSize:'13px'},
+  flowchart:{curve:'basis',padding:20}
+});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
