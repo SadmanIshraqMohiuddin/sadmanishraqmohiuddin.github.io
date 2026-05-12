@@ -9,11 +9,15 @@ export default function CaseStudyDetail() {
 
   if (!study) return <Navigate to="/case-studies" replace />;
 
-  // Custom pre-built HTML page for this case study
-  if (slug === "ifrs-ai-assistant") {
+  // Custom pre-built HTML pages for these case studies
+  const embeddedPages: Record<string, string> = {
+    "ifrs-ai-assistant": "/embedded/ifrs-ai-assistant.html",
+    "efdms": "/embedded/efdms.html",
+  };
+  if (slug && embeddedPages[slug]) {
     return (
       <iframe
-        src="/embedded/ifrs-ai-assistant.html"
+        src={embeddedPages[slug]}
         title={study.title}
         className="fixed inset-0 w-screen h-screen border-0 z-50 bg-background"
       />
