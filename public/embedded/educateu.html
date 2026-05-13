@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>educateU LMS — EdTech Platform Delivery · Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;
+  --indigo:#1e1b4b;--indigo-mid:#2d2a6e;--indigo-light:#3730a3;
+  --purple:#6d28d9;--purple-mid:#7c3aed;--lavender:#a78bfa;--lavender-light:#c4b5fd;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--cream)!important;color:var(--text-dark)!important;font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.back-nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;font-size:13px}
+
+/* HERO */
+.hero{background:var(--indigo);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(124,58,237,.18) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 5% 80%,rgba(167,139,250,.08) 0%,transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(167,139,250,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);color:var(--lavender-light);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--lavender);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,4vw,52px);color:#fff!important;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--lavender-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--lavender),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--lavender-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+
+/* CONTEXT STRIP */
+.context-strip{background:var(--indigo);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--indigo);padding:24px 20px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+
+/* SHARED */
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:12px}
+.section-label.gold{color:var(--gold)}
+.section-label.teal{color:var(--teal)}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+
+/* PLATFORM OVERVIEW */
+.platform-section{background:var(--cream);padding:80px 0}
+.platform-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.portals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.portal-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px 22px;position:relative;overflow:hidden;transition:box-shadow .25s,transform .25s;text-align:center}
+.portal-card:hover{box-shadow:0 12px 40px rgba(109,40,217,.12);transform:translateY(-4px)}
+.portal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.portal-card.admin::before{background:linear-gradient(90deg,var(--indigo-light),transparent)}
+.portal-card.agent::before{background:linear-gradient(90deg,var(--purple-mid),transparent)}
+.portal-card.student::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.portal-card.officer::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.portal-icon{width:56px;height:56px;border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.portal-card.admin .portal-icon{background:rgba(55,48,163,.1)}
+.portal-card.agent .portal-icon{background:rgba(124,58,237,.1)}
+.portal-card.student .portal-icon{background:rgba(42,157,143,.1)}
+.portal-card.officer .portal-icon{background:rgba(201,168,76,.1)}
+.portal-name{font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:8px}
+.portal-desc{font-size:12px;color:var(--text-mid);line-height:1.6;margin-bottom:16px}
+.portal-modules{display:flex;flex-direction:column;gap:5px}
+.portal-module{font-size:11px;color:var(--text-mid);padding:4px 10px;background:var(--cream);border-radius:6px;border:1px solid var(--cream-dark)}
+
+/* ACCREDITATIONS */
+.accred-strip{background:var(--indigo);padding:32px 0}
+.accred-inner{max-width:1200px;margin:0 auto;padding:0 64px;display:flex;align-items:center;gap:48px}
+.accred-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap}
+.accred-badges{display:flex;flex-wrap:wrap;gap:12px;flex:1}
+.accred-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.04em}
+.accred-badge.highlight{background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.35);color:var(--lavender-light)}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.problem-text p{color:var(--text-mid);margin-bottom:16px}
+.problem-cards{display:flex;flex-direction:column;gap:16px}
+.prob-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:40px;height:40px;flex-shrink:0;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.prob-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.prob-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* ROLE */
+.role-section{background:var(--indigo);padding:80px 0}
+.role-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-inner .section-label{color:var(--lavender-light)}
+.role-inner h2{color:#fff}
+.role-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;margin-top:40px}
+.role-summary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.role-summary strong{color:var(--lavender-light)}
+.role-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:20px 22px}
+.role-item h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:6px}
+.role-item p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* RBAC SECTION */
+.rbac-section{background:var(--cream-dark);padding:80px 0}
+.rbac-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.rbac-diagram{background:var(--indigo);border-radius:16px;padding:48px;margin-top:40px;overflow-x:auto}
+.rbac-tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.rbac-level{display:flex;gap:20px;justify-content:center;position:relative;padding:16px 0}
+.rbac-node{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:14px 20px;text-align:center;min-width:130px;position:relative;transition:background .2s;cursor:default}
+.rbac-node:hover{background:rgba(255,255,255,.12)}
+.rbac-node.root{background:rgba(167,139,250,.2);border-color:rgba(167,139,250,.4);min-width:200px}
+.rbac-node.admin-node{border-color:rgba(55,48,163,.6);background:rgba(55,48,163,.2)}
+.rbac-node.role-node{border-color:rgba(124,58,237,.5);background:rgba(124,58,237,.15)}
+.rbac-node.module-node{border-color:rgba(42,157,143,.4);background:rgba(42,157,143,.12)}
+.rbac-node.user-node{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.12)}
+.rbac-node-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.rbac-node.root .rbac-node-label{color:var(--lavender)}
+.rbac-node.admin-node .rbac-node-label{color:#a5b4fc}
+.rbac-node.role-node .rbac-node-label{color:#c4b5fd}
+.rbac-node.module-node .rbac-node-label{color:#5eead4}
+.rbac-node.user-node .rbac-node-label{color:var(--gold-light)}
+.rbac-node-name{font-size:13px;font-weight:600;color:#fff}
+.rbac-node-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.rbac-connector{width:1px;height:28px;background:rgba(255,255,255,.15);margin:0 auto}
+.rbac-connector-row{display:flex;justify-content:center;gap:20px;position:relative}
+.rbac-connector-row::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:1px;background:rgba(255,255,255,.12)}
+.rbac-note{font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-top:24px;font-style:italic}
+.rbac-explainer{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.rbac-exp-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden}
+.rbac-exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.rbac-exp-card.l1::before{background:var(--indigo-light)}
+.rbac-exp-card.l2::before{background:var(--purple-mid)}
+.rbac-exp-card.l3::before{background:var(--teal)}
+.rbac-exp-card.l4::before{background:var(--gold)}
+.rbac-exp-num{font-family:var(--mono);font-size:11px;font-weight:600;margin-bottom:8px}
+.rbac-exp-card.l1 .rbac-exp-num{color:var(--indigo-light)}
+.rbac-exp-card.l2 .rbac-exp-num{color:var(--purple-mid)}
+.rbac-exp-card.l3 .rbac-exp-num{color:var(--teal)}
+.rbac-exp-card.l4 .rbac-exp-num{color:var(--gold)}
+.rbac-exp-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.rbac-exp-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
+
+/* DELIVERY TIMELINE */
+.timeline-section{background:var(--cream);padding:80px 0}
+.timeline-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:40px;position:relative}
+.timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--cream-dark)}
+.timeline-item{display:flex;gap:32px;align-items:flex-start;padding:0 0 32px 0;position:relative;opacity:0;transform:translateX(-16px);transition:opacity .5s ease,transform .5s ease}
+.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid var(--cream-dark);background:#fff;position:relative;z-index:1;transition:border-color .3s,background .3s}
+.timeline-item.visible .timeline-dot{border-color:var(--purple-mid);background:rgba(109,40,217,.08)}
+.timeline-content{flex:1;padding-top:4px}
+.timeline-date{font-family:var(--mono);font-size:11px;color:var(--text-mid);margin-bottom:4px}
+.timeline-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.timeline-desc{font-size:13px;color:var(--text-mid);line-height:1.6}
+.timeline-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:8px}
+.timeline-tag.milestone{background:rgba(109,40,217,.1);color:var(--purple-mid)}
+.timeline-tag.delivery{background:rgba(42,157,143,.1);color:var(--teal)}
+.timeline-tag.agreement{background:rgba(201,168,76,.1);color:var(--gold)}
+
+/* UAT SECTION */
+.uat-section{background:var(--indigo);padding:80px 0}
+.uat-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.uat-inner .section-label{color:var(--lavender-light)}
+.uat-inner h2{color:#fff}
+.uat-table-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden;margin-top:40px}
+.uat-table{width:100%;border-collapse:collapse;font-size:13px}
+.uat-table thead{background:rgba(255,255,255,.06)}
+.uat-table th{padding:14px 16px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.uat-table tbody tr{border-bottom:1px solid rgba(255,255,255,.06);transition:background .15s}
+.uat-table tbody tr:last-child{border-bottom:none}
+.uat-table tbody tr:hover{background:rgba(255,255,255,.04)}
+.uat-table td{padding:14px 16px;color:rgba(255,255,255,.7);vertical-align:top}
+.uat-id{font-family:var(--mono);font-size:11px;color:var(--lavender);font-weight:600}
+.uat-module{font-size:11px;font-weight:600;color:rgba(255,255,255,.5)}
+.sev-critical{background:rgba(239,68,68,.2);color:#fca5a5;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;border:1px solid rgba(239,68,68,.3)}
+.sev-high{background:rgba(245,158,11,.2);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)}
+.sev-low{background:rgba(107,114,128,.2);color:rgba(255,255,255,.5);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.uat-note{font-size:12px;color:rgba(255,255,255,.4);margin-top:16px;font-style:italic;padding:0 4px}
+
+/* OUTCOMES */
+.outcomes-section{background:var(--cream-dark);padding:80px 0}
+.outcomes-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.outcome-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px 28px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.outcome-card:hover{box-shadow:0 8px 32px rgba(109,40,217,.1)}
+.outcome-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--purple-mid);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.outcome-card:hover::after{transform:scaleX(1)}
+.outcome-num{font-family:var(--serif);font-size:48px;color:var(--indigo);line-height:1;margin-bottom:8px}
+.outcome-num em{color:var(--purple-mid);font-style:normal}
+.outcome-label{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.outcome-desc{font-size:13px;color:var(--text-mid);line-height:1.6}
+
+/* TOOLS */
+.tools-section{background:var(--indigo);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-inner .section-label{color:var(--lavender-light)}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.tool-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.tool-badge span{font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:10px 0 4px;width:100%}
+
+/* FOOTER */
+footer{background:var(--indigo);border-top:1px solid rgba(255,255,255,.08);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:rgba(255,255,255,.4)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--lavender);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* STAKEHOLDER LANDSCAPE */
+.stakeholder-landscape{background:var(--cream);padding:80px 0}
+.sl-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.sl-grid{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;margin-top:40px;align-items:start}
+.sl-col-header{display:flex;align-items:center;gap:14px;padding:20px 24px;border-radius:var(--radius) var(--radius) 0 0;margin-bottom:2px}
+.sl-col-header.pen{background:rgba(55,48,163,.08);border:1px solid rgba(55,48,163,.15);border-bottom:none}
+.sl-col-header.arbree{background:rgba(109,40,217,.08);border:1px solid rgba(109,40,217,.15);border-bottom:none}
+.sl-col-icon{font-size:24px}
+.sl-col-title{font-size:15px;font-weight:600;color:var(--navy)}
+.sl-col-sub{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);margin-top:2px}
+.sl-roles{background:#fff;border:1px solid var(--cream-dark);border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
+.sl-role{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid var(--cream-dark);transition:background .15s}
+.sl-role:last-child{border-bottom:none}
+.sl-role:hover{background:var(--cream)}
+.sl-role-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.sl-role-dot.pen{background:var(--indigo-light)}
+.sl-role-dot.arbree{background:var(--purple-mid)}
+.sl-role-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.sl-role-desc{font-size:12px;color:var(--text-mid);line-height:1.5}
+.sl-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:80px;gap:8px;height:100%}
+.sl-divider-line{width:1px;flex:1;background:var(--cream-dark);min-height:40px}
+.sl-divider-dot{font-size:14px;color:var(--text-mid);opacity:.5;padding:4px}
+
+@media(max-width:900px){
+  .sl-grid{grid-template-columns:1fr;gap:24px}
+  .sl-divider{display:none}
+  .sl-inner{padding:0 32px}
+}
+
+
+.rbac-scroll-hint{display:none;text-align:center;font-size:11px;color:var(--text-mid);margin-top:12px;letter-spacing:.08em;padding:8px}
+@media(max-width:900px){
+  .rbac-scroll-hint{display:block}
+  .hero-grid,.problem-grid,.role-grid,.rbac-explainer{grid-template-columns:1fr}
+  .portals-grid,.outcomes-grid{grid-template-columns:1fr 1fr}
+  section,.platform-inner,.rbac-inner,.timeline-inner,.uat-inner,.outcomes-inner,.tools-inner,.role-inner{padding:0 32px}
+  section{padding:60px 32px}.context-inner{grid-template-columns:1fr 1fr;padding:32px}
+  .accred-inner{flex-direction:column;padding:24px 32px;gap:16px}
+  .back-nav{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:16px;padding:32px;text-align:center}
+  .rbac-diagram{padding:20px 12px;overflow-x:scroll;-webkit-overflow-scrolling:touch;cursor:grab}
+  .rbac-diagram:active{cursor:grabbing}
+  .rbac-tree{min-width:920px}
+  .rbac-note{min-width:920px;font-size:11px}
+  body{overflow-x:hidden}
+  .uat-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .uat-table{min-width:700px}
+}
+@media(max-width:560px){
+  .portals-grid{grid-template-columns:1fr}
+  .outcomes-grid{grid-template-columns:1fr}
+  .context-inner{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:12px}
+  .stat-num{font-size:32px}
+  .rbac-explainer{grid-template-columns:1fr 1fr}
+  .timeline-item{gap:16px}
+}
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="https://sadmanishraqmohiuddin.vercel.app">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">Case Studies</a>
+  <span class="sep">/</span>
+  <span class="current">educateU - Enterprise EdTech LMS</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Case Study - EdTech / SaaS Platform Delivery</div>
+      <h1>Enterprise <em>EdTech LMS</em> - Full Lifecycle Delivery</h1>
+      <p class="hero-sub">Lead BA on a custom-built Learning Management System for Planet Education Network (PEN) - a live CPD and BSC-accredited compliance e-learning platform serving UK and global markets, delivered across 4 portals, 10+ modules, and a structured RBAC architecture from contract to handover.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Lead Business Analyst</span>
+        <span class="hero-badge">Arbree Solutions</span>
+        <span class="hero-badge">Planet Education Network</span>
+        <span class="hero-badge">Oct 2024 - 2025</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">4<span></span></div>
+        <div class="stat-label">Distinct user portals - Admin, Agent, Student, and Admission Officer - each with its own requirements, workflows, and access logic</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">CPD<span></span></div>
+        <div class="stat-label">and BSC-accredited platform - serving UK and global compliance e-learning markets across professional development and higher education</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Major modules defined through PRDs - from user management and RBAC to course delivery, agent commission, and admission lifecycle</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Client</div><div class="ctx-value">Planet Education Network (PEN)</div></div>
+    <div class="ctx-item"><div class="ctx-label">Platform</div><div class="ctx-value">educateU LMS</div></div>
+    <div class="ctx-item"><div class="ctx-label">My Role</div><div class="ctx-value">Lead Business Analyst</div></div>
+    <div class="ctx-item"><div class="ctx-label">Engagement</div><div class="ctx-value">Oct 2024 - 2025</div></div>
+    <div class="ctx-item"><div class="ctx-label">Market</div><div class="ctx-value">UK and Global</div></div>
+  </div>
+</div>
+
+<!-- ACCREDITATIONS -->
+<div class="accred-strip">
+  <div class="accred-inner">
+    <div class="accred-label">Accreditations</div>
+    <div class="accred-badges">
+      <div class="accred-badge highlight">CPD Accredited</div>
+      <div class="accred-badge highlight">BSC Accredited</div>
+      <div class="accred-badge">ICO Registered</div>
+      <div class="accred-badge">IQA Endorsed</div>
+      <div class="accred-badge">OTHM</div>
+      <div class="accred-badge">Able Futures</div>
+      <div class="accred-badge">GBC</div>
+    </div>
+  </div>
+</div>
+
+<!-- PLATFORM OVERVIEW -->
+<div class="platform-section">
+  <div class="platform-inner">
+    <div class="section-label">Platform Architecture</div>
+    <h2>Four portals. One platform. Completely different user journeys.</h2>
+    <p style="color:var(--text-mid);max-width:640px;margin-bottom:0">Each portal was requirements-engineered independently - separate user stories, separate PRDs, separate UAT scenarios - then integrated into a single coherent platform with a unified RBAC backbone.</p>
+    <div class="portals-grid">
+      <div class="portal-card admin fade-up">
+        <div class="portal-icon">🛡️</div>
+        <div class="portal-name">Admin Portal</div>
+        <div class="portal-desc">Platform control centre - user management, role configuration, permission assignment, and system oversight across all modules and user categories.</div>
+        <div class="portal-modules">
+          <div class="portal-module">User Management</div>
+          <div class="portal-module">Role & Permission Management</div>
+          <div class="portal-module">MFA & Security</div>
+          <div class="portal-module">Temporary Access Control</div>
+          <div class="portal-module">System Dashboard</div>
+        </div>
+      </div>
+      <div class="portal-card agent fade-up">
+        <div class="portal-icon">🤝</div>
+        <div class="portal-name">Agent Portal</div>
+        <div class="portal-desc">Commercial interface for education agents managing student applications, sub-agent networks, and commission tracking across the platform.</div>
+        <div class="portal-modules">
+          <div class="portal-module">Agent Onboarding</div>
+          <div class="portal-module">Sub-Agent Management</div>
+          <div class="portal-module">Application Lifecycle</div>
+          <div class="portal-module">Commission Management</div>
+          <div class="portal-module">Business Development</div>
+        </div>
+      </div>
+      <div class="portal-card student fade-up">
+        <div class="portal-icon">🎓</div>
+        <div class="portal-name">Student Portal</div>
+        <div class="portal-desc">Learner-facing platform for course enrolment, progress tracking, CPD and compliance course completion, and certification for UK and global markets.</div>
+        <div class="portal-modules">
+          <div class="portal-module">Course Enrolment</div>
+          <div class="portal-module">Learning Progress</div>
+          <div class="portal-module">Compliance Tracking</div>
+          <div class="portal-module">Certification</div>
+          <div class="portal-module">Learner Dashboard</div>
+        </div>
+      </div>
+      <div class="portal-card officer fade-up">
+        <div class="portal-icon">📋</div>
+        <div class="portal-name">Admission Officer</div>
+        <div class="portal-desc">Institutional portal for managing student application journeys from submission through review, decision, and onboarding for degree and diploma programmes.</div>
+        <div class="portal-modules">
+          <div class="portal-module">Application Review</div>
+          <div class="portal-module">Admission Stage Management</div>
+          <div class="portal-module">Document Verification</div>
+          <div class="portal-module">Decision Workflow</div>
+          <div class="portal-module">Reporting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="fade-up">
+  <div class="problem-grid">
+    <div class="problem-text">
+      <div class="section-label">The Problem</div>
+      <h2>A global education provider with no unified platform to match its ambitions</h2>
+      <p>Planet Education Network (PEN) had built a credible portfolio of CPD and BSC-accredited compliance courses for the UK and global market. The product existed - learners were using it. But the underlying platform was not built for scale. Agent relationships were managed manually, admissions were paper-heavy, and there was no unified system connecting course delivery, student management, and institutional oversight.</p>
+      <p>The goal was to build a purpose-built LMS that could carry educateU from a course catalogue into a fully accredited, commercially scalable education platform - handling everything from agent commission management to degree admission journeys within a single RBAC-governed system.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="prob-card"><div class="prob-icon">🔗</div><div><h4>No Unified Platform</h4><p>Course delivery, agent management, admissions, and compliance tracking were siloed processes with no integrated system connecting them.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">🏢</div><div><h4>Agent Network Without Infrastructure</h4><p>Education agents and sub-agents had no formal platform for application management, commission tracking, or communication with the institution.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">🔐</div><div><h4>No Access Control Architecture</h4><p>With multiple user types (Admin, Agent, Student, Officer), a multi-level role-based access control system was needed from the ground up.</p></div></div>
+      <div class="prob-card"><div class="prob-icon">📝</div><div><h4>Manual Admission Processes</h4><p>Degree and diploma admission journeys were not systematised - no formal application lifecycle, document tracking, or decision workflow existed.</p></div></div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ROLE -->
+<div class="role-section">
+  <div class="role-inner">
+    <div class="section-label">My Role</div>
+    <h2>Lead BA across requirements, architecture, delivery, and UAT</h2>
+    <div class="role-grid">
+      <div class="role-summary">As <strong>Lead Business Analyst</strong> on behalf of Arbree Solutions, I was responsible for the end-to-end BA practice on this engagement - from initial PRD production through system architecture design, stakeholder management with the PEN team, weekly delivery reporting, scope control, and structured UAT.<br><br>
+      The engagement required simultaneous PRD delivery across <strong>10+ modules</strong>, coordination with a cross-functional engineering team, and direct client management with PEN's <strong>Product Owner, Lead Project Manager, and senior stakeholders</strong> across regular weekly sessions.</div>
+      <div class="role-items">
+        <div class="role-item"><h4>📄 PRD Authorship</h4><p>Led production of Product Requirement Documents for every platform module - from user management and RBAC to admission journey, course management, and agent commission.</p></div>
+        <div class="role-item"><h4>🏗️ RBAC Architecture</h4><p>Designed and presented the multi-level Role-Based Access Control architecture for the platform - defining the category, role, module, and user permission hierarchy.</p></div>
+        <div class="role-item"><h4>👥 Client Stakeholder Management</h4><p>Managed weekly cadence with PEN stakeholders - prepared weekly reports, led requirement workshops, chased PRD submissions, and coordinated feedback loops.</p></div>
+        <div class="role-item"><h4>📊 Milestone Tracking</h4><p>Maintained detailed project tracking across milestones and development team tasks, ensuring delivery aligned with agreed timelines and escalating blockers.</p></div>
+        <div class="role-item"><h4>🔍 UAT Design & Execution</h4><p>Designed structured UAT findings documentation with severity, priority, current behaviour, and expected behaviour classification across all tested modules.</p></div>
+        <div class="role-item"><h4>🎨 Figma Collaboration</h4><p>Set up client collaboration in Figma for design review, managed design feedback loops, and coordinated design direction decisions with the PEN team.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STAKEHOLDER LANDSCAPE -->
+<div class="stakeholder-landscape">
+  <div class="sl-inner">
+    <div class="section-label teal">Stakeholder Landscape</div>
+    <h2>Two teams. One platform.</h2>
+    <div class="sl-grid">
+      <div class="sl-col">
+        <div class="sl-col-header pen">
+          <div class="sl-col-icon">🏢</div>
+          <div>
+            <div class="sl-col-title">Planet Education Network (PEN)</div>
+            <div class="sl-col-sub">Client side</div>
+          </div>
+        </div>
+        <div class="sl-roles">
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">Product Owner</div><div class="sl-role-desc">Primary decision-maker on platform direction, feature scope, and business requirements</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">Lead Project Manager</div><div class="sl-role-desc">Coordinated delivery timelines, milestone sign-offs, and cross-team action tracking</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">Technical Team Lead</div><div class="sl-role-desc">Technical oversight on platform infrastructure and cloud environment requirements</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">Business Analyst (PEN)</div><div class="sl-role-desc">Requirements input on admission journey, user stories, and business process documentation</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">UAT Team</div><div class="sl-role-desc">Reviewed and validated delivered functionality against documented acceptance criteria</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot pen"></div><div><div class="sl-role-title">Senior Management</div><div class="sl-role-desc">Executive stakeholders for strategic direction, milestone approval, and programme oversight</div></div></div>
+        </div>
+      </div>
+      <div class="sl-divider">
+        <div class="sl-divider-line"></div>
+        <div class="sl-divider-dot">⟷</div>
+        <div class="sl-divider-line"></div>
+      </div>
+      <div class="sl-col">
+        <div class="sl-col-header arbree">
+          <div class="sl-col-icon">⚙️</div>
+          <div>
+            <div class="sl-col-title">Arbree Solutions</div>
+            <div class="sl-col-sub">Delivery side</div>
+          </div>
+        </div>
+        <div class="sl-roles">
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">Lead Business Analyst</div><div class="sl-role-desc">Requirements management, PRD authorship, RBAC design, UAT coordination, and client-facing delivery</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">Project Manager</div><div class="sl-role-desc">Internal delivery coordination, milestone tracking, and weekly reporting to the client</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">Backend Developers</div><div class="sl-role-desc">Server-side platform development, database implementation, AWS infrastructure, and API development</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">Frontend Developers</div><div class="sl-role-desc">Portal UI implementation across Admin, Agent, Student, and Admission Officer interfaces</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">UI/UX Designers</div><div class="sl-role-desc">Design system, Figma prototypes, and visual direction in collaboration with PEN stakeholders</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">DevOps</div><div class="sl-role-desc">Pipeline setup, deployment configuration, and AWS environment provisioning for testing and production</div></div></div>
+          <div class="sl-role"><div class="sl-role-dot arbree"></div><div><div class="sl-role-title">Senior Management</div><div class="sl-role-desc">Programme oversight, contract governance, and escalation support across the engagement</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RBAC ARCHITECTURE -->
+<div class="rbac-section">
+  <div class="rbac-inner">
+    <div class="section-label">RBAC Architecture</div>
+    <h2>A multi-level access control system designed from first principles</h2>
+    <p style="color:var(--text-mid);max-width:680px">One of the most technically demanding artefacts on this engagement - designing and presenting a Role-Based Access Control hierarchy that could govern access for multiple distinct user categories, each with configurable roles, modules, and permissions. This was architected, documented, and presented to the PEN team for sign-off before any development began.</p>
+
+    <div class="rbac-diagram">
+      <div class="rbac-tree">
+        <!-- Root -->
+        <div class="rbac-level">
+          <div class="rbac-node root">
+            <div class="rbac-node-label">Platform Level</div>
+            <div class="rbac-node-name">educateU System</div>
+            <div class="rbac-node-sub">All user categories</div>
+          </div>
+        </div>
+        <div class="rbac-connector"></div>
+
+        <!-- Categories -->
+        <div class="rbac-level" style="gap:40px">
+          <div class="rbac-node admin-node">
+            <div class="rbac-node-label">Category</div>
+            <div class="rbac-node-name">Admin</div>
+            <div class="rbac-node-sub">Platform management</div>
+          </div>
+          <div class="rbac-node admin-node">
+            <div class="rbac-node-label">Category</div>
+            <div class="rbac-node-name">Agent</div>
+            <div class="rbac-node-sub">Commercial network</div>
+          </div>
+          <div class="rbac-node admin-node">
+            <div class="rbac-node-label">Category</div>
+            <div class="rbac-node-name">Student</div>
+            <div class="rbac-node-sub">Learner access</div>
+          </div>
+          <div class="rbac-node admin-node">
+            <div class="rbac-node-label">Category</div>
+            <div class="rbac-node-name">Admission Officer</div>
+            <div class="rbac-node-sub">Institutional access</div>
+          </div>
+        </div>
+        <div class="rbac-connector"></div>
+
+        <!-- Roles -->
+        <div class="rbac-level" style="gap:20px">
+          <div class="rbac-node role-node">
+            <div class="rbac-node-label">Role Example</div>
+            <div class="rbac-node-name">HR Manager</div>
+          </div>
+          <div class="rbac-node role-node">
+            <div class="rbac-node-label">Role Example</div>
+            <div class="rbac-node-name">Account Manager</div>
+          </div>
+          <div class="rbac-node role-node">
+            <div class="rbac-node-label">Role Example</div>
+            <div class="rbac-node-name">Senior Agent</div>
+          </div>
+          <div class="rbac-node role-node">
+            <div class="rbac-node-label">Role Example</div>
+            <div class="rbac-node-name">Admission Lead</div>
+          </div>
+          <div class="rbac-node role-node">
+            <div class="rbac-node-label">Role Example</div>
+            <div class="rbac-node-name">Support Officer</div>
+          </div>
+        </div>
+        <div class="rbac-connector"></div>
+
+        <!-- Modules -->
+        <div class="rbac-level" style="gap:14px">
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">User Mgmt</div></div>
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">Course Mgmt</div></div>
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">Applications</div></div>
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">Commission</div></div>
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">Reporting</div></div>
+          <div class="rbac-node module-node"><div class="rbac-node-label">Module</div><div class="rbac-node-name">Temp Access</div></div>
+        </div>
+        <div class="rbac-connector"></div>
+
+        <!-- Users -->
+        <div class="rbac-level" style="gap:20px">
+          <div class="rbac-node user-node"><div class="rbac-node-label">User</div><div class="rbac-node-name">EU-AC-4821-0526</div><div class="rbac-node-sub">Assigned role + modules</div></div>
+          <div class="rbac-node user-node"><div class="rbac-node-label">User</div><div class="rbac-node-name">EU-AC-3312-0326</div><div class="rbac-node-sub">Cross-category access possible</div></div>
+          <div class="rbac-node user-node"><div class="rbac-node-label">User</div><div class="rbac-node-name">EU-AC-7754-0426</div><div class="rbac-node-sub">Temporary override available</div></div>
+        </div>
+      </div>
+      <div class="rbac-note">Admin can grant any user cross-category module access - but the user must first be registered to that category. Temporary access grants expire automatically.</div>
+    </div>
+    <div class="rbac-scroll-hint">← Swipe to explore the full architecture →</div>
+    </div>
+
+    <div class="rbac-explainer">
+      <div class="rbac-exp-card l1 fade-up">
+        <div class="rbac-exp-num">LEVEL 1 - CATEGORY</div>
+        <div class="rbac-exp-title">User Categories</div>
+        <div class="rbac-exp-desc">Every registered user belongs to a category (Admin, Agent, Student, Officer). Category determines which modules are available by default.</div>
+      </div>
+      <div class="rbac-exp-card l2 fade-up">
+        <div class="rbac-exp-num">LEVEL 2 - ROLE</div>
+        <div class="rbac-exp-title">Configurable Roles</div>
+        <div class="rbac-exp-desc">Within each category, the Admin creates roles (e.g. HR Manager, Senior Agent). Roles group sets of module permissions that apply to assigned users.</div>
+      </div>
+      <div class="rbac-exp-card l3 fade-up">
+        <div class="rbac-exp-num">LEVEL 3 - MODULE</div>
+        <div class="rbac-exp-title">Module Permissions</div>
+        <div class="rbac-exp-desc">Roles are granted access to specific modules. Admin can assign any module within the registered category - or grant cross-category access as needed.</div>
+      </div>
+      <div class="rbac-exp-card l4 fade-up">
+        <div class="rbac-exp-num">LEVEL 4 - USER</div>
+        <div class="rbac-exp-title">Individual Access</div>
+        <div class="rbac-exp-desc">Each user inherits permissions from their assigned role. Temporary access overrides are time-limited and expire automatically without admin intervention.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY TIMELINE -->
+<div class="timeline-section">
+  <div class="timeline-inner">
+    <div class="section-label teal">Delivery Timeline</div>
+    <h2>From contract to platform - structured weekly delivery</h2>
+    <div class="timeline" id="deliveryTimeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">✍️</div>
+        <div class="timeline-content">
+          <div class="timeline-tag agreement">Agreement</div>
+          <div class="timeline-date">07 October 2024</div>
+          <div class="timeline-title">Contract Signed - PEN and Arbree Limited</div>
+          <div class="timeline-desc">Planet Education Network and Arbree Limited formally signed the project development contract. Arbree began working on PRD preparation for every module immediately.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🚀</div>
+        <div class="timeline-content">
+          <div class="timeline-tag milestone">Milestone 1</div>
+          <div class="timeline-date">10 October - 15 December 2024</div>
+          <div class="timeline-title">Inception - Requirements, Architecture & UI/UX Design</div>
+          <div class="timeline-desc">Full requirements analysis, UI/UX design variations, system architecture design, database schema design. Introduction meeting with PEN held 25 October. PRDs shared with client. Figma collaboration established.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">⚙️</div>
+        <div class="timeline-content">
+          <div class="timeline-tag milestone">Milestone 2</div>
+          <div class="timeline-date">16 December 2024 - 14 January 2025</div>
+          <div class="timeline-title">Project Setup - Infrastructure, Authentication & User Management</div>
+          <div class="timeline-desc">Pipeline and deployment setup, AWS infrastructure provisioning, user registration and login, admin user management, and role and permissions setup. RBAC architecture reviewed and signed off.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🏗️</div>
+        <div class="timeline-content">
+          <div class="timeline-tag milestone">Milestone 3</div>
+          <div class="timeline-date">15 January - 25 February 2025</div>
+          <div class="timeline-title">Agent Onboarding - Portal, Applications & Course Management</div>
+          <div class="timeline-desc">Agent portal development, application lifecycle management, admission officer journey, business development management module, course creation and management functionality.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🔍</div>
+        <div class="timeline-content">
+          <div class="timeline-tag delivery">UAT</div>
+          <div class="timeline-date">Ongoing - February 2025+</div>
+          <div class="timeline-title">UAT, Defect Tracking & Business Sign-off</div>
+          <div class="timeline-desc">Structured UAT findings documented across User Management, Role Management, MFA, Security Requirements, and Temporary Access modules. Severity and priority classification applied. Defects tracked and resolved iteratively.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UAT SECTION -->
+<div class="uat-section">
+  <div class="uat-inner">
+    <div class="section-label">UAT Artefact Sample</div>
+    <h2>Structured testing across <em style="color:var(--lavender-light)">every module</em></h2>
+    <p style="color:rgba(255,255,255,.55);max-width:600px;margin-bottom:0">The following is a sample from the UAT Findings document - showing the structured severity, priority, and current vs expected behaviour format applied across all tested modules.</p>
+    <div class="uat-table-wrap">
+      <table class="uat-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Module</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Severity</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="uat-id">UAT-03</span></td>
+            <td><span class="uat-module">User Mgmt / Sign In</span></td>
+            <td style="color:rgba(255,255,255,.6)">Functional Bug</td>
+            <td>Username is case sensitive on login - should be case-insensitive for all users</td>
+            <td><span class="sev-critical">Critical</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="uat-id">UAT-05</span></td>
+            <td><span class="uat-module">User Mgmt / MFA</span></td>
+            <td style="color:rgba(255,255,255,.6)">Enhancement</td>
+            <td>MFA re-authentication interval should be 15 minutes per session, not 24 hours - logout and re-login before interval should not re-prompt OTP</td>
+            <td><span class="sev-high">High</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="uat-id">UAT-07</span></td>
+            <td><span class="uat-module">Security Requirements</span></td>
+            <td style="color:rgba(255,255,255,.6)">Flow Issue</td>
+            <td>Login attempt from a third device should trigger a security alert email to the user - no notification is currently sent</td>
+            <td><span class="sev-high">High</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="uat-id">UAT-08</span></td>
+            <td><span class="uat-module">Security Requirements</span></td>
+            <td style="color:rgba(255,255,255,.6)">Flow Issue</td>
+            <td>User should be prompted to terminate an existing session when a third device is detected - only 2 active sessions should be allowed across separate devices</td>
+            <td><span class="sev-high">High</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="uat-id">UAT-12</span></td>
+            <td><span class="uat-module">Temporary Access</span></td>
+            <td style="color:rgba(255,255,255,.6)">Functional Bug</td>
+            <td>User only sees new modules after a hard browser refresh - system should force automatic profile refresh once access changes are made</td>
+            <td><span class="sev-critical">Critical</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="uat-id">UAT-01</span></td>
+            <td><span class="uat-module">Role Management</span></td>
+            <td style="color:rgba(255,255,255,.6)">Flow Issue</td>
+            <td>Created roles should be expandable to show users assigned to them - roles currently cannot be expanded in the role list view</td>
+            <td><span class="sev-high">High</span></td>
+            <td><span class="sev-high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="uat-note">Sample from User Management UAT findings. Full UAT documentation covered Role Management, MFA, Security Requirements, Temporary Access, and additional modules with 14+ structured findings in User Management alone.</div>
+  </div>
+</div>
+
+<!-- OUTCOMES -->
+<div class="outcomes-section">
+  <div class="outcomes-inner">
+    <div class="section-label">Outcomes & Impact</div>
+    <h2>From blank page to live accredited platform</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">4<em></em></div>
+        <div class="outcome-label">Distinct User Portals Delivered</div>
+        <div class="outcome-desc">Admin, Agent, Student, and Admission Officer portals - each requirements-engineered independently with separate PRDs, user stories, and UAT scenarios, then unified under a single RBAC framework.</div>
+      </div>
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">10<em>+</em></div>
+        <div class="outcome-label">Modules with Full PRDs</div>
+        <div class="outcome-desc">User Management, Role Management, Agent Portal, Application Lifecycle, Course Management, Commission Management, Admission Journey, Business Development, Reporting, and Security - each with formal requirements documentation.</div>
+      </div>
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">CPD<em></em></div>
+        <div class="outcome-label">and BSC Accredited at Launch</div>
+        <div class="outcome-desc">Platform launched with CPD and BSC accreditation - positioning educateU as a credentialed global compliance learning provider serving UK and international professional development markets.</div>
+      </div>
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">14<em>+</em></div>
+        <div class="outcome-label">UAT Findings Documented</div>
+        <div class="outcome-desc">Structured UAT findings across User Management alone - with severity, priority, current behaviour, and expected behaviour classification. Full coverage across all tested modules before business sign-off.</div>
+      </div>
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">4<em>L</em></div>
+        <div class="outcome-label">RBAC Hierarchy Designed</div>
+        <div class="outcome-desc">Category, Role, Module, and User - a four-level access control architecture designed from requirements analysis, presented to PEN stakeholders for sign-off, and implemented as the platform's security backbone.</div>
+      </div>
+      <div class="outcome-card fade-up">
+        <div class="outcome-num">🌍<em></em></div>
+        <div class="outcome-label">Live Global Platform</div>
+        <div class="outcome-desc">educateU is live at educateu.com, serving UK and global learners with CPD-accredited compliance courses in Fire Safety, Data Protection, Health and Safety, Equality and Diversity, Mental Health, and more.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools & Methods</div>
+    <div class="tools-grid">
+      <span class="tool-cat">BA Artefacts</span>
+      <div class="tool-badge"><span class="tool-icon">📄</span><span>Product Requirement Documents (PRDs)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📖</span><span>User Stories</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔐</span><span>RBAC Architecture Design</span></div>
+      <div class="tool-badge"><span class="tool-icon">✅</span><span>UAT Findings Documentation</span></div>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Milestone Progress Tracking</span></div>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>Weekly Status Reports</span></div>
+      <span class="tool-cat">Design & Collaboration</span>
+      <div class="tool-badge"><span class="tool-icon">🎨</span><span>Figma (Design Collaboration)</span></div>
+      <div class="tool-badge"><span class="tool-icon">💻</span><span>GitHub</span></div>
+      <div class="tool-badge"><span class="tool-icon">📁</span><span>Google Drive</span></div>
+      <span class="tool-cat">Platform & Infrastructure</span>
+      <div class="tool-badge"><span class="tool-icon">☁️</span><span>AWS (S3 + RDS)</span></div>
+      <div class="tool-badge"><span class="tool-icon">🗄️</span><span>Amazon RDS (Database)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📦</span><span>Amazon S3 (Static Assets)</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sadman Ishraq Mohiuddin - Senior Business Analyst - Montreal, QC, Canada</p>
+  <div class="footer-links">
+    <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">- All Case Studies</a>
+    <a href="https://www.educateu.com" target="_blank">educateU Live -></a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// FADE UP
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+// TIMELINE STAGGER
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const items = e.target.querySelectorAll('.timeline-item');
+    items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 180));
+    tlObs.unobserve(e.target);
+  });
+}, {threshold: 0.1});
+const tl = document.getElementById('deliveryTimeline');
+if (tl) tlObs.observe(tl);
+</script>
+</body>
+</html>
