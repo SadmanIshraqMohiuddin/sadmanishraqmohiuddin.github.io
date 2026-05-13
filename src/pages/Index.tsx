@@ -181,35 +181,31 @@ export default function Index() {
 
       {/* Capabilities */}
       <Section
+        dark
         eyebrow="Core capabilities"
         title="Where business analysis meets operations strategy"
         intro="Disciplined requirements engineering, operational analytics, and enterprise system delivery - applied across financial services, government, healthcare, energy, and platform businesses."
       >
-        <div className="grid gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12 md:divide-x md:divide-border">
-          {capabilities.map((cap, idx) => {
-            const accents = [
-              "bg-primary",
-              "bg-navy",
-              "bg-[hsl(200_85%_45%)]",
-              "bg-[hsl(160_70%_38%)]",
-            ];
+        <div className="grid gap-12 md:grid-cols-2 md:gap-x-16">
+          {capabilities.map((cap) => {
+            const meta: Record<string, { icon: string; accent: string }> = {
+              "Business Analysis & Requirements": { icon: "📋", accent: "hsl(45 90% 60%)" },
+              "Operations & Strategy": { icon: "⚙️", accent: "hsl(25 90% 58%)" },
+              "Data & Tools": { icon: "📊", accent: "hsl(140 60% 55%)" },
+              "Enterprise Technology": { icon: "☁️", accent: "hsl(200 85% 60%)" },
+            };
+            const m = meta[cap.group] ?? { icon: "•", accent: "hsl(var(--primary-foreground))" };
             return (
-              <div
-                key={cap.group}
-                className={`bg-background ${idx % 2 === 1 ? "md:pl-12" : ""} ${idx >= 2 ? "md:pt-2" : ""}`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    aria-hidden
-                    className={`inline-block h-2.5 w-8 rounded-full ${accents[idx % accents.length]}`}
-                  />
-                  <h3 className="font-display text-lg tracking-tight">{cap.group}</h3>
+              <div key={cap.group}>
+                <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: m.accent }}>
+                  <span aria-hidden className="text-lg leading-none">{m.icon}</span>
+                  <h3 className="font-display text-lg tracking-tight text-white">{cap.group}</h3>
                 </div>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {cap.items.map((it) => (
                     <li
                       key={it}
-                      className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:border-primary hover:text-primary"
+                      className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/85 transition-colors hover:bg-white/10 hover:border-white/30"
                     >
                       {it}
                     </li>
