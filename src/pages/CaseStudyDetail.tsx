@@ -15,6 +15,7 @@ export default function CaseStudyDetail() {
     "efdms": "/embedded/efdms.html",
     "aamar-pharma": "/embedded/aamar-pharma.html",
     "exxonmobil-engineering": "/embedded/exxonmobil-engineering.html",
+    "solargao": "/embedded/solargao.html",
   };
   if (slug && embeddedPages[slug]) {
     return (
