@@ -7,7 +7,7 @@ export default function Certifications() {
     <>
       <SEO
         title="Certifications & Education | Sadman Ishraq Mohiuddin"
-        description="Professional certifications, education, languages, honors, and publications — including Google Data Analytics, CCBA training, and a BEng (Hons) in Aerospace Engineering from Queen Mary, University of London."
+        description="Professional certifications, education, languages, honors, and publications - including Google Data Analytics, CCBA training, and a BEng (Hons) in Aerospace Engineering from Queen Mary, University of London."
         path="/certifications"
       />
 

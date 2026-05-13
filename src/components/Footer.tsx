@@ -9,7 +9,7 @@ export default function Footer() {
         <div>
           <p className="font-display text-xl tracking-tight">{profile.name}</p>
           <p className="mt-2 text-sm text-navy-foreground/70 leading-relaxed">
-            Senior Business Analyst & Operations Strategy Professional —
+            Senior Business Analyst & Operations Strategy Professional -
             enterprise transformation, requirements engineering, and platform delivery.
           </p>
         </div>

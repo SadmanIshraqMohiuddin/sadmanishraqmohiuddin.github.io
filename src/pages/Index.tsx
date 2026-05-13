@@ -183,7 +183,7 @@ export default function Index() {
       <Section
         eyebrow="Core capabilities"
         title="Where business analysis meets operations strategy"
-        intro="Disciplined requirements engineering, operational analytics, and enterprise system delivery — applied across financial services, government, healthcare, energy, and platform businesses."
+        intro="Disciplined requirements engineering, operational analytics, and enterprise system delivery - applied across financial services, government, healthcare, energy, and platform businesses."
       >
         <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
           {capabilities.map((cap) => (
