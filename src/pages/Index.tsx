@@ -185,17 +185,39 @@ export default function Index() {
         title="Where business analysis meets operations strategy"
         intro="Disciplined requirements engineering, operational analytics, and enterprise system delivery - applied across financial services, government, healthcare, energy, and platform businesses."
       >
-        <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4">
-          {capabilities.map((cap) => (
-            <div key={cap.group} className="bg-background p-8">
-              <h3 className="font-display text-lg tracking-tight">{cap.group}</h3>
-              <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
-                {cap.items.map((it) => (
-                  <li key={it} className="leading-relaxed">{it}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="grid gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12 md:divide-x md:divide-border">
+          {capabilities.map((cap, idx) => {
+            const accents = [
+              "bg-primary",
+              "bg-navy",
+              "bg-[hsl(200_85%_45%)]",
+              "bg-[hsl(160_70%_38%)]",
+            ];
+            return (
+              <div
+                key={cap.group}
+                className={`bg-background ${idx % 2 === 1 ? "md:pl-12" : ""} ${idx >= 2 ? "md:pt-2" : ""}`}
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden
+                    className={`inline-block h-2.5 w-8 rounded-full ${accents[idx % accents.length]}`}
+                  />
+                  <h3 className="font-display text-lg tracking-tight">{cap.group}</h3>
+                </div>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {cap.items.map((it) => (
+                    <li
+                      key={it}
+                      className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:border-primary hover:text-primary"
+                    >
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </Section>
 
