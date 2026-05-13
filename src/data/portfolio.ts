@@ -371,6 +371,31 @@ export const caseStudies: CaseStudy[] = [
       "Enterprise platform requirements",
     ],
   },
+  {
+    slug: "educateu",
+    title: "Enterprise EdTech LMS — educateU",
+    sector: "EdTech · Platform Delivery",
+    context:
+      "Enterprise learning management system delivery for educateU, supporting course delivery, learner engagement, and institutional administration.",
+    challenge:
+      "Deliver a scalable LMS platform meeting enterprise EdTech requirements across learners, instructors, and administrators.",
+    role: "Lead delivery and requirements across the LMS platform build.",
+    actions: [
+      "Defined platform requirements across learner, instructor, and admin workflows.",
+      "Coordinated engineering, design, and stakeholder teams through delivery milestones.",
+      "Established analytics and engagement tracking for course performance.",
+    ],
+    tools: ["LMS architecture", "Requirements engineering", "Analytics"],
+    outcomes: [
+      "Delivered an enterprise-grade LMS platform supporting institutional learning programs.",
+    ],
+    skills: [
+      "Platform delivery",
+      "Requirements engineering",
+      "EdTech product",
+      "Stakeholder coordination",
+    ],
+  },
 ];
 
 export const capabilities = [
