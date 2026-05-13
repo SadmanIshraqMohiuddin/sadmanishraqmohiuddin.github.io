@@ -5,7 +5,7 @@ export default function Experience() {
   return (
     <>
       <SEO
-        title="Experience | Sadman Ishraq Mohiuddin — Senior Business Analyst"
+        title="Experience | Sadman Ishraq Mohiuddin - Senior Business Analyst"
         description="Senior Business Analyst experience across enterprise cloud transformation, government fiscal platforms, healthcare logistics, renewable energy infrastructure, and global engineering at ExxonMobil."
         path="/experience"
       />
@@ -18,7 +18,7 @@ export default function Experience() {
           </h1>
           <p className="mt-8 max-w-3xl text-lg text-white/75 leading-relaxed text-balance">
             From standards-driven mechanical engineering at ExxonMobil to leading business analysis on a Canadian
-            enterprise cloud transformation — every role has reinforced the same discipline: rigorous requirements,
+            enterprise cloud transformation - every role has reinforced the same discipline: rigorous requirements,
             structured delivery, and measurable outcomes.
           </p>
         </div>

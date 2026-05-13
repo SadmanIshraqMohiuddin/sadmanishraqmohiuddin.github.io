@@ -31,7 +31,7 @@ export default function CaseStudyDetail() {
   return (
     <>
       <SEO
-        title={`${study.title} | Case Study — Sadman Ishraq Mohiuddin`}
+        title={`${study.title} | Case Study - Sadman Ishraq Mohiuddin`}
         description={study.context.slice(0, 160)}
         path={`/case-studies/${study.slug}`}
       />

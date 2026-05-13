@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IFRS Compliance Intelligence Agent — Sadman Ishraq Mohiuddin</title>
+<title>IFRS Compliance Intelligence Agent - Sadman Ishraq Mohiuddin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
@@ -68,7 +68,7 @@ h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);lin
 .phase-card h4{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:12px;font-family:var(--serif)}
 .phase-card ul{list-style:none;padding:0}
 .phase-card li{font-size:13px;color:var(--text-mid);padding:4px 0 4px 14px;position:relative}
-.phase-card li::before{content:'—';position:absolute;left:0;color:var(--teal);font-size:11px;top:5px}
+.phase-card li::before{content:'-';position:absolute;left:0;color:var(--teal);font-size:11px;top:5px}
 .demo-section{background:var(--navy);padding:80px 0}
 .demo-inner{max-width:1200px;margin:0 auto;padding:0 64px}
 .demo-inner .section-label{color:var(--gold-light)}
@@ -420,8 +420,8 @@ mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{primaryColor:'
 
 const scenarios=[
   {query:"How should a lessee recognise a right-of-use asset at commencement date?",confidence:94,memo:"At the commencement date, a lessee shall recognise a right-of-use (ROU) asset and a lease liability. The ROU asset is measured at cost, comprising: the initial measurement of the lease liability; any lease payments made at or before commencement, less any lease incentives received; initial direct costs incurred by the lessee; and an estimate of costs to dismantle or restore the underlying asset per IAS 37.",citations:["IFRS 16.22","IFRS 16.23","IFRS 16.24","IFRS 16.25","IFRS 16.26","IAS 37.10","IAS 16.6"]},
-  {query:"What factors determine the appropriate discount rate for a lease liability?",confidence:91,memo:"The lease liability shall be measured at the present value of lease payments not yet paid, discounted using the interest rate implicit in the lease. If that rate cannot be readily determined, the lessee shall use its incremental borrowing rate — the rate it would pay to borrow over a similar term, with similar security, the funds necessary to obtain a similar asset in a similar economic environment.",citations:["IFRS 16.26","IFRS 16.27","IFRS 16.41","IFRS 16.43","IFRS 16.45(c)","IFRS 16.B33","IFRS 16.B34","IFRS 16.B37","IAS 37.10","IAS 36.9"]},
-  {query:"How do we assess whether a short-term lease exemption can be applied?",confidence:79,memo:"A lessee may elect not to apply IFRS 16 recognition requirements to short-term leases — those with a lease term of 12 months or less at the commencement date. This election must be made by class of underlying asset. If elected, the lessee shall recognise lease payments as an expense on a straight-line basis over the lease term.",citations:["IFRS 16.5(a)","IFRS 16.6","IFRS 16.B34","IFRS 16.B35"]}
+  {query:"What factors determine the appropriate discount rate for a lease liability?",confidence:91,memo:"The lease liability shall be measured at the present value of lease payments not yet paid, discounted using the interest rate implicit in the lease. If that rate cannot be readily determined, the lessee shall use its incremental borrowing rate - the rate it would pay to borrow over a similar term, with similar security, the funds necessary to obtain a similar asset in a similar economic environment.",citations:["IFRS 16.26","IFRS 16.27","IFRS 16.41","IFRS 16.43","IFRS 16.45(c)","IFRS 16.B33","IFRS 16.B34","IFRS 16.B37","IAS 37.10","IAS 36.9"]},
+  {query:"How do we assess whether a short-term lease exemption can be applied?",confidence:79,memo:"A lessee may elect not to apply IFRS 16 recognition requirements to short-term leases - those with a lease term of 12 months or less at the commencement date. This election must be made by class of underlying asset. If elected, the lessee shall recognise lease payments as an expense on a straight-line basis over the lease term.",citations:["IFRS 16.5(a)","IFRS 16.6","IFRS 16.B34","IFRS 16.B35"]}
 ];
 
 let currentIdx=0,isRunning=false;

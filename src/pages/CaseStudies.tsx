@@ -6,7 +6,7 @@ export default function CaseStudies() {
   return (
     <>
       <SEO
-        title="Case Studies | Sadman Ishraq Mohiuddin — Senior Business Analyst"
+        title="Case Studies | Sadman Ishraq Mohiuddin - Senior Business Analyst"
         description="Detailed case studies covering enterprise cloud transformation, national fiscal compliance platforms, healthcare logistics, renewable energy infrastructure, and AI-enabled accounting research."
         path="/case-studies"
       />
@@ -19,7 +19,7 @@ export default function CaseStudies() {
           </h1>
           <p className="mt-8 max-w-3xl text-lg text-white/75 leading-relaxed text-balance">
             Each case study is presented in a consulting format: context, challenge, role, actions, tools,
-            and measurable outcomes — to make the value clear at a glance.
+            and measurable outcomes - to make the value clear at a glance.
           </p>
 
           <ul className="mt-10 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">

@@ -9,7 +9,7 @@ export const profile = {
   headline:
     "Senior Business Analyst & Operations Strategy Professional",
   subheadline:
-    "I help organizations translate complex operational challenges into structured requirements, scalable platforms, improved processes, and measurable business outcomes — across enterprise technology, cloud transformation, data analytics, and platform operations.",
+    "I help organizations translate complex operational challenges into structured requirements, scalable platforms, improved processes, and measurable business outcomes - across enterprise technology, cloud transformation, data analytics, and platform operations.",
   positioning:
     "Enterprise Systems · Process Improvement · Data Analytics · Requirements Engineering · Cloud Transformation · Platform Operations",
 };
@@ -40,7 +40,7 @@ export const experiences: Experience[] = [
     company: "AANNEX SOLUTION INC",
     role: "Senior Business Analyst",
     location: "Canada & Bangladesh",
-    period: "Oct 2025 — Present",
+    period: "Oct 2025 - Present",
     summary:
       "Lead end-to-end business analysis and requirements engineering for a large-scale enterprise cloud transformation program at a major Canadian financial institution, supporting modernization initiatives impacting approximately 30,000 users.",
     highlights: [
@@ -57,7 +57,7 @@ export const experiences: Experience[] = [
     company: "ARBREE LIMITED",
     role: "Senior Business Analyst",
     location: "Dhaka, Bangladesh",
-    period: "Mar 2022 — Oct 2025",
+    period: "Mar 2022 - Oct 2025",
     summary:
       "Led business analysis, requirements engineering, and stakeholder management across enterprise software platforms spanning banking, fintech, healthcare, government, EV infrastructure, logistics, and e-commerce.",
     highlights: [
@@ -74,18 +74,18 @@ export const experiences: Experience[] = [
     company: "Aamar Pharma Limited",
     role: "Head of Operations & Strategy",
     location: "Dhaka, Bangladesh",
-    period: "Jul 2022 — Jan 2024",
+    period: "Jul 2022 - Jan 2024",
     summary:
       "Led operations and platform development for a digital healthcare logistics startup, supporting 14,000+ completed orders, ~$150K cumulative revenue, and ~70% customer retention through an aggregated pharmacy delivery platform.",
     highlights: [
       "Drove ~43% average YoY revenue growth (2021–2023) through operational improvements, partner expansion, and platform scaling.",
       "Contributed to ~48% average YoY customer growth, expanding the active base to 526+ customers across the Dhaka service area.",
-      "Built Excel-based forecasting and demand projection models — scenario modelling, sensitivity analysis — to evaluate pricing, unit economics, and pharmacy network expansion.",
+      "Built Excel-based forecasting and demand projection models - scenario modelling, sensitivity analysis - to evaluate pricing, unit economics, and pharmacy network expansion.",
       "Developed Power BI dashboards monitoring order volumes, medicine demand trends, delivery performance, and customer activity.",
       "Used SQL and Excel KPI tracking to optimize pharmacy sourcing and fulfillment workflows.",
       "Captured 23+ structured operational data points per order, enabling data-driven decision making and logistics optimization.",
       "Built and managed a 40+ partner pharmacy network, enabling a distributed asset-light inventory model.",
-      "Achieved ~74-minute average delivery time — ~18% faster than the 90-minute SLA.",
+      "Achieved ~74-minute average delivery time - ~18% faster than the 90-minute SLA.",
       "Designed end-to-end fulfillment: order intake, prescription verification, pharmacy sourcing, dispatch, and last-mile logistics.",
       "Contributed to proprietary OMS, B2C ordering platform, and early B2B integrations.",
     ],
@@ -95,7 +95,7 @@ export const experiences: Experience[] = [
     company: "ARBREE LIMITED",
     role: "Business Analyst & QA Lead",
     location: "Kuwait & Bangladesh",
-    period: "Oct 2020 — Mar 2022",
+    period: "Oct 2020 - Mar 2022",
     summary:
       "Led requirements engineering and stakeholder workshops for enterprise software platforms across healthcare, logistics, fintech, and real estate sectors.",
     highlights: [
@@ -112,9 +112,9 @@ export const experiences: Experience[] = [
     company: "Solargao Limited",
     role: "Engineering Team Lead",
     location: "Dhaka, Bangladesh",
-    period: "Mar 2020 — Aug 2020",
+    period: "Mar 2020 - Aug 2020",
     summary:
-      "Led a multidisciplinary engineering and field operations team of ~200 personnel deploying over 18 MW of solar infrastructure across Bangladesh — spanning 247 solar sites and nearly 800 solar-powered irrigation systems.",
+      "Led a multidisciplinary engineering and field operations team of ~200 personnel deploying over 18 MW of solar infrastructure across Bangladesh - spanning 247 solar sites and nearly 800 solar-powered irrigation systems.",
     highlights: [
       "Analyzed rural energy access gaps, irrigation demand, and solar deployment patterns to support implementation strategies for renewable energy adoption.",
       "Supported the rollout of agent banking and mobile financial services with the Asian Development Bank (ADB), enabling microloans for solar-powered irrigation.",
@@ -128,7 +128,7 @@ export const experiences: Experience[] = [
     company: "ARBREE LIMITED",
     role: "Business Analyst",
     location: "Dhaka, Bangladesh",
-    period: "Apr 2018 — Feb 2020",
+    period: "Apr 2018 - Feb 2020",
     summary:
       "Conducted business analysis and requirements engineering for digital platforms across healthcare, fintech, logistics, and real estate.",
     highlights: [
@@ -145,7 +145,7 @@ export const experiences: Experience[] = [
     company: "ARBREE LIMITED",
     role: "Digital Solutions Analyst",
     location: "Bangladesh & United Kingdom",
-    period: "Nov 2016 — Mar 2018",
+    period: "Nov 2016 - Mar 2018",
     summary:
       "Conducted market research, competitive analysis, and early product discovery for digital platform concepts.",
     highlights: [
@@ -161,7 +161,7 @@ export const experiences: Experience[] = [
     company: "ExxonMobil Corporation",
     role: "Mechanical Engineer (Fixed Equipment)",
     location: "Kuala Lumpur",
-    period: "Sep 2015 — Sep 2016",
+    period: "Sep 2015 - Sep 2016",
     summary:
       "Delivered engineering analysis and reliability work across 40+ global ExxonMobil refinery and chemical sites, contributing to a $3M refinery retrofit project delivered ~$50K under budget.",
     highlights: [
@@ -183,7 +183,7 @@ export const experiences: Experience[] = [
     highlights: [
       "Led training and operational planning for cadet teams.",
       "Coordinated community service initiatives with the People's Association Youth Movement (PAYM).",
-      "Coordinated training in navigation, reconnaissance, endurance conditioning, and expedition planning — building discipline and team coordination.",
+      "Coordinated training in navigation, reconnaissance, endurance conditioning, and expedition planning - building discipline and team coordination.",
     ],
   },
 ];
@@ -209,7 +209,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "Large-scale cloud and collaboration platform modernization at a major Canadian financial institution serving approximately 30,000 users.",
     challenge:
-      "Migrate a complex legacy estate — Exchange, multi-tier on-premise applications, and Oracle workloads — onto Microsoft 365 and Azure while maintaining enterprise security, regulatory alignment, and cost discipline.",
+      "Migrate a complex legacy estate - Exchange, multi-tier on-premise applications, and Oracle workloads - onto Microsoft 365 and Azure while maintaining enterprise security, regulatory alignment, and cost discipline.",
     role: "Senior Business Analyst leading requirements engineering, stakeholder discovery, and enterprise architecture documentation.",
     actions: [
       "Facilitated discovery and elicitation workshops with cloud engineering, DevOps, infrastructure, security, and enterprise architecture teams.",
@@ -238,7 +238,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "National government fiscal compliance platform connecting retail outlets to a centralized device and transaction management infrastructure.",
     challenge:
-      "Deliver a platform supporting 30,000+ retail outlets day-one, with an architecture engineered to scale to 600,000+ devices nationwide — coordinating government stakeholders, vendors, and engineering teams.",
+      "Deliver a platform supporting 30,000+ retail outlets day-one, with an architecture engineered to scale to 600,000+ devices nationwide - coordinating government stakeholders, vendors, and engineering teams.",
     role: "Senior Business Analyst owning requirements management, stakeholder coordination, and delivery oversight.",
     actions: [
       "Captured business and system requirements across compliance, device lifecycle, and reporting workflows.",
@@ -261,12 +261,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "aamar-pharma",
-    title: "Digital Healthcare Logistics Platform — Aamar Pharma",
+    title: "Digital Healthcare Logistics Platform - Aamar Pharma",
     sector: "Healthcare Logistics · Startup",
     context:
       "Aggregated pharmacy delivery platform connecting customers, partner pharmacies, and dispatch operations across Dhaka.",
     challenge:
-      "Scale a healthcare logistics platform with reliable delivery performance, predictable unit economics, and strong customer retention — without owning inventory.",
+      "Scale a healthcare logistics platform with reliable delivery performance, predictable unit economics, and strong customer retention - without owning inventory.",
     role: "Head of Operations & Strategy leading platform operations, analytics, and partner network growth.",
     actions: [
       "Designed end-to-end fulfillment: order intake, prescription verification, pharmacy sourcing, dispatch, and last-mile delivery.",
@@ -291,7 +291,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "solargao",
-    title: "Renewable Energy Infrastructure Deployment — Solargao",
+    title: "Renewable Energy Infrastructure Deployment - Solargao",
     sector: "Renewable Energy · Rural Infrastructure",
     context:
       "Solar infrastructure deployment program across Bangladesh, supporting rural electrification, irrigation, and livelihood improvement initiatives.",
@@ -324,7 +324,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "Engineering analysis and operational reliability across 40+ global ExxonMobil refinery and chemical sites.",
     challenge:
-      "Provide standardized, code-compliant engineering analysis and reliability insight at global scale — including support for a $3M refinery retrofit project.",
+      "Provide standardized, code-compliant engineering analysis and reliability insight at global scale - including support for a $3M refinery retrofit project.",
     role: "Mechanical Engineer (Fixed Equipment) within the global engineering organization.",
     actions: [
       "Performed piping integrity, flow restriction, vibration, and fatigue analysis for SCANfining™ process units.",
@@ -373,7 +373,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "educateu",
-    title: "Enterprise EdTech LMS — educateU",
+    title: "Enterprise EdTech LMS - educateU",
     sector: "EdTech · Platform Delivery",
     context:
       "Enterprise learning management system delivery for educateU, supporting course delivery, learner engagement, and institutional administration.",
@@ -442,10 +442,10 @@ export const capabilities = [
 ];
 
 export const certifications = [
-  "Google Data Analytics Professional Certificate — Share Data Through the Art of Visualization",
-  "CCBA® (Certification of Capability in Business Analysis) — Certification Training",
+  "Google Data Analytics Professional Certificate - Share Data Through the Art of Visualization",
+  "CCBA® (Certification of Capability in Business Analysis) - Certification Training",
   "Electric Industry Operations and Markets",
-  "Excel Skills for Business — Intermediate I",
+  "Excel Skills for Business - Intermediate I",
   "Introduction to Programming Using Python",
 ];
 
@@ -453,17 +453,17 @@ export const education = [
   {
     school: "Queen Mary, University of London",
     detail: "Bachelor of Engineering with Honours (BEng), Aerospace Engineering",
-    period: "2012 — 2015",
+    period: "2012 - 2015",
   },
   {
     school: "Academia School Dhaka",
-    detail: "A-Levels — Physics, Mathematics, Further Mathematics",
-    period: "2010 — 2012",
+    detail: "A-Levels - Physics, Mathematics, Further Mathematics",
+    period: "2010 - 2012",
   },
   {
     school: "Deyi Secondary School, Singapore",
     detail: "Cambridge O-Levels",
-    period: "2006 — 2009",
+    period: "2006 - 2009",
   },
 ];
 

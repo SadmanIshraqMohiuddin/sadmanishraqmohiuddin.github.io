@@ -51,7 +51,7 @@ export default function Contact() {
       toast({
         title: "Message received",
         description:
-          "Thank you — your message has been recorded and will reach Sadman shortly.",
+          "Thank you - your message has been recorded and will reach Sadman shortly.",
       });
       reset();
     } catch (err) {
@@ -70,7 +70,7 @@ export default function Contact() {
   return (
     <>
       <SEO
-        title="Contact | Sadman Ishraq Mohiuddin — Senior Business Analyst"
+        title="Contact | Sadman Ishraq Mohiuddin - Senior Business Analyst"
         description="Discuss Senior Business Analyst, Operations Strategy, or Consulting opportunities. Based in Montreal, Quebec, Canada. Email sadman.mohiuddin@gmail.com or use the contact form."
         path="/contact"
       />
