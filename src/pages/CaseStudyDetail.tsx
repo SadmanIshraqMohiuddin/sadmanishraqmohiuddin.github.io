@@ -14,6 +14,7 @@ export default function CaseStudyDetail() {
     "ifrs-ai-assistant": "/embedded/ifrs-ai-assistant.html",
     "efdms": "/embedded/efdms.html",
     "aamar-pharma": "/embedded/aamar-pharma.html",
+    "exxonmobil-engineering": "/embedded/exxonmobil-engineering.html",
   };
   if (slug && embeddedPages[slug]) {
     return (
