@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExxonMobil — Engineering Foundation · Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;--navy-light:#1e3a52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;--amber:#d4820a;--amber-light:#f0a830;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--cream)!important;color:var(--text-dark)!important;font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.back-nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;font-size:13px}
+
+/* HERO */
+.hero{background:var(--navy);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 65% 50%,rgba(212,130,10,.12) 0%,transparent 60%),radial-gradient(ellipse 40% 70% at 10% 80%,rgba(42,157,143,.08) 0%,transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;top:0;right:0;width:400px;height:100%;background:repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.015) 40px,rgba(255,255,255,.015) 41px);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(212,130,10,.18);border:1px solid rgba(212,130,10,.35);color:var(--amber-light);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--amber-light);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,4vw,52px);color:#fff!important;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber),transparent)}
+.stat-card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--gold-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+
+/* CONTEXT STRIP */
+.context-strip{background:var(--navy);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--navy);padding:24px 20px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+
+/* SHARED */
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+.section-label.teal{color:var(--teal)}
+.section-label.gold{color:var(--gold)}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+
+/* ANALYTICS SECTION */
+.analytics-section{background:var(--cream);padding:80px 0}
+.analytics-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+
+/* DATA FLOW DIAGRAM */
+.dataflow-wrap{background:var(--navy);border-radius:16px;padding:48px 40px;margin:40px 0;position:relative;overflow:hidden}
+.dataflow-wrap::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.02) 60px,rgba(255,255,255,.02) 61px);pointer-events:none}
+.dataflow{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;flex-wrap:wrap}
+.df-node{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 20px;text-align:center;flex:1;min-width:120px;position:relative;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.df-node.visible{opacity:1;transform:translateY(0)}
+.df-icon{font-size:24px;margin-bottom:8px;display:block}
+.df-label{font-size:12px;font-weight:600;color:#fff;margin-bottom:4px}
+.df-sub{font-size:11px;color:rgba(255,255,255,.4);line-height:1.4}
+.df-arrow{color:var(--amber-light);font-size:20px;flex-shrink:0;opacity:0;transition:opacity .4s ease}
+.df-arrow.visible{opacity:1}
+.df-node.highlight{border-color:rgba(212,130,10,.4);background:rgba(212,130,10,.1)}
+.df-node.highlight .df-label{color:var(--amber-light)}
+
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.analytics-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden}
+.analytics-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),transparent)}
+.analytics-card h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:12px}
+.analytics-card p{font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:16px}
+.analytics-card p:last-child{margin-bottom:0}
+.stat-inline{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--amber);background:rgba(212,130,10,.1);padding:3px 10px;border-radius:100px;display:inline-block;margin:2px}
+
+/* COUNTER STRIP */
+.counter-strip{background:var(--navy);padding:0}
+.counter-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.counter-item{background:var(--navy);padding:40px 28px;text-align:center}
+.counter-val{font-family:var(--serif);font-size:52px;color:#fff;line-height:1;margin-bottom:8px}
+.counter-val span{color:var(--gold-light)}
+.counter-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+/* MSOT SECTION */
+.msot-section{background:var(--cream-dark);padding:80px 0}
+.msot-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.msot-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:40px}
+.msot-summary{background:var(--navy);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.msot-summary strong{color:var(--gold-light)}
+.msot-summary .msot-stat{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.msot-stat-item .val{font-family:var(--serif);font-size:32px;color:#fff;line-height:1;margin-bottom:4px}
+.msot-stat-item .val span{color:var(--gold-light)}
+.msot-stat-item .lbl{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+
+/* TIMEZONE FLOW */
+.tz-flow{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px;margin-top:0}
+.tz-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.tz-title::before{content:'🔄';font-size:16px}
+.tz-nodes{display:flex;flex-direction:column;gap:0}
+.tz-node{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--cream-dark);position:relative}
+.tz-node:last-child{border-bottom:none}
+.tz-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.tz-time{font-family:var(--mono);font-size:11px;color:var(--text-mid);width:60px;flex-shrink:0}
+.tz-region{font-size:13px;font-weight:600;color:var(--navy);flex:1}
+.tz-detail{font-size:12px;color:var(--text-mid)}
+.tz-bar{position:absolute;left:0;bottom:0;height:2px;background:var(--cream-dark);width:100%}
+.tz-bar-fill{height:100%;border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* CAPITAL PROJECTS */
+.capital-section{background:var(--cream);padding:80px 0}
+.capital-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.capital-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:40px}
+.capital-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.capital-card:hover{box-shadow:0 8px 32px rgba(12,25,41,.08)}
+.capital-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy),transparent)}
+.capital-card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.capital-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.capital-card.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.cap-tag{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);margin-bottom:12px}
+.capital-card h3{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:10px;line-height:1.3}
+.capital-card p{font-size:13px;color:var(--text-mid);line-height:1.6}
+.cap-value{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--amber);margin-top:16px;padding-top:16px;border-top:1px solid var(--cream-dark)}
+
+/* ASSIGNMENT GRID */
+.assignments-section{background:var(--navy);padding:80px 0}
+.assignments-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.assignments-inner .section-label{color:var(--gold-light)}
+.assignments-inner h2{color:#fff}
+.assignments-inner p{color:rgba(255,255,255,.55);max-width:600px;margin-bottom:40px}
+.cat-legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.cat-pill{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);padding:6px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.1)}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.assignments-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.asgn-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;cursor:default;transition:all .2s;position:relative;overflow:hidden;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease,background .2s,border-color .2s}
+.asgn-card.visible{opacity:1;transform:translateY(0)}
+.asgn-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.asgn-num{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);margin-bottom:6px}
+.asgn-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:4px;line-height:1.3}
+.asgn-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5}
+.asgn-cat{position:absolute;top:0;left:0;right:0;height:2px}
+
+/* GLOBAL MAP */
+.map-section{background:var(--cream-dark);padding:80px 0}
+.map-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.map-wrap{background:var(--navy);border-radius:16px;padding:48px;margin-top:40px;position:relative;overflow:hidden}
+.map-subtitle{color:rgba(255,255,255,.5);font-size:14px;margin-top:16px;text-align:center}
+svg.world-map{width:100%;height:auto;display:block}
+
+/* INTEGRITY SECTION */
+.integrity-section{background:var(--cream);padding:80px 0}
+.integrity-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.integrity-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.integrity-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
+.integrity-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),transparent)}
+.integrity-card h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.integrity-card p{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:12px}
+.tool-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-pill-sm{font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--cream);border:1px solid var(--cream-dark);color:var(--text-mid)}
+.code-list{list-style:none;margin-top:12px}
+.code-list li{font-size:13px;color:var(--text-mid);padding:6px 0;border-bottom:1px solid var(--cream-dark);display:flex;align-items:center;gap:8px}
+.code-list li:last-child{border-bottom:none}
+.code-list li::before{content:'▸';color:var(--teal);font-size:10px}
+
+/* BRIDGE SECTION */
+.bridge-section{background:var(--navy);padding:80px 0}
+.bridge-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.bridge-inner .section-label{color:var(--gold-light)}
+.bridge-inner h2{color:#fff;margin-bottom:12px}
+.bridge-intro{color:rgba(255,255,255,.55);font-size:16px;max-width:680px;margin-bottom:48px;line-height:1.7}
+.bridge-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:var(--radius);overflow:hidden}
+.bridge-col{padding:40px}
+.bridge-col.left{background:rgba(255,255,255,.05)}
+.bridge-col.right{background:rgba(212,130,10,.08);border:1px solid rgba(212,130,10,.15)}
+.bridge-col-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:24px}
+.bridge-col.left .bridge-col-label{color:rgba(255,255,255,.4)}
+.bridge-col.right .bridge-col-label{color:var(--amber-light)}
+.bridge-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.bridge-item:last-child{border-bottom:none}
+.bridge-arrow{font-size:16px;flex-shrink:0;margin-top:2px}
+.bridge-item-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.bridge-item-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+.bridge-col.right .bridge-item-title{color:var(--amber-light)}
+.bridge-col.right .bridge-item-desc{color:rgba(255,255,255,.6)}
+
+/* TOOLS */
+.tools-section{background:var(--cream-dark);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-inner .section-label{color:var(--amber)}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.tool-badge{background:#fff;border:1px solid var(--cream-dark);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{border-color:var(--navy);box-shadow:0 4px 12px rgba(12,25,41,.08)}
+.tool-badge span{font-size:13px;font-weight:500;color:var(--navy)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);padding:10px 0 4px;width:100%}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:rgba(255,255,255,.4)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .hero{padding:120px 32px 64px}.hero-grid,.msot-grid,.analytics-grid,.integrity-grid,.bridge-grid{grid-template-columns:1fr}
+  .capital-grid,.assignments-grid{grid-template-columns:1fr 1fr}
+  .context-inner{grid-template-columns:1fr 1fr;padding:32px}
+  .counter-inner{grid-template-columns:repeat(2,1fr)}
+  section,.analytics-inner,.msot-inner,.capital-inner,.assignments-inner,.map-inner,.integrity-inner,.bridge-inner,.tools-inner{padding:0 32px}
+  section{padding:60px 32px}
+  .back-nav{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:16px;padding:32px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="https://sadmanishraqmohiuddin.vercel.app">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">Case Studies</a>
+  <span class="sep">/</span>
+  <span class="current">ExxonMobil - Engineering Foundation</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Career Chapter - Engineering Foundation</div>
+      <h1>Where <em>Analytical Rigour</em> Was Built</h1>
+      <p class="hero-sub">Before enterprise BA work, there was a year at ExxonMobil - delivering data-driven operational analysis to refining and chemical leadership, coordinating global engineering programmes, and authoring capital specifications for major refinery assets.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Mechanical Engineer - Fixed Equipment</span>
+        <span class="hero-badge">ExxonMobil Corporation</span>
+        <span class="hero-badge">Kuala Lumpur</span>
+        <span class="hero-badge">Sep 2015 - Sep 2016</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">40<span>+</span></div>
+        <div class="stat-label">Global refinery, chemical, and synergy sites covered in quarterly operational performance reporting</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">28<span></span></div>
+        <div class="stat-label">Engineering analysis assignments delivered across integrity, capital projects, piping, and standards</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-num">$50<span>K</span></div>
+        <div class="stat-label">Under budget on a $300K global engineering programme - MSOT integrity initiative</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Employer</div><div class="ctx-value">ExxonMobil Corporation</div></div>
+    <div class="ctx-item"><div class="ctx-label">Role</div><div class="ctx-value">Mechanical Engineer - Fixed Equipment</div></div>
+    <div class="ctx-item"><div class="ctx-label">Base</div><div class="ctx-value">Kuala Lumpur, Malaysia</div></div>
+    <div class="ctx-item"><div class="ctx-label">Scope</div><div class="ctx-value">Americas - Asia - Europe</div></div>
+    <div class="ctx-item"><div class="ctx-label">Period</div><div class="ctx-value">Sep 2015 - Sep 2016</div></div>
+  </div>
+</div>
+
+<div class="map-section">
+  <div class="map-inner">
+    <div class="section-label gold">Global Reach</div>
+    <h2>One engineer. Three continents. 40+ sites.</h2>
+    <div class="map-wrap">
+      <svg class="world-map" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg">
+        <!-- Simplified continent outlines -->
+        <g fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8">
+          <!-- North America -->
+          <path d="M80,80 L180,70 L210,90 L220,130 L200,160 L190,200 L170,220 L140,230 L120,210 L100,180 L70,150 L60,120 Z"/>
+          <!-- South America -->
+          <path d="M150,240 L190,235 L210,260 L215,300 L210,340 L190,370 L170,380 L150,370 L135,340 L130,300 L135,260 Z"/>
+          <!-- Europe -->
+          <path d="M400,70 L460,65 L480,80 L475,110 L460,125 L440,130 L415,120 L400,100 Z"/>
+          <!-- Africa -->
+          <path d="M410,150 L460,145 L490,160 L500,200 L490,250 L470,280 L450,290 L425,280 L405,250 L400,200 L405,160 Z"/>
+          <!-- Asia -->
+          <path d="M490,60 L620,50 L680,70 L700,100 L690,140 L660,160 L620,170 L580,160 L540,140 L500,120 L480,100 Z"/>
+          <!-- Southeast Asia / Malaysia -->
+          <path d="M630,170 L670,165 L685,180 L680,200 L660,205 L640,195 L630,180 Z"/>
+          <!-- Australia -->
+          <path d="M650,280 L720,270 L750,290 L755,330 L740,360 L710,370 L680,360 L655,330 L645,300 Z"/>
+        </g>
+
+        <!-- CONNECTION LINES - animated -->
+        <g stroke="rgba(240,168,48,0.25)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+          <!-- KL to North America -->
+          <path d="M655,185 Q500,100 160,150" id="line1"/>
+          <!-- KL to South America -->
+          <path d="M655,185 Q500,200 170,310" id="line2"/>
+          <!-- KL to Europe -->
+          <path d="M655,185 Q550,100 440,95" id="line3"/>
+        </g>
+
+        <!-- ANIMATED CONNECTION LINES -->
+        <g stroke="rgba(240,168,48,0.7)" stroke-width="1.5" fill="none" stroke-dasharray="4,4">
+          <path d="M655,185 Q500,100 160,150" stroke-dashoffset="1000" style="animation:drawLine 3s ease-in-out infinite alternate">
+            <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2.5s" begin="0s" repeatCount="indefinite"/>
+          </path>
+          <path d="M655,185 Q500,200 170,310" stroke-dashoffset="1000">
+            <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M655,185 Q550,100 440,95" stroke-dashoffset="1000">
+            <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2s" begin="1s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- PULSING LOCATION DOTS -->
+        <!-- Kuala Lumpur - Base -->
+        <circle cx="655" cy="185" r="6" fill="#f0a830" opacity="0.9"/>
+        <circle cx="655" cy="185" r="6" fill="none" stroke="#f0a830" stroke-width="2" opacity="0.6">
+          <animate attributeName="r" from="6" to="20" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="665" y="182" fill="rgba(255,255,255,0.8)" font-size="10" font-family="'Instrument Sans', sans-serif" font-weight="600">Kuala Lumpur (Base)</text>
+
+        <!-- North America -->
+        <circle cx="160" cy="150" r="5" fill="#2a9d8f" opacity="0.9"/>
+        <circle cx="160" cy="150" r="5" fill="none" stroke="#2a9d8f" stroke-width="2" opacity="0.6">
+          <animate attributeName="r" from="5" to="18" dur="2.5s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" from="0.6" to="0" dur="2.5s" begin="0.3s" repeatCount="indefinite"/>
+        </circle>
+        <text x="170" y="147" fill="rgba(255,255,255,0.7)" font-size="10" font-family="'Instrument Sans', sans-serif">North America</text>
+        <text x="170" y="159" fill="rgba(255,255,255,0.4)" font-size="9" font-family="'Instrument Sans', sans-serif">Refinery sites</text>
+
+        <!-- South America -->
+        <circle cx="170" cy="310" r="5" fill="#c9a84c" opacity="0.9"/>
+        <circle cx="170" cy="310" r="5" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.6">
+          <animate attributeName="r" from="5" to="18" dur="2.8s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" from="0.6" to="0" dur="2.8s" begin="0.6s" repeatCount="indefinite"/>
+        </circle>
+        <text x="180" y="307" fill="rgba(255,255,255,0.7)" font-size="10" font-family="'Instrument Sans', sans-serif">South America</text>
+        <text x="180" y="319" fill="rgba(255,255,255,0.4)" font-size="9" font-family="'Instrument Sans', sans-serif">Chemical sites</text>
+
+        <!-- Europe -->
+        <circle cx="440" cy="95" r="5" fill="#e07060" opacity="0.9"/>
+        <circle cx="440" cy="95" r="5" fill="none" stroke="#e07060" stroke-width="2" opacity="0.6">
+          <animate attributeName="r" from="5" to="18" dur="2.3s" begin="0.9s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" from="0.6" to="0" dur="2.3s" begin="0.9s" repeatCount="indefinite"/>
+        </circle>
+        <text x="450" y="92" fill="rgba(255,255,255,0.7)" font-size="10" font-family="'Instrument Sans', sans-serif">Europe</text>
+        <text x="450" y="104" fill="rgba(255,255,255,0.4)" font-size="9" font-family="'Instrument Sans', sans-serif">Fawley + coordination</text>
+      </svg>
+      <div class="map-subtitle">Programme coordination base: Kuala Lumpur - Operational scope: Americas, Asia, Europe</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ANALYTICS FIRST -->
+<div class="analytics-section">
+  <div class="analytics-inner">
+    <div class="section-label">Data Analysis & Leadership Communication</div>
+    <h2>Operational intelligence presented to refining and chemical leadership</h2>
+    <p style="color:var(--text-mid);max-width:640px;margin-bottom:0">The work that matters most to a BA career was here first - taking complex operational datasets from 40+ sites and turning them into insights that moved capital allocation decisions worth millions of dollars.</p>
+
+    <div class="dataflow-wrap" id="dataflowWrap">
+      <div class="dataflow">
+        <div class="df-node highlight" id="dfn0">
+          <span class="df-icon">🏭</span>
+          <div class="df-label">40+ Sites</div>
+          <div class="df-sub">Refinery, chemical & synergy operations</div>
+        </div>
+        <div class="df-arrow" id="dfa0">→</div>
+        <div class="df-node" id="dfn1">
+          <span class="df-icon">📊</span>
+          <div class="df-label">Raw Operational Data</div>
+          <div class="df-sub">Incidents, reliability, deviations, environmental variables</div>
+        </div>
+        <div class="df-arrow" id="dfa1">→</div>
+        <div class="df-node" id="dfn2">
+          <span class="df-icon">🔍</span>
+          <div class="df-label">Excel & Tableau Analysis</div>
+          <div class="df-sub">Trend detection, anomaly identification, pattern correlation</div>
+        </div>
+        <div class="df-arrow" id="dfa2">→</div>
+        <div class="df-node" id="dfn3">
+          <span class="df-icon">📈</span>
+          <div class="df-label">Quarterly Reports</div>
+          <div class="df-sub">Structured findings for refining & chemical leadership</div>
+        </div>
+        <div class="df-arrow" id="dfa3">→</div>
+        <div class="df-node highlight" id="dfn4">
+          <span class="df-icon">💼</span>
+          <div class="df-label">Capital Decisions</div>
+          <div class="df-sub">Multi-million dollar operational & maintenance priorities</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analytics-grid">
+      <div class="analytics-card fade-up">
+        <h3>Quarterly MI & Performance Reporting</h3>
+        <p>Every quarter, operational and reliability data from 40+ refinery and chemical sites across North and South America was analysed to identify trends, detect anomalies, and correlate failure patterns with environmental and operational variables.</p>
+        <p>Findings were presented directly to refining and chemical leadership - structured, evidenced, and actionable. This is where the habit of translating data complexity into executive-ready communication was formed.</p>
+        <div>
+          <span class="stat-inline">40+ sites</span>
+          <span class="stat-inline">Excel + Tableau</span>
+          <span class="stat-inline">Leadership presentations</span>
+          <span class="stat-inline">Capital decisions</span>
+        </div>
+      </div>
+      <div class="analytics-card fade-up">
+        <h3>Data Exploration & Pattern Analysis</h3>
+        <p>Beyond scheduled reporting, exploratory analysis was conducted across accident trends, equipment reliability patterns, humidity and environmental factor correlation, operational deviations, and refinery incident sequences.</p>
+        <p>The analytical discipline this demanded - forming hypotheses from noisy data, validating against operational context, communicating uncertainty honestly to senior stakeholders - directly underpins how BA requirements analysis is approached today.</p>
+        <div>
+          <span class="stat-inline">Accident trend analysis</span>
+          <span class="stat-inline">Reliability patterns</span>
+          <span class="stat-inline">Environmental correlation</span>
+          <span class="stat-inline">Incident sequencing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COUNTERS -->
+<div class="counter-strip">
+  <div class="counter-inner">
+    <div class="counter-item">
+      <div class="counter-val" data-target="40" data-suffix="+">0</div>
+      <div class="counter-label">Global Sites Analysed</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-val" data-target="28" data-suffix="">0</div>
+      <div class="counter-label">Assignments Delivered</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-val" data-target="300" data-prefix="$" data-suffix="K">0</div>
+      <div class="counter-label">Programme Budget Managed</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-val" data-target="3" data-prefix="$" data-suffix="M">0</div>
+      <div class="counter-label">Capital Project Authored</div>
+    </div>
+  </div>
+</div>
+
+<!-- MSOT PROGRAMME -->
+<div class="msot-section">
+  <div class="msot-inner">
+    <div class="section-label teal">MSOT Integrity Programme</div>
+    <h2>A global engineering programme coordinated across three continents</h2>
+    <div class="msot-grid">
+      <div class="msot-summary">
+        The <strong>Minimum Safe Operating Temperature (MSOT)</strong> integrity programme was a global initiative evaluating over <strong>100 refinery assets</strong> - heat exchangers, distillation towers, fractionation columns, and pressure equipment - across 40+ sites in the Americas.<br><br>
+        The coordination challenge was significant: engineers distributed across <strong>Malaysia, Europe, and North America</strong> needed to function as a continuous delivery unit. A 24-hour cross-time-zone workflow model was established so that engineering analysis moved forward around the clock without gaps.<br><br>
+        The programme was delivered <strong>$50K under a $300K SAP WBS budget</strong> - a result of tight scope management, workflow efficiency, and cross-regional coordination discipline.
+        <div class="msot-stat">
+          <div class="msot-stat-item"><div class="val">100<span>+</span></div><div class="lbl">Assets Evaluated</div></div>
+          <div class="msot-stat-item"><div class="val">$50<span>K</span></div><div class="lbl">Under Budget</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="tz-flow">
+          <div class="tz-title">24-Hour Cross-Timezone Workflow Model</div>
+          <div class="tz-nodes">
+            <div class="tz-node">
+              <div class="tz-dot" style="background:#f0a830"></div>
+              <div class="tz-time">UTC+8</div>
+              <div><div class="tz-region">Kuala Lumpur - Asia</div><div class="tz-detail">Analysis initiation, task handoff, morning review</div></div>
+              <div class="tz-bar"><div class="tz-bar-fill" data-w="100%" style="background:#f0a830"></div></div>
+            </div>
+            <div class="tz-node">
+              <div class="tz-dot" style="background:#2a9d8f"></div>
+              <div class="tz-time">UTC+1</div>
+              <div><div class="tz-region">Europe</div><div class="tz-detail">Mid-programme engineering, calculations, review</div></div>
+              <div class="tz-bar"><div class="tz-bar-fill" data-w="70%" style="background:#2a9d8f"></div></div>
+            </div>
+            <div class="tz-node">
+              <div class="tz-dot" style="background:#c9a84c"></div>
+              <div class="tz-time">UTC-5</div>
+              <div><div class="tz-region">North America</div><div class="tz-detail">End-of-day delivery, overnight progress, handback</div></div>
+              <div class="tz-bar"><div class="tz-bar-fill" data-w="85%" style="background:#c9a84c"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:20px;background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);font-size:13px;color:var(--text-mid);line-height:1.6">
+          <strong style="color:var(--navy)">Assets covered:</strong> Heat exchangers, distillation towers, fractionation columns, pressure vessels, and static refinery equipment evaluated for minimum safe operating temperature thresholds under API and ASME standards.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAPITAL PROJECTS -->
+<div class="capital-section">
+  <div class="capital-inner">
+    <div class="section-label">Capital Projects & Engineering Specifications</div>
+    <h2>Major refinery specifications authored from first principles</h2>
+    <div class="capital-grid">
+      <div class="capital-card amber fade-up">
+        <div class="cap-tag">Primary Capital Project</div>
+        <h3>Catalyst Bed Retrofit - Hydroprocessing Unit</h3>
+        <p>Authored the full Mechanical Design Specification (M-Spec) for a catalyst bed retrofit on a kerosene hydroprocessing unit - defining mechanical design requirements, operating conditions, integrity considerations, and retrofit specifications.</p>
+        <p>This is primary engineering authorship on a capital project - not support work. Every parameter in the specification carried integrity and safety implications.</p>
+        <div class="cap-value">~$3M capital project value</div>
+      </div>
+      <div class="capital-card gold fade-up">
+        <div class="cap-tag">Process Unit Specification</div>
+        <h3>Catalyst Transfer System - FCC Unit</h3>
+        <p>Contributed to M-Spec work on catalyst transfer piping systems for a Fluidised Catalytic Cracking (FCC) unit - high-temperature, high-pressure process equipment operating at the limits of materials performance.</p>
+        <p>FCC catalyst transfer lines carry eroded catalyst particles at extreme conditions - mechanical specification here requires deep understanding of erosion, fatigue, and dynamic loading.</p>
+        <div class="cap-value">FCC unit - major refinery process</div>
+      </div>
+      <div class="capital-card teal fade-up">
+        <div class="cap-tag">Preliminary Design</div>
+        <h3>Fluid Coking Gasifier - Flexicoking Unit</h3>
+        <p>Supported preliminary engineering design and sizing work for a Flexicoking gasifier unit - a thermal cracking process that converts heavy residual oil fractions into lighter products and synthetic gas.</p>
+        <p>Preliminary design at this scale requires integrating process conditions, material constraints, and regulatory codes before detailed engineering begins.</p>
+        <div class="cap-value">Large-scale refinery process unit</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 28 ASSIGNMENTS GRID -->
+<div class="assignments-section">
+  <div class="assignments-inner">
+    <div class="section-label">Engineering Assignment Record</div>
+    <h2>28 assignments. Five disciplines.</h2>
+    <p>Every assignment logged and delivered during the engagement - from routine integrity reviews to complex capital specifications. The breadth here is unusual for an engineer one year into their career.</p>
+
+    <div class="cat-legend">
+      <div class="cat-pill"><div class="cat-dot" style="background:#f0a830"></div>Analytics & Reporting</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#2a9d8f"></div>Integrity & FFS</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#c9a84c"></div>Capital Projects & M-Spec</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#7b8cde"></div>Piping & Process</div>
+      <div class="cat-pill"><div class="cat-dot" style="background:#e07060"></div>Standards & Tools</div>
+    </div>
+
+    <div class="assignments-grid" id="assignmentsGrid">
+      <!-- Analytics -->
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">01</div><div class="asgn-name">Re-rate</div><div class="asgn-desc">Equipment operating condition re-rating after extended service life</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">13</div><div class="asgn-name">MSOT Programme</div><div class="asgn-desc">Minimum Safe Operating Temperature global integrity initiative</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">15</div><div class="asgn-name">MSOT Full Programme</div><div class="asgn-desc">Full scope MSOT analysis - 100+ refinery assets across Americas</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">16</div><div class="asgn-name">MI Quarterly Report</div><div class="asgn-desc">Mechanical integrity quarterly performance analysis - 40+ global sites</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">20</div><div class="asgn-name">LTA Tool Update</div><div class="asgn-desc">Excel engineering calculation automation tool development</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#f0a830"></div><div class="asgn-num">27</div><div class="asgn-name">MISP 1Q16</div><div class="asgn-desc">Mechanical integrity support programme - Q1 2016 review</div></div>
+      <!-- Integrity -->
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">09</div><div class="asgn-name">Heat Exchanger Analysis</div><div class="asgn-desc">Mechanical analysis of Two refinery heat exchangers</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">11</div><div class="asgn-name">Baton Rouge Refinery Pressure Vessel FFS</div><div class="asgn-desc">Fitness-for-service assessment - Baton Rouge Refinery pressure vessel</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">12</div><div class="asgn-name">Pressure Asset Integrity Review</div><div class="asgn-desc">Pressure asset integrity review and assessment</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">14</div><div class="asgn-name">Venturi System Integrity</div><div class="asgn-desc">Integrity assessment of venturi flow measurement systems</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">23</div><div class="asgn-name">Storage Tank Integrity Assessment</div><div class="asgn-desc">Storage tank structural and integrity evaluation under operating conditions</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#2a9d8f"></div><div class="asgn-num">25</div><div class="asgn-name">Heat Exchanger Re-rate Analysis</div><div class="asgn-desc">Heat exchanger operating limit reassessment after prolonged service life</div></div>
+      <!-- Capital -->
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">04</div><div class="asgn-name">FCC Unit Analysis</div><div class="asgn-desc">Fluidised Catalytic Cracking unit engineering assessment</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">07</div><div class="asgn-name">FCC Lug Analysis</div><div class="asgn-desc">Structural lug and support analysis for FCC unit components</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">08</div><div class="asgn-name">Flexicoking Gasifier</div><div class="asgn-desc">Preliminary design support for fluid coking gasification unit</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">24</div><div class="asgn-name">Hydroprocessing M-Spec</div><div class="asgn-desc">Catalyst bed retrofit specification - ~$3M capital project</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">26</div><div class="asgn-name">Catalyst Transfer M-Spec</div><div class="asgn-desc">Mechanical specification for FCC catalyst transfer line system</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#c9a84c"></div><div class="asgn-num">28</div><div class="asgn-name">Pressure Vessel Analysis</div><div class="asgn-desc">PVElite-based pressure vessel engineering analysis</div></div>
+      <!-- Piping -->
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">02</div><div class="asgn-name">Hot Tap Engineering</div><div class="asgn-desc">High-pressure hot tap analysis - rapid stress and safety assessment</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">03</div><div class="asgn-name">Reactor Nozzle Analysis</div><div class="asgn-desc">Mechanical stress analysis on Angarsk refinery reactor nozzles</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">05</div><div class="asgn-name">Tank Maintenance Guide</div><div class="asgn-desc">Major section rewrite of global tank maintenance engineering guide</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">06</div><div class="asgn-name">Naphtha Hydrofining Simulation</div><div class="asgn-desc">Flow restriction, vibration and fatigue analysis on naphtha hydrofining process unit using BreakX simulation software</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">17</div><div class="asgn-name">Piping Simulation - BreakX</div><div class="asgn-desc">Simulated piping system analysis for process unit integrity</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#7b8cde"></div><div class="asgn-num">18</div><div class="asgn-name">Hot Tap Info List</div><div class="asgn-desc">Engineering reference documentation for hot tap operations</div></div>
+      <!-- Standards -->
+      <div class="asgn-card"><div class="asgn-cat" style="background:#e07060"></div><div class="asgn-num">10</div><div class="asgn-name">Pipe Connection Guidance</div><div class="asgn-desc">Engineering analysis supporting Lokring pipe connection application guidance - pressure, temperature and reliability considerations</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#e07060"></div><div class="asgn-num">19</div><div class="asgn-name">Refinery Turnaround - Fawley</div><div class="asgn-desc">Shutdown and turnaround engineering support at Fawley Refinery, UK</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#e07060"></div><div class="asgn-num">21</div><div class="asgn-name">General Practice Update</div><div class="asgn-desc">General Practice guideline update (reference restricted) - global standards documentation</div></div>
+      <div class="asgn-card"><div class="asgn-cat" style="background:#e07060"></div><div class="asgn-num">22</div><div class="asgn-name">Equipment Degradation Docs</div><div class="asgn-desc">Technical contributions to global equipment degradation documentation</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL MAP -->
+
+<!-- INTEGRITY & TECHNICAL TOOLS -->
+<div class="integrity-section">
+  <div class="integrity-inner">
+    <div class="section-label teal">Mechanical Integrity & Technical Tools</div>
+    <h2>The technical foundation behind the analytical credibility</h2>
+    <div class="integrity-grid">
+      <div class="integrity-card fade-up">
+        <h3>Fitness-for-Service Assessments</h3>
+        <p>Evaluated the continued operational viability of refinery assets past their original design life - pressure vessels, distillation towers, venturi systems, heat exchangers, tanks, and piping under API and ASME codes.</p>
+        <p>FFS work requires integrating materials data, inspection findings, and operating history into a formal engineering judgment. It is inherently risk-based and requires structured analytical thinking under uncertainty.</p>
+        <div class="tool-pills">
+          <span class="tool-pill-sm">PV Elite</span>
+          <span class="tool-pill-sm">CAESAR II</span>
+          <span class="tool-pill-sm">API 579</span>
+          <span class="tool-pill-sm">ASME B31.3</span>
+        </div>
+      </div>
+      <div class="integrity-card fade-up">
+        <h3>Piping Integrity & Process Analysis</h3>
+        <p>Flow restriction, vibration, and fatigue analysis on naphtha hydrofining process unit piping using BreakX simulation software. Hot tap engineering analysis under high-stress, high-pressure conditions requiring rapid and accurate assessment.</p>
+        <p>Reactor nozzle stress evaluation, heat exchanger mechanical analysis, and FCC catalyst transfer line work - each requiring command of ASME B16.5 flange standards and API pressure codes.</p>
+        <div class="tool-pills">
+          <span class="tool-pill-sm">BreakX (Simulation)</span>
+          <span class="tool-pill-sm">ASME B16.5</span>
+          <span class="tool-pill-sm">API Codes</span>
+          <span class="tool-pill-sm">PVElite</span>
+        </div>
+      </div>
+      <div class="integrity-card fade-up">
+        <h3>Engineering Standards Authorship</h3>
+        <p>Contributed to global engineering documentation used across ExxonMobil operations - Tank Maintenance Guide major section rewrite, General Practice guideline updates, and Equipment Degradation Documentation.</p>
+        <p>Engineering guidance at this level has a global audience. The discipline of writing technical standards - precise, unambiguous, and defensible - directly transfers to BA artefact authorship.</p>
+        <ul class="code-list">
+          <li>Tank Maintenance Guide - major section rewrite</li>
+          <li>General Practice guideline update (reference restricted)</li>
+          <li>Equipment Degradation Documentation</li>
+          <li>Pipe Connection Application Guidance</li>
+        </ul>
+      </div>
+      <div class="integrity-card fade-up">
+        <h3>Refinery Turnaround - Fawley, UK</h3>
+        <p>Supported shutdown and turnaround engineering activities at Fawley Refinery, one of the UK's largest oil refineries. Turnaround environments are defined by extreme time pressure - every hour of downtime carries major financial impact.</p>
+        <p>Rapid calculation, clear communication, and the ability to make defensible engineering decisions under pressure in this environment are the same cognitive skills applied in high-stakes BA delivery today.</p>
+        <div class="tool-pills">
+          <span class="tool-pill-sm">Rapid engineering calc</span>
+          <span class="tool-pill-sm">Troubleshooting</span>
+          <span class="tool-pill-sm">Safe restart support</span>
+          <span class="tool-pill-sm">High-stakes environment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THE BRIDGE -->
+<div class="bridge-section">
+  <div class="bridge-inner">
+    <div class="section-label">The Bridge</div>
+    <h2>From refinery floor to enterprise delivery</h2>
+    <p class="bridge-intro">This year at ExxonMobil isn't a detour from a BA career - it's the foundation of it. The analytical habits, the technical communication, and the comfort with complex systems all trace back here. Here's how specifically.</p>
+    <div class="bridge-grid">
+      <div class="bridge-col left">
+        <div class="bridge-col-label">What Engineering Built</div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">📊</div>
+          <div>
+            <div class="bridge-item-title">Data analysis for leadership decisions</div>
+            <div class="bridge-item-desc">Quarterly operational data from 40+ sites, structured into insights that moved multi-million dollar capital allocation decisions at refining and chemical leadership level.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">🌍</div>
+          <div>
+            <div class="bridge-item-title">Cross-timezone programme coordination</div>
+            <div class="bridge-item-desc">Established a continuous 24-hour engineering workflow across Asia, Europe, and North America - managing distributed execution without gaps or handoff failures.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">📐</div>
+          <div>
+            <div class="bridge-item-title">Technical specification authorship</div>
+            <div class="bridge-item-desc">Primary author on a ~$3M capital project M-Spec - every requirement defined, every parameter justified, every constraint documented to engineering and regulatory standard.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">⚠️</div>
+          <div>
+            <div class="bridge-item-title">High-stakes communication under pressure</div>
+            <div class="bridge-item-desc">Presented findings to refining and chemical leadership. Supported turnaround engineering at Fawley where downtime cost is measured in hundreds of thousands per hour.</div>
+          </div>
+        </div>
+      </div>
+      <div class="bridge-col right">
+        <div class="bridge-col-label">How It Shapes BA Practice Today</div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">→</div>
+          <div>
+            <div class="bridge-item-title">Credibility with developers and architects</div>
+            <div class="bridge-item-desc">Engineering background means technical conversations with cloud architects, integration engineers, and infrastructure teams don't require translation - requirements can be discussed at system level.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">→</div>
+          <div>
+            <div class="bridge-item-title">Comfort with complex, multi-party programmes</div>
+            <div class="bridge-item-desc">Managing engineering coordination across three continents on a time-critical integrity programme prepared for the multi-workstream, multi-stakeholder complexity of enterprise BA delivery.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">→</div>
+          <div>
+            <div class="bridge-item-title">Precise, unambiguous documentation</div>
+            <div class="bridge-item-desc">Engineering specifications leave no room for interpretation - a misspecified operating parameter has safety consequences. That precision carries directly into BRDs, user stories, and acceptance criteria.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div class="bridge-arrow">→</div>
+          <div>
+            <div class="bridge-item-title">Executive communication at senior level</div>
+            <div class="bridge-item-desc">Presenting data-driven findings to refining and chemical leadership at ExxonMobil calibrates the level of clarity and evidence required when engaging C-suite and government stakeholders in BA engagements.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools & Standards</div>
+    <div class="tools-grid">
+      <span class="tool-cat">Data & Analysis</span>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Microsoft Excel (Advanced)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📈</span><span>Tableau</span></div>
+      <div class="tool-badge"><span class="tool-icon">📉</span><span>Trend & Pattern Analysis</span></div>
+      <div class="tool-badge"><span class="tool-icon">💼</span><span>SAP WBS (Budget Tracking)</span></div>
+      <span class="tool-cat">Engineering Software</span>
+      <div class="tool-badge"><span class="tool-icon">⚙️</span><span>PV Elite</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔧</span><span>CAESAR II</span></div>
+      <div class="tool-badge"><span class="tool-icon">💻</span><span>BreakX (Piping Simulation)</span></div>
+      <span class="tool-cat">Engineering Codes</span>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>API 579 (FFS)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>ASME B31.3 (Piping)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>ASME B16.5 (Flanges)</span></div>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>ASME Pressure Vessel Codes</span></div>
+      <span class="tool-cat">Communication & Reporting</span>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Executive Presentation</span></div>
+      <div class="tool-badge"><span class="tool-icon">📄</span><span>Technical Specification Authorship</span></div>
+      <div class="tool-badge"><span class="tool-icon">🌍</span><span>Cross-Timezone Programme Coordination</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sadman Ishraq Mohiuddin · Senior Business Analyst · Montreal, QC, Canada</p>
+  <div class="footer-links">
+    <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">- All Case Studies</a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// FADE UP OBSERVER
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+// DATAFLOW ANIMATION
+const dfWrap = document.getElementById('dataflowWrap');
+const dfObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    for (let i = 0; i <= 4; i++) {
+      const node = document.getElementById('dfn' + i);
+      if (node) setTimeout(() => node.classList.add('visible'), i * 200);
+    }
+    for (let i = 0; i <= 3; i++) {
+      const arrow = document.getElementById('dfa' + i);
+      if (arrow) setTimeout(() => arrow.classList.add('visible'), i * 200 + 150);
+    }
+    dfObs.unobserve(e.target);
+  });
+}, {threshold: 0.3});
+if (dfWrap) dfObs.observe(dfWrap);
+
+// ASSIGNMENT GRID STAGGER
+const gridObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const cards = e.target.querySelectorAll('.asgn-card');
+    cards.forEach((card, i) => setTimeout(() => card.classList.add('visible'), i * 50));
+    gridObs.unobserve(e.target);
+  });
+}, {threshold: 0.1});
+const grid = document.getElementById('assignmentsGrid');
+if (grid) gridObs.observe(grid);
+
+// TIMEZONE BARS
+const tzObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.tz-bar-fill').forEach((bar, i) => {
+      setTimeout(() => { bar.style.width = bar.dataset.w; }, i * 200 + 200);
+    });
+    tzObs.unobserve(e.target);
+  });
+}, {threshold: 0.3});
+document.querySelectorAll('.tz-flow').forEach(el => tzObs.observe(el));
+
+// COUNTER ANIMATION
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(eased * target);
+    el.innerHTML = `${prefix}${val}<span>${suffix}</span>`;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('[data-target]').forEach(el => animateCounter(el));
+    counterObs.unobserve(e.target);
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.counter-inner').forEach(el => counterObs.observe(el));
+</script>
+</body>
+</html>
