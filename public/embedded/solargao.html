@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solargao — Renewable Energy Infrastructure · Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;
+  --forest:#1a3a2a;--forest-mid:#2d6a4f;--forest-light:#40916c;--green-bright:#52b788;
+  --gold:#c9a84c;--gold-light:#e8c97a;--sun:#f0a830;--sun-light:#fcc85a;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:var(--cream)!important;color:var(--text-dark)!important;font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.back-nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cream-dark);padding:14px 48px;display:flex;align-items:center;gap:12px}
+.back-nav a{color:var(--navy);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:6px;opacity:.7;transition:opacity .2s}
+.back-nav a:hover{opacity:1}.back-nav .sep{opacity:.3}.back-nav .current{opacity:1;font-weight:600;font-size:13px}
+
+/* HERO */
+.hero{background:var(--forest);padding:140px 64px 90px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(82,183,136,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 10% 80%,rgba(240,168,48,.08) 0%,transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent,rgba(26,58,42,.4));pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(82,183,136,.18);border:1px solid rgba(82,183,136,.35);color:#7dd4a8;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;background:#7dd4a8;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,4vw,52px);color:#fff!important;line-height:1.1;margin-bottom:20px}
+.hero h1 em{color:var(--sun-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px}
+.hero-stats{display:flex;flex-direction:column;gap:20px}
+.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:24px 28px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green-bright),transparent)}
+.stat-card.sun::before{background:linear-gradient(90deg,var(--sun),transparent)}
+.stat-card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.stat-num{font-family:var(--serif);font-size:42px;color:#fff;line-height:1;margin-bottom:6px}
+.stat-num span{color:var(--sun-light)}.stat-label{color:rgba(255,255,255,.55);font-size:13px}
+
+/* CONTEXT STRIP */
+.context-strip{background:var(--forest);padding:0}
+.context-inner{max-width:1200px;margin:0 auto;padding:36px 64px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.ctx-item{background:var(--forest);padding:24px 20px}
+.ctx-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.ctx-value{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+
+/* SHARED */
+section{max-width:1200px;margin:0 auto;padding:80px 64px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-light);margin-bottom:12px}
+.section-label.sun{color:var(--sun)}
+.section-label.gold{color:var(--gold)}
+h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);line-height:1.15;margin-bottom:24px}
+.divider{border:none;border-top:1px solid var(--cream-dark);margin:0}
+
+/* COVID NOTE */
+.covid-note{background:rgba(240,168,48,.1);border:1px solid rgba(240,168,48,.3);border-radius:10px;padding:14px 20px;font-size:13px;color:#7a5c10;margin-bottom:40px;display:flex;gap:10px;align-items:flex-start;max-width:700px}
+
+/* PROBLEM */
+.problem-section{background:var(--cream);padding:80px 0}
+.problem-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.problem-text p{color:var(--text-mid);margin-bottom:16px}
+.problem-cards{display:flex;flex-direction:column;gap:16px}
+.prob-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:40px;height:40px;flex-shrink:0;background:var(--cream);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.prob-card h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.prob-card p{font-size:13px;color:var(--text-mid);line-height:1.5}
+
+/* ROLE */
+.role-section{background:var(--forest);padding:80px 0}
+.role-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-inner .section-label{color:var(--sun-light)}
+.role-inner h2{color:#fff}
+.role-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;margin-top:40px}
+.role-summary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:32px;color:rgba(255,255,255,.85);font-size:15px;line-height:1.7}
+.role-summary strong{color:var(--sun-light)}
+.role-items{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.role-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:20px 22px}
+.role-item h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:6px}
+.role-item p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* MAP SECTION */
+.map-section{background:var(--cream-dark);padding:80px 0}
+.map-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.map-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px}
+.map-container{background:var(--forest);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.map-container::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 40% 40%,rgba(82,183,136,.08) 0%,transparent 70%);pointer-events:none}
+.map-legend{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.legend-item{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* PULSE ANIMATION FOR MAP DOTS */
+@keyframes glow{0%,100%{opacity:1;r:5}50%{opacity:.7;r:7}}
+@keyframes ring-expand{0%{r:6;opacity:.8;stroke-width:2}100%{r:22;opacity:0;stroke-width:1}}
+@keyframes ring-expand-2{0%{r:6;opacity:.6;stroke-width:1.5}100%{r:28;opacity:0;stroke-width:.5}}
+
+.map-site-info{display:flex;flex-direction:column;gap:16px}
+.site-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px 22px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.site-card:hover{box-shadow:0 6px 24px rgba(26,58,42,.1)}
+.site-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--forest-light)}
+.site-card.sun-card::before{background:var(--sun)}
+.site-card.gold-card::before{background:var(--gold)}
+.site-name{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.site-detail{font-size:12px;color:var(--text-mid);line-height:1.5}
+.site-stat{font-family:var(--mono);font-size:11px;color:var(--forest-light);margin-top:8px;font-weight:600}
+
+/* PROJECT CARDS WITH SVG */
+.projects-section{background:var(--cream);padding:80px 0}
+.projects-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+.project-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s}
+.project-card:hover{box-shadow:0 12px 40px rgba(26,58,42,.12);transform:translateY(-4px)}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--forest-light),transparent)}
+.project-card.sun-theme::before{background:linear-gradient(90deg,var(--sun),transparent)}
+.project-card.gold-theme::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.project-card.green-theme::before{background:linear-gradient(90deg,var(--green-bright),transparent)}
+.project-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:16px}
+.project-svg{flex-shrink:0;width:80px;height:80px}
+.project-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:6px;line-height:1.2}
+.project-subtitle{font-size:12px;color:var(--text-mid);font-weight:500}
+.project-desc{font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:16px}
+.project-stats-row{display:flex;gap:16px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--cream-dark)}
+.project-stat{display:flex;flex-direction:column}
+.project-stat .val{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--forest-mid)}
+.project-stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid)}
+
+/* ADB SECTION */
+.adb-section{background:var(--forest);padding:80px 0}
+.adb-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.adb-inner .section-label{color:var(--sun-light)}
+.adb-inner h2{color:#fff}
+.adb-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px;align-items:start}
+.adb-text{color:rgba(255,255,255,.75);font-size:15px;line-height:1.8}
+.adb-text strong{color:var(--sun-light)}
+.adb-text p{margin-bottom:16px}
+.adb-text p:last-child{margin-bottom:0}
+.adb-cards{display:flex;flex-direction:column;gap:16px}
+.adb-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:20px 22px;display:flex;gap:14px;align-items:flex-start}
+.adb-card-icon{font-size:20px;flex-shrink:0}
+.adb-card h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.adb-card p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
+
+/* IMPACT COUNTERS */
+.impact-section{background:var(--forest);padding:0;border-top:1px solid rgba(255,255,255,.08)}
+.impact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.impact-item{background:var(--forest);padding:48px 28px;text-align:center;position:relative}
+.impact-item::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:radial-gradient(circle,rgba(82,183,136,.06) 0%,transparent 70%);border-radius:50%}
+.impact-val{font-family:var(--serif);font-size:48px;color:#fff;line-height:1;margin-bottom:8px;position:relative;z-index:1}
+.impact-val span{color:var(--sun-light)}
+.impact-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);position:relative;z-index:1}
+.impact-sub{font-size:11px;color:rgba(255,255,255,.25);margin-top:4px;position:relative;z-index:1}
+
+/* BRIDGE */
+.bridge-section{background:var(--cream-dark);padding:80px 0}
+.bridge-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.bridge-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.bridge-card{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden}
+.bridge-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--forest-light),transparent)}
+.bridge-card.right-card::before{background:linear-gradient(90deg,var(--sun),transparent)}
+.bridge-card-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--forest-light);margin-bottom:20px}
+.bridge-card.right-card .bridge-card-label{color:var(--sun)}
+.bridge-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--cream-dark)}
+.bridge-item:last-child{border-bottom:none}
+.bridge-item-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.bridge-item-desc{font-size:13px;color:var(--text-mid);line-height:1.6}
+
+/* TOOLS */
+.tools-section{background:var(--cream);padding:60px 0}
+.tools-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.tools-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.tool-badge{background:#fff;border:1px solid var(--cream-dark);border-radius:8px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tool-badge:hover{border-color:var(--forest-light);box-shadow:0 4px 12px rgba(26,58,42,.08)}
+.tool-badge span{font-size:13px;font-weight:500;color:var(--navy)}
+.tool-icon{font-size:16px}
+.tool-cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);padding:10px 0 4px;width:100%}
+
+/* FOOTER */
+footer{background:var(--forest);border-top:1px solid rgba(255,255,255,.08);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:rgba(255,255,255,.4)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--green-bright);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* SUN ROTATE ANIMATION */
+@keyframes sun-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes sun-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes blade-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  .hero{padding:120px 32px 64px}.hero-grid,.problem-grid,.role-grid,.map-layout,.projects-grid,.adb-grid,.bridge-grid{grid-template-columns:1fr}
+  .impact-inner{grid-template-columns:repeat(2,1fr)}
+  section,.problem-inner,.role-inner,.map-inner,.projects-inner,.adb-inner,.bridge-inner,.tools-inner{padding:0 32px}
+  section{padding:60px 32px}.context-inner{grid-template-columns:1fr 1fr;padding:32px}
+  .back-nav{padding-left:24px;padding-right:24px}
+  footer{flex-direction:column;gap:16px;padding:32px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="https://sadmanishraqmohiuddin.vercel.app">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2L3.5 7L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Portfolio
+  </a>
+  <span class="sep">/</span>
+  <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">Case Studies</a>
+  <span class="sep">/</span>
+  <span class="current">Solargao - Renewable Energy Infrastructure</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Career Chapter - Renewable Energy / Field Operations</div>
+      <h1>Solar Infrastructure <em>at Rural Scale</em></h1>
+      <p class="hero-sub">Engineering Team Lead on a renewable energy deployment programme across rural Bangladesh - leading a 200-person field operations team, supporting 18MW of solar infrastructure deployment, and contributing to ADB-backed financial inclusion initiatives for rural farming communities.</p>
+      <div class="hero-meta">
+        <span class="hero-badge">Engineering Team Lead</span>
+        <span class="hero-badge">Solargao Limited</span>
+        <span class="hero-badge">Bangladesh</span>
+        <span class="hero-badge">Mar 2020 - Aug 2020</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">18<span>MW</span></div>
+        <div class="stat-label">Solar energy infrastructure capacity across Solargao's deployed network - Dinajpur, Rangpur, Thakurgaon</div>
+      </div>
+      <div class="stat-card sun">
+        <div class="stat-num">~800<span></span></div>
+        <div class="stat-label">Solar-powered irrigation systems deployed across Bangladesh - replacing diesel for rural farming communities</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-num">247<span></span></div>
+        <div class="stat-label">Total installation sites across the programme - with field operations led by a team of ~200 personnel</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="context-strip">
+  <div class="context-inner">
+    <div class="ctx-item"><div class="ctx-label">Organisation</div><div class="ctx-value">Solargao Limited</div></div>
+    <div class="ctx-item"><div class="ctx-label">Role</div><div class="ctx-value">Engineering Team Lead</div></div>
+    <div class="ctx-item"><div class="ctx-label">Location</div><div class="ctx-value">Dhaka, Bangladesh</div></div>
+    <div class="ctx-item"><div class="ctx-label">Team Size</div><div class="ctx-value">~200 Field Personnel</div></div>
+    <div class="ctx-item"><div class="ctx-label">Period</div><div class="ctx-value">Mar 2020 - Aug 2020</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<div class="problem-section">
+  <div class="problem-inner">
+    <div class="covid-note">
+      <span>⚠️</span>
+      <span><strong>Context note:</strong> This engagement ran for 5 months before being cut short by the COVID-19 pandemic in August 2020. The programme figures reflect Solargao's full operational history since 2013 - the role here was leading field deployment and analysis operations within that ongoing programme.</span>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-text">
+        <div class="section-label">The Problem</div>
+        <h2>Rural Bangladesh ran its agriculture almost entirely on diesel</h2>
+        <p>Bangladesh is primarily an agrarian country - most Bangladeshis depend on agriculture for their livelihood. Irrigation is critical for food security and sustained agricultural productivity. But the vast majority of irrigation pumps were powered by diesel generators - expensive, polluting, and entirely dependent on fuel supply chains that often failed in remote rural areas.</p>
+        <p>Beyond irrigation, large swathes of rural Bangladesh had no grid connectivity at all. Hundreds of thousands of households, schools, mosques, and small businesses had no reliable access to electricity. The clean energy transition in these communities required purpose-built infrastructure - solar irrigation, mini-grids, and hybrid stations - deployed at scale across difficult terrain.</p>
+      </div>
+      <div class="problem-cards">
+        <div class="prob-card"><div class="prob-icon">⛽</div><div><h4>Diesel Dependency</h4><p>Almost 800 irrigation pumps were diesel-powered - costly, polluting, and vulnerable to fuel supply disruptions in remote agricultural regions.</p></div></div>
+        <div class="prob-card"><div class="prob-icon">🔌</div><div><h4>No Grid Access</h4><p>Large rural communities had zero grid connectivity. Thousands of households, schools, and businesses had no reliable electricity source.</p></div></div>
+        <div class="prob-card"><div class="prob-icon">💰</div><div><h4>Farmer Financial Exclusion</h4><p>Rural farmers lacked access to financing for solar infrastructure. Without microloans and agent banking, the transition to clean energy was unaffordable.</p></div></div>
+        <div class="prob-card"><div class="prob-icon">📍</div><div><h4>Suboptimal Site Selection</h4><p>Deploying solar infrastructure without geospatial analysis led to inefficient placement - missing high-potential locations and underserving demand hotspots.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="divider">
+
+<!-- ROLE -->
+<div class="role-section">
+  <div class="role-inner">
+    <div class="section-label">My Role</div>
+    <h2>Leading field operations across a national deployment programme</h2>
+    <div class="role-grid">
+      <div class="role-summary">As <strong>Engineering Team Lead</strong>, the primary responsibility was leading the multidisciplinary engineering and field operations team of approximately <strong>200 personnel</strong> supporting active deployment and expansion of solar infrastructure across Bangladesh.<br><br>Beyond field leadership, the role involved <strong>geospatial analysis using ArcGIS</strong> to identify optimal installation sites from satellite datasets, project scoping and engineering documentation for new initiatives, and coordination with government agencies and international development institutions including the <strong>Asian Development Bank (ADB)</strong>.
+      </div>
+      <div class="role-items">
+        <div class="role-item"><h4>👥 Field Team Leadership</h4><p>Led a ~200-person multidisciplinary engineering and field operations team across active solar deployment sites in Dinajpur, Rangpur, Thakurgaon, and Sirajganj.</p></div>
+        <div class="role-item"><h4>🗺️ Geospatial Analysis</h4><p>Analysed satellite and geospatial datasets using ArcGIS to identify optimal solar installation locations and support planning of renewable energy infrastructure across rural regions.</p></div>
+        <div class="role-item"><h4>📋 Project Scoping & Documentation</h4><p>Directed project scoping, engineering documentation, and technical design planning for renewable energy initiatives including solar irrigation, mini-grids, and hybrid stations.</p></div>
+        <div class="role-item"><h4>🏛️ Stakeholder Coordination</h4><p>Coordinated with government agencies, engineers, and local stakeholders to align solar infrastructure deployment with rural electrification initiatives and regulatory requirements.</p></div>
+        <div class="role-item"><h4>🌱 Rural Energy Analysis</h4><p>Analysed rural energy access gaps, irrigation demand patterns, and solar infrastructure deployment data to support implementation strategies across agricultural regions.</p></div>
+        <div class="role-item"><h4>🏦 ADB Programme Support</h4><p>Supported the rollout of agent banking and mobile financial services in collaboration with the Asian Development Bank, enabling microloans to rural farmers for solar irrigation systems.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BANGLADESH MAP -->
+<div class="map-section">
+  <div class="map-inner">
+    <div class="section-label">Geospatial Deployment</div>
+    <h2>247 sites. Concentrated in the agricultural northwest.</h2>
+    <div class="map-layout">
+      <div class="map-container" id="mapContainer">
+        <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+          <!-- Bangladesh outline - simplified -->
+          <path d="M 58,65 L 80,52 L 140,48 L 200,50 L 260,52 L 330,58 L 390,68 L 430,82 L 450,100 L 458,125 L 455,160 L 448,200 L 440,240 L 432,275 L 420,305 L 408,330 L 400,355 L 392,380 L 385,405 L 380,425 L 375,445 L 368,460 L 355,472 L 340,478 L 325,472 L 310,480 L 300,475 L 285,485 L 268,480 L 250,488 L 232,480 L 215,490 L 195,482 L 175,488 L 155,478 L 135,470 L 115,458 L 95,442 L 78,422 L 62,400 L 48,375 L 40,345 L 38,315 L 42,285 L 48,255 L 50,225 L 48,195 L 46,165 L 50,135 L 52,105 L 55,80 Z"
+            fill="rgba(82,183,136,0.08)" stroke="rgba(82,183,136,0.35)" stroke-width="1.5" stroke-linejoin="round"/>
+
+          <!-- River outlines (simplified Ganges/Brahmaputra delta) -->
+          <path d="M 200,350 Q 220,380 210,420 Q 200,450 215,490" fill="none" stroke="rgba(82,183,136,0.2)" stroke-width="2"/>
+          <path d="M 250,320 Q 260,360 255,400 Q 248,440 268,480" fill="none" stroke="rgba(82,183,136,0.2)" stroke-width="1.5"/>
+          <path d="M 160,300 Q 155,340 160,380 Q 165,410 155,478" fill="none" stroke="rgba(82,183,136,0.15)" stroke-width="1.5"/>
+
+          <!-- Region labels -->
+          <text x="95" y="112" fill="rgba(255,255,255,0.3)" font-size="9" font-family="'Instrument Sans', sans-serif" letter-spacing="0.05em">THAKURGAON</text>
+          <text x="140" y="130" fill="rgba(255,255,255,0.3)" font-size="9" font-family="'Instrument Sans', sans-serif" letter-spacing="0.05em">DINAJPUR</text>
+          <text x="190" y="108" fill="rgba(255,255,255,0.3)" font-size="9" font-family="'Instrument Sans', sans-serif" letter-spacing="0.05em">RANGPUR</text>
+          <text x="210" y="88" fill="rgba(255,255,255,0.25)" font-size="9" font-family="'Instrument Sans', sans-serif" letter-spacing="0.05em">KURIGRAM</text>
+          <text x="220,260" y="290" fill="rgba(255,255,255,0.25)" font-size="9" font-family="'Instrument Sans', sans-serif">DHAKA</text>
+          <text x="175" y="310" fill="rgba(255,255,255,0.2)" font-size="8" font-family="'Instrument Sans', sans-serif">SIRAJGANJ</text>
+          <text x="370" y="398" fill="rgba(255,255,255,0.25)" font-size="8" font-family="'Instrument Sans', sans-serif">CHITTAGONG</text>
+
+          <!-- ===== GLOWING SITE DOTS ===== -->
+
+          <!-- THAKURGAON cluster (many irrigation sites) -->
+          <g id="dot-thakurgaon">
+            <circle cx="88" cy="120" r="5" fill="#52b788" opacity="0.9"/>
+            <circle cx="88" cy="120" fill="none" stroke="#52b788" stroke-width="2" r="5" opacity="0.8">
+              <animate attributeName="r" values="5;20;5" dur="2.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0;0.8" dur="2.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="88" cy="120" fill="none" stroke="#52b788" stroke-width="1" r="5" opacity="0.5">
+              <animate attributeName="r" values="5;32;5" dur="2.8s" begin="0.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="2.8s" begin="0.4s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- DINAJPUR cluster (largest concentration) -->
+          <g id="dot-dinajpur-1">
+            <circle cx="148" cy="135" r="7" fill="#f0a830" opacity="0.95"/>
+            <circle cx="148" cy="135" fill="none" stroke="#f0a830" stroke-width="2.5" r="7" opacity="0.8">
+              <animate attributeName="r" values="7;25;7" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0;0.8" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="148" cy="135" fill="none" stroke="#f0a830" stroke-width="1" r="7" opacity="0.4">
+              <animate attributeName="r" values="7;38;7" dur="2.4s" begin="0.7s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0;0.4" dur="2.4s" begin="0.7s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- DINAJPUR secondary cluster -->
+          <g id="dot-dinajpur-2">
+            <circle cx="128" cy="155" r="5" fill="#f0a830" opacity="0.85"/>
+            <circle cx="128" cy="155" fill="none" stroke="#f0a830" stroke-width="2" r="5" opacity="0.7">
+              <animate attributeName="r" values="5;18;5" dur="3.1s" begin="0.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="3.1s" begin="0.8s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- RANGPUR cluster -->
+          <g id="dot-rangpur">
+            <circle cx="200" cy="118" r="6" fill="#52b788" opacity="0.9"/>
+            <circle cx="200" cy="118" fill="none" stroke="#52b788" stroke-width="2" r="6" opacity="0.8">
+              <animate attributeName="r" values="6;22;6" dur="2.6s" begin="0.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0;0.8" dur="2.6s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="118" fill="none" stroke="#52b788" stroke-width="1" r="6" opacity="0.4">
+              <animate attributeName="r" values="6;34;6" dur="2.6s" begin="1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0;0.4" dur="2.6s" begin="1s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- KURIGRAM - Narayanpur mini-grid -->
+          <g id="dot-kurigram">
+            <circle cx="218" cy="90" r="5" fill="#c9a84c" opacity="0.9"/>
+            <circle cx="218" cy="90" fill="none" stroke="#c9a84c" stroke-width="2" r="5" opacity="0.7">
+              <animate attributeName="r" values="5;19;5" dur="3.3s" begin="0.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="3.3s" begin="0.2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- SIRAJGANJ - Rupsha Chor -->
+          <g id="dot-sirajganj">
+            <circle cx="192" cy="300" r="5" fill="#52b788" opacity="0.85"/>
+            <circle cx="192" cy="300" fill="none" stroke="#52b788" stroke-width="2" r="5" opacity="0.7">
+              <animate attributeName="r" values="5;18;5" dur="2.9s" begin="1.1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="2.9s" begin="1.1s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- DHAKA (HQ) -->
+          <g id="dot-dhaka">
+            <circle cx="258" cy="285" r="5" fill="rgba(255,255,255,0.7)" opacity="0.8"/>
+            <circle cx="258" cy="285" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" r="5" opacity="0.6">
+              <animate attributeName="r" values="5;14;5" dur="3.5s" begin="0.6s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="3.5s" begin="0.6s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+          <text x="265" y="283" fill="rgba(255,255,255,0.6)" font-size="9" font-family="'Instrument Sans', sans-serif" font-weight="600">Dhaka HQ</text>
+
+          <!-- ST. MARTIN ISLAND - mini-grid -->
+          <g id="dot-stmartin">
+            <circle cx="390" cy="548" r="4" fill="#c9a84c" opacity="0.9"/>
+            <circle cx="390" cy="548" fill="none" stroke="#c9a84c" stroke-width="2" r="4" opacity="0.7">
+              <animate attributeName="r" values="4;16;4" dur="3s" begin="1.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" begin="1.4s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+          <text x="330" y="555" fill="rgba(201,168,76,0.7)" font-size="8" font-family="'Instrument Sans', sans-serif">St. Martin Island</text>
+
+          <!-- Bay of Bengal label -->
+          <text x="300" y="520" fill="rgba(255,255,255,0.12)" font-size="11" font-family="'DM Serif Display', serif" font-style="italic">Bay of Bengal</text>
+        </svg>
+
+        <div class="map-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#f0a830"></div>Irrigation project concentration - Dinajpur (highest density)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#52b788"></div>Solar installation sites - Rangpur, Thakurgaon, Sirajganj</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>Mini-grid stations - Kurigram, St. Martin Island</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.6)"></div>Programme headquarters - Dhaka (Uttara)</div>
+        </div>
+      </div>
+
+      <div class="map-site-info">
+        <div style="font-size:14px;color:var(--text-mid);margin-bottom:8px;line-height:1.7">ArcGIS satellite analysis was used to identify optimal solar installation locations - assessing rural energy access gaps, irrigation demand patterns, and geographic suitability across the northwest regions where agricultural density was highest.</div>
+
+        <div class="site-card sun-card fade-up">
+          <div class="site-name">Dinajpur & Thakurgaon Region</div>
+          <div class="site-detail">Highest project concentration - GAZI Irrigation Projects 2, 3, and 4 alone covered 401 pumps across 308 sites, deploying 10,104 KW of solar irrigation capacity.</div>
+          <div class="site-stat">401 pumps - 308 sites - 10,104 KW</div>
+        </div>
+        <div class="site-card fade-up">
+          <div class="site-name">Rangpur Region</div>
+          <div class="site-detail">Early programme sites - Gram and Solargao irrigation projects established the template for scaled deployment, totalling 130 pumps across 65 sites from 2014-2015.</div>
+          <div class="site-stat">130 pumps - 65 sites - 957 KW</div>
+        </div>
+        <div class="site-card gold-card fade-up">
+          <div class="site-name">Kurigram & Sirajganj</div>
+          <div class="site-detail">Mini-grid and hybrid project sites - Narayanpur Chor (158KW), Rupsha Chor mini-grid (138KW), and Solargao Irrigation Project 6 serving Sirajganj communities.</div>
+          <div class="site-stat">3 stations - 546 KW combined</div>
+        </div>
+        <div class="site-card fade-up">
+          <div class="site-name">St. Martin Island</div>
+          <div class="site-detail">Remote island mini-grid (250KW) - the largest single solar mini-grid in the programme, providing clean electricity to a community with no grid connection in the Bay of Bengal.</div>
+          <div class="site-stat">250 KW - Island electrification</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT CARDS WITH SVG -->
+<div class="projects-section">
+  <div class="projects-inner">
+    <div class="section-label sun">Infrastructure Portfolio</div>
+    <h2>Four types of solar infrastructure. One mission.</h2>
+    <p style="color:var(--text-mid);max-width:640px;margin-bottom:0">Solargao's project portfolio covers the full spectrum of rural energy needs - from replacing individual diesel irrigation pumps to electrifying entire island communities with no grid access.</p>
+
+    <div class="projects-grid">
+      <!-- SOLAR IRRIGATION -->
+      <div class="project-card sun-theme fade-up">
+        <div class="project-header">
+          <svg class="project-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sun -->
+            <circle cx="40" cy="22" r="10" fill="#f0a830" opacity="0.9"/>
+            <g stroke="#f0a830" stroke-width="2" stroke-linecap="round" style="transform-origin:40px 22px;animation:sun-rotate 8s linear infinite">
+              <line x1="40" y1="6" x2="40" y2="2"/>
+              <line x1="40" y1="38" x2="40" y2="42"/>
+              <line x1="24" y1="22" x2="20" y2="22"/>
+              <line x1="56" y1="22" x2="60" y2="22"/>
+              <line x1="28.7" y1="10.7" x2="25.9" y2="7.9"/>
+              <line x1="51.3" y1="33.3" x2="54.1" y2="36.1"/>
+              <line x1="51.3" y1="10.7" x2="54.1" y2="7.9"/>
+              <line x1="28.7" y1="33.3" x2="25.9" y2="36.1"/>
+            </g>
+            <!-- Solar panel on ground -->
+            <rect x="18" y="44" width="24" height="14" rx="2" fill="#2d6a4f" stroke="#40916c" stroke-width="1"/>
+            <line x1="18" y1="51" x2="42" y2="51" stroke="#40916c" stroke-width="0.8"/>
+            <line x1="30" y1="44" x2="30" y2="58" stroke="#40916c" stroke-width="0.8"/>
+            <!-- Pump -->
+            <rect x="46" y="50" width="10" height="8" rx="2" fill="#f0a830" opacity="0.8"/>
+            <!-- Water droplets animated -->
+            <circle cx="52" cy="42" r="2" fill="#52b788" opacity="0.8">
+              <animate attributeName="cy" values="42;70;70" dur="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0.8;0" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="56" cy="42" r="1.5" fill="#52b788" opacity="0.8">
+              <animate attributeName="cy" values="42;70;70" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0.8;0" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Field lines -->
+            <line x1="10" y1="72" x2="70" y2="72" stroke="#2d6a4f" stroke-width="1.5" opacity="0.5"/>
+            <line x1="10" y1="76" x2="70" y2="76" stroke="#2d6a4f" stroke-width="1" opacity="0.3"/>
+          </svg>
+          <div>
+            <div class="project-title">Solar Irrigation</div>
+            <div class="project-subtitle">Replacing diesel pumps with clean solar energy</div>
+          </div>
+        </div>
+        <p class="project-desc">Bangladesh's agricultural heartland depended on diesel-powered irrigation pumps - expensive, polluting, and unreliable. Solargao converted nearly 800 irrigation pumps across the country to solar power, providing farmers with lower-cost, emission-free irrigation for their crops.</p>
+        <div class="project-stats-row">
+          <div class="project-stat"><div class="val">~800</div><div class="lbl">Pumps Converted</div></div>
+          <div class="project-stat"><div class="val">18MW+</div><div class="lbl">Installed Capacity</div></div>
+          <div class="project-stat"><div class="val">10</div><div class="lbl">Project Phases</div></div>
+        </div>
+      </div>
+
+      <!-- MINI-GRID -->
+      <div class="project-card green-theme fade-up">
+        <div class="project-header">
+          <svg class="project-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sun -->
+            <circle cx="20" cy="16" r="8" fill="#f0a830" opacity="0.85"/>
+            <g stroke="#f0a830" stroke-width="1.5" stroke-linecap="round" style="transform-origin:20px 16px;animation:sun-rotate 10s linear infinite">
+              <line x1="20" y1="4" x2="20" y2="1"/>
+              <line x1="20" y1="28" x2="20" y2="31"/>
+              <line x1="8" y1="16" x2="5" y2="16"/>
+              <line x1="32" y1="16" x2="35" y2="16"/>
+              <line x1="11.5" y1="7.5" x2="9.3" y2="5.3"/>
+              <line x1="28.5" y1="24.5" x2="30.7" y2="26.7"/>
+            </g>
+            <!-- Solar array -->
+            <rect x="8" y="34" width="18" height="10" rx="1.5" fill="#2d6a4f" stroke="#52b788" stroke-width="1"/>
+            <line x1="8" y1="39" x2="26" y2="39" stroke="#52b788" stroke-width="0.7"/>
+            <line x1="17" y1="34" x2="17" y2="44" stroke="#52b788" stroke-width="0.7"/>
+            <!-- Power lines -->
+            <line x1="17" y1="44" x2="40" y2="50" stroke="#f0a830" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <!-- Pole -->
+            <line x1="40" y1="35" x2="40" y2="70" stroke="#c9a84c" stroke-width="2"/>
+            <line x1="33" y1="40" x2="47" y2="40" stroke="#c9a84c" stroke-width="1.5"/>
+            <!-- Houses -->
+            <g fill="#40916c" opacity="0.8">
+              <rect x="52" y="52" width="10" height="8" rx="1"/>
+              <polygon points="52,52 57,46 62,52"/>
+              <rect x="64" y="55" width="8" height="6" rx="1"/>
+              <polygon points="64,55 68,50 72,55"/>
+            </g>
+            <!-- Power lines to houses -->
+            <line x1="47" y1="40" x2="57" y2="52" stroke="#f0a830" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.7"/>
+            <line x1="47" y1="40" x2="68" y2="55" stroke="#f0a830" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.7"/>
+          </svg>
+          <div>
+            <div class="project-title">Solar Mini-Grid</div>
+            <div class="project-subtitle">Electrifying off-grid rural communities</div>
+          </div>
+        </div>
+        <p class="project-desc">Three solar mini-grids were built and operated across off-grid communities - Narayanpur Chor (158KW), Rupsha Chor (138KW), and St. Martin Island (250KW) - providing clean electricity to thousands of households, schools, mosques, and small enterprises in areas with no grid connectivity.</p>
+        <div class="project-stats-row">
+          <div class="project-stat"><div class="val">546KW</div><div class="lbl">Combined Capacity</div></div>
+          <div class="project-stat"><div class="val">3</div><div class="lbl">Mini-Grids</div></div>
+          <div class="project-stat"><div class="val">1000s</div><div class="lbl">Households Served</div></div>
+        </div>
+      </div>
+
+      <!-- HYBRID STATION -->
+      <div class="project-card gold-theme fade-up">
+        <div class="project-header">
+          <svg class="project-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sun left side -->
+            <circle cx="18" cy="18" r="7" fill="#f0a830" opacity="0.85"/>
+            <g stroke="#f0a830" stroke-width="1.5" stroke-linecap="round" style="transform-origin:18px 18px;animation:sun-rotate 9s linear infinite">
+              <line x1="18" y1="6" x2="18" y2="3"/>
+              <line x1="18" y1="30" x2="18" y2="33"/>
+              <line x1="6" y1="18" x2="3" y2="18"/>
+              <line x1="30" y1="18" x2="33" y2="18"/>
+            </g>
+            <!-- Plus sign (hybrid) -->
+            <text x="32" y="24" fill="#52b788" font-size="14" font-weight="700" font-family="sans-serif">+</text>
+            <!-- Generator/diesel right side -->
+            <rect x="46" y="10" width="22" height="14" rx="3" fill="#2d6a4f" stroke="#40916c" stroke-width="1.2"/>
+            <circle cx="57" cy="17" r="4" fill="#40916c" stroke="#52b788" stroke-width="1" style="transform-origin:57px 17px;animation:blade-spin 3s linear infinite"/>
+            <rect x="52" y="24" width="10" height="4" rx="1" fill="#c9a84c" opacity="0.8"/>
+            <!-- Solar panel bottom -->
+            <rect x="6" y="42" width="28" height="16" rx="2" fill="#1a3a2a" stroke="#40916c" stroke-width="1"/>
+            <line x1="6" y1="50" x2="34" y2="50" stroke="#40916c" stroke-width="0.8"/>
+            <line x1="20" y1="42" x2="20" y2="58" stroke="#40916c" stroke-width="0.8"/>
+            <!-- Power connection -->
+            <path d="M 34,50 Q 40,45 46,28" fill="none" stroke="#f0a830" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <!-- Community below -->
+            <rect x="46" y="50" width="8" height="6" rx="1" fill="#40916c" opacity="0.7"/>
+            <polygon points="46,50 50,44 54,50" fill="#40916c" opacity="0.7"/>
+            <rect x="58" y="52" width="8" height="4" rx="1" fill="#40916c" opacity="0.6"/>
+          </svg>
+          <div>
+            <div class="project-title">Solar Hybrid Station</div>
+            <div class="project-subtitle">Solar-diesel hybrid for partial grid offset</div>
+          </div>
+        </div>
+        <p class="project-desc">A 130 KWP Solar-Diesel Hybrid Station was built to provide electricity to over 600 households, 96 shops, 11 schools and religious institutions, 3 rice husking mills, and 2 workshops. Where solar alone can't cover all demand, a hybrid station significantly offsets costs and carbon emissions versus a fully diesel system.</p>
+        <div class="project-stats-row">
+          <div class="project-stat"><div class="val">130KWP</div><div class="lbl">Solar Capacity</div></div>
+          <div class="project-stat"><div class="val">600+</div><div class="lbl">Households</div></div>
+          <div class="project-stat"><div class="val">96</div><div class="lbl">Shops Powered</div></div>
+        </div>
+      </div>
+
+      <!-- COLD STORAGE -->
+      <div class="project-card fade-up">
+        <div class="project-header">
+          <svg class="project-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sun -->
+            <circle cx="18" cy="16" r="7" fill="#f0a830" opacity="0.85"/>
+            <g stroke="#f0a830" stroke-width="1.5" stroke-linecap="round" style="transform-origin:18px 16px;animation:sun-rotate 11s linear infinite">
+              <line x1="18" y1="5" x2="18" y2="2"/>
+              <line x1="18" y1="27" x2="18" y2="30"/>
+              <line x1="7" y1="16" x2="4" y2="16"/>
+              <line x1="29" y1="16" x2="32" y2="16"/>
+            </g>
+            <!-- Arrow down from sun -->
+            <path d="M 18,23 L 18,34" stroke="#52b788" stroke-width="1.5" stroke-dasharray="2,2"/>
+            <!-- Cold storage unit -->
+            <rect x="26" y="34" width="36" height="28" rx="3" fill="#1a3a2a" stroke="#40916c" stroke-width="1.5"/>
+            <rect x="28" y="36" width="32" height="12" rx="2" fill="#0d2018" stroke="#2d6a4f" stroke-width="1"/>
+            <!-- Snowflake -->
+            <g stroke="#7dd4a8" stroke-width="1.2" stroke-linecap="round">
+              <line x1="44" y1="38" x2="44" y2="47"/>
+              <line x1="39.5" y1="40.5" x2="48.5" y2="44.5"/>
+              <line x1="39.5" y1="44.5" x2="48.5" y2="40.5"/>
+              <line x1="41" y1="38.5" x2="39" y2="36.5"/>
+              <line x1="47" y1="38.5" x2="49" y2="36.5"/>
+              <line x1="41" y1="46.5" x2="39" y2="48.5"/>
+              <line x1="47" y1="46.5" x2="49" y2="48.5"/>
+            </g>
+            <!-- Door -->
+            <rect x="38" y="50" width="12" height="10" rx="1" fill="#2d6a4f"/>
+            <circle cx="48" cy="55" r="1.5" fill="#f0a830"/>
+            <!-- Solar panel on roof -->
+            <rect x="28" y="30" width="14" height="7" rx="1" fill="#2d6a4f" stroke="#52b788" stroke-width="0.8"/>
+            <line x1="28" y1="33.5" x2="42" y2="33.5" stroke="#52b788" stroke-width="0.5"/>
+            <line x1="35" y1="30" x2="35" y2="37" stroke="#52b788" stroke-width="0.5"/>
+          </svg>
+          <div>
+            <div class="project-title">Modular Cold Storage</div>
+            <div class="project-subtitle">Preventing post-harvest losses for rural farmers</div>
+          </div>
+        </div>
+        <p class="project-desc">Seasonal oversupply of agricultural produce led to heavy farmer losses without storage options. Solargao built solar-powered modular cold storage units starting from 0.5T capacity, powered entirely by solar energy, providing short-term cold storage for fruits, vegetables, and perishables in areas without grid connectivity.</p>
+        <div class="project-stats-row">
+          <div class="project-stat"><div class="val">0.5T+</div><div class="lbl">Unit Sizes</div></div>
+          <div class="project-stat"><div class="val">1.45kWh</div><div class="lbl">Power per Unit</div></div>
+          <div class="project-stat"><div class="val">100%</div><div class="lbl">Solar Powered</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADB COLLABORATION -->
+<div class="adb-section">
+  <div class="adb-inner">
+    <div class="section-label">ADB Collaboration</div>
+    <h2>Connecting rural farmers to international development finance</h2>
+    <div class="adb-grid">
+      <div class="adb-text">
+        <p>One of the most impactful dimensions of the Solargao programme was its collaboration with the <strong>Asian Development Bank (ADB)</strong> to enable access to clean energy for the rural farming communities who needed it most but could least afford it.</p>
+        <p>Converting an irrigation pump from diesel to solar requires upfront capital investment. For subsistence farmers in rural Bangladesh, this was often an insurmountable barrier - even when the long-term savings on fuel costs were obvious.</p>
+        <p>The ADB-backed initiative addressed this directly through <strong>agent banking and mobile financial services</strong> - providing microloans to rural farmers specifically to finance solar-powered irrigation systems. This wasn't just an energy programme - it was a financial inclusion initiative that connected Bangladesh's rural agricultural communities to formal credit systems for the first time.</p>
+        <p>Supporting the rollout of this initiative meant coordinating across engineering, financial services, government, and community stakeholders simultaneously - a cross-functional coordination challenge that directly mirrors the multi-stakeholder complexity of senior BA delivery.</p>
+      </div>
+      <div class="adb-cards">
+        <div class="adb-card">
+          <div class="adb-card-icon">🌍</div>
+          <div>
+            <h4>Asian Development Bank (ADB)</h4>
+            <p>International development finance institution backing the financial inclusion component of rural solar deployment across Bangladesh.</p>
+          </div>
+        </div>
+        <div class="adb-card">
+          <div class="adb-card-icon">📱</div>
+          <div>
+            <h4>Agent Banking & Mobile Financial Services</h4>
+            <p>Rollout of digital financial infrastructure enabling rural farmers without bank accounts to access formal credit and payment systems.</p>
+          </div>
+        </div>
+        <div class="adb-card">
+          <div class="adb-card-icon">💳</div>
+          <div>
+            <h4>Microloans for Solar Infrastructure</h4>
+            <p>Targeted microloan products enabling farmers to finance solar irrigation systems - converting the upfront capital barrier into manageable repayments offset by fuel savings.</p>
+          </div>
+        </div>
+        <div class="adb-card">
+          <div class="adb-card-icon">🌾</div>
+          <div>
+            <h4>Rural Agricultural Communities</h4>
+            <p>End beneficiaries across Dinajpur, Rangpur, and Thakurgaon - farming communities whose irrigation costs and carbon footprint were permanently reduced through the programme.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT COUNTERS -->
+<div class="impact-section">
+  <div class="impact-inner">
+    <div class="impact-item">
+      <div class="impact-val" data-target="18" data-suffix="MW">0</div>
+      <div class="impact-label">Solar Capacity Deployed</div>
+      <div class="impact-sub">Across Solargao's network</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val" data-target="800" data-prefix="~" data-suffix="">0</div>
+      <div class="impact-label">Irrigation Systems</div>
+      <div class="impact-sub">Diesel replaced by solar</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val" data-target="247" data-suffix="">0</div>
+      <div class="impact-label">Installation Sites</div>
+      <div class="impact-sub">Across Bangladesh</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-val" data-target="270" data-suffix="K+">0</div>
+      <div class="impact-label">Tonnes CO₂ Avoided</div>
+      <div class="impact-sub">Lifetime programme impact</div>
+    </div>
+  </div>
+</div>
+
+<!-- BRIDGE -->
+<div class="bridge-section">
+  <div class="bridge-inner">
+    <div class="section-label gold">The Bridge</div>
+    <h2>What field operations at this scale teaches</h2>
+    <p style="color:var(--text-mid);max-width:680px;margin-bottom:40px;font-size:16px;line-height:1.7">Leading a 200-person team across remote deployment sites, coordinating with government agencies and international institutions, and applying geospatial analysis to infrastructure planning - these aren't abstract experiences. They translate directly into how complex, multi-stakeholder BA programmes are navigated today.</p>
+    <div class="bridge-grid">
+      <div class="bridge-card fade-up">
+        <div class="bridge-card-label">What this role built</div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Large-scale team leadership under ambiguity</div>
+            <div class="bridge-item-desc">Leading ~200 field personnel across remote sites with limited infrastructure required clear communication, structured coordination, and the ability to make decisions without perfect information.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Geospatial and data-driven planning</div>
+            <div class="bridge-item-desc">Using ArcGIS satellite analysis to identify optimal installation locations combined analytical rigour with operational planning - the same data-first approach applied to BA requirements analysis today.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Multi-stakeholder coordination</div>
+            <div class="bridge-item-desc">Simultaneously coordinating engineers, field teams, government agencies, local communities, and an international development bank required the same stakeholder management discipline as enterprise BA delivery.</div>
+          </div>
+        </div>
+      </div>
+      <div class="bridge-card right-card fade-up">
+        <div class="bridge-card-label">How it shapes BA practice</div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Comfort with complexity and scale</div>
+            <div class="bridge-item-desc">Enterprise BA programmes involving 30,000+ users, government clients, and multi-workstream delivery feel familiar - the coordination complexity is structurally similar to what was navigated in the field.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Data-driven requirements thinking</div>
+            <div class="bridge-item-desc">Applying geospatial analysis before deploying infrastructure reinforces a core BA habit - gathering and analysing real data to inform decisions rather than relying on assumptions or intuition.</div>
+          </div>
+        </div>
+        <div class="bridge-item">
+          <div>
+            <div class="bridge-item-title">Credibility across government and institutional contexts</div>
+            <div class="bridge-item-desc">Working alongside ADB and government agencies calibrates the communication and documentation standards required when engaging government stakeholders - a recurring context in BA work today.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <div class="section-label">Tools & Methods</div>
+    <div class="tools-grid">
+      <span class="tool-cat">Geospatial & Analysis</span>
+      <div class="tool-badge"><span class="tool-icon">🗺️</span><span>ArcGIS</span></div>
+      <div class="tool-badge"><span class="tool-icon">🛰️</span><span>Satellite Dataset Analysis</span></div>
+      <div class="tool-badge"><span class="tool-icon">📍</span><span>Site Suitability Assessment</span></div>
+      <div class="tool-badge"><span class="tool-icon">📊</span><span>Rural Energy Access Analysis</span></div>
+      <span class="tool-cat">Engineering & Project</span>
+      <div class="tool-badge"><span class="tool-icon">📋</span><span>Engineering Documentation</span></div>
+      <div class="tool-badge"><span class="tool-icon">🏗️</span><span>EPC Project Scoping</span></div>
+      <div class="tool-badge"><span class="tool-icon">⚡</span><span>Solar System Design</span></div>
+      <div class="tool-badge"><span class="tool-icon">🔋</span><span>Off-Grid Energy Planning</span></div>
+      <span class="tool-cat">Stakeholder & Operations</span>
+      <div class="tool-badge"><span class="tool-icon">🏛️</span><span>Government Coordination</span></div>
+      <div class="tool-badge"><span class="tool-icon">🌍</span><span>ADB Programme Support</span></div>
+      <div class="tool-badge"><span class="tool-icon">👥</span><span>Large Team Leadership (~200)</span></div>
+      <div class="tool-badge"><span class="tool-icon">🌾</span><span>Rural Community Engagement</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Sadman Ishraq Mohiuddin - Senior Business Analyst - Montreal, QC, Canada</p>
+  <div class="footer-links">
+    <a href="https://sadmanishraqmohiuddin.vercel.app/case-studies">- All Case Studies</a>
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// FADE UP
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+
+// ANIMATED COUNTERS
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(eased * target);
+    el.innerHTML = `${prefix}${val}<span>${suffix}</span>`;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('[data-target]').forEach(el => animateCounter(el));
+    counterObs.unobserve(e.target);
+  });
+}, {threshold: 0.4});
+document.querySelectorAll('.impact-inner').forEach(el => counterObs.observe(el));
+</script>
+</body>
+</html>
