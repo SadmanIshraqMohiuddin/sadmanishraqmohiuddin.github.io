@@ -4,6 +4,7 @@ type Props = {
   value: string;
   durationMs?: number;
   startSignal?: boolean;
+  accentClassName?: string;
 };
 
 /**
@@ -11,7 +12,7 @@ type Props = {
  * and animates the numeric portion from 0 -> target while preserving
  * any prefix/suffix characters (e.g. "~", "+", " MW+").
  */
-export default function AnimatedNumber({ value, durationMs = 1800, startSignal }: Props) {
+export default function AnimatedNumber({ value, durationMs = 1800, startSignal, accentClassName }: Props) {
   const parsed = useMemo(() => {
     const m = value.match(/(\d[\d,]*(?:\.\d+)?)/);
     if (!m || m.index === undefined) {
@@ -60,9 +61,13 @@ export default function AnimatedNumber({ value, durationMs = 1800, startSignal }
 
   return (
     <>
-      {parsed.prefix}
+      {parsed.prefix && (
+        accentClassName ? <span className={accentClassName}>{parsed.prefix}</span> : parsed.prefix
+      )}
       {formatted}
-      {parsed.suffix}
+      {parsed.suffix && (
+        accentClassName ? <span className={accentClassName}>{parsed.suffix}</span> : parsed.suffix
+      )}
     </>
   );
 }
