@@ -227,13 +227,43 @@ export default function Index() {
       >
         <div className="grid gap-12 md:grid-cols-2 md:gap-x-16">
           {capabilities.map((cap) => {
-            const meta: Record<string, { icon: string; accent: string }> = {
-              "Business Analysis & Requirements": { icon: "📋", accent: "hsl(45 90% 60%)" },
-              "Operations & Strategy": { icon: "⚙️", accent: "hsl(25 90% 58%)" },
-              "Data & Tools": { icon: "📊", accent: "hsl(140 60% 55%)" },
-              "Enterprise Technology": { icon: "☁️", accent: "hsl(200 85% 60%)" },
+            const meta: Record<string, { icon: string; accent: string; pillColor: string; pillBg: string; pillBorder: string }> = {
+              "Business Analysis & Requirements": {
+                icon: "📋",
+                accent: "#2a9d8f",
+                pillColor: "#2a9d8f",
+                pillBg: "rgba(42,157,143,0.08)",
+                pillBorder: "rgba(42,157,143,0.25)",
+              },
+              "Operations & Strategy": {
+                icon: "⚙️",
+                accent: "#c9a84c",
+                pillColor: "#c9a84c",
+                pillBg: "rgba(201,168,76,0.08)",
+                pillBorder: "rgba(201,168,76,0.25)",
+              },
+              "Data & Tools": {
+                icon: "📊",
+                accent: "#a78bfa",
+                pillColor: "#a78bfa",
+                pillBg: "rgba(167,139,250,0.08)",
+                pillBorder: "rgba(167,139,250,0.25)",
+              },
+              "Enterprise Technology": {
+                icon: "☁️",
+                accent: "#52b788",
+                pillColor: "#52b788",
+                pillBg: "rgba(82,183,136,0.08)",
+                pillBorder: "rgba(82,183,136,0.25)",
+              },
             };
-            const m = meta[cap.group] ?? { icon: "•", accent: "hsl(var(--primary-foreground))" };
+            const m = meta[cap.group] ?? {
+              icon: "•",
+              accent: "hsl(var(--primary-foreground))",
+              pillColor: "#ffffff",
+              pillBg: "rgba(255,255,255,0.04)",
+              pillBorder: "rgba(255,255,255,0.15)",
+            };
             return (
               <div key={cap.group}>
                 <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: m.accent }}>
@@ -244,7 +274,13 @@ export default function Index() {
                   {cap.items.map((it) => (
                     <li
                       key={it}
-                      className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/85 transition-colors hover:bg-white/10 hover:border-white/30"
+                      className="inline-flex items-center border px-3.5 py-1.5 text-xs font-medium transition-colors"
+                      style={{
+                        borderRadius: "100px",
+                        color: m.pillColor,
+                        backgroundColor: m.pillBg,
+                        borderColor: m.pillBorder,
+                      }}
                     >
                       {it}
                     </li>
