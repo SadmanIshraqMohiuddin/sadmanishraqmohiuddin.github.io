@@ -96,6 +96,45 @@ export default function Index() {
             </div>
           </div>
         </div>
+
+        {/* Ticker */}
+        <div className="relative border-t border-white/10">
+          <div className="overflow-hidden py-4">
+            <div className="flex w-max animate-[ticker_30s_linear_infinite] whitespace-nowrap">
+              {[0, 1].map((dup) => (
+                <ul key={dup} aria-hidden={dup === 1} className="flex items-center shrink-0">
+                  {[
+                    "Enterprise Cloud Transformation",
+                    "Government Fiscal Compliance",
+                    "National Fiscal Compliance (EFDMS)",
+                    "Healthcare Logistics",
+                    "Digital EdTech Platform Delivery",
+                    "Renewable Energy Infrastructure",
+                    "AI IFRS Accounting Research",
+                    "Requirements Engineering",
+                    "Agile Delivery",
+                    "UAT & Business Sign-Off",
+                    "Microsoft Azure Migration",
+                    "SQL",
+                    "Power BI",
+                    "Tableau",
+                    "CCBA® In Progress",
+                    "BPMN Process Mapping",
+                    "Stakeholder Management",
+                    "Cloud Transformation",
+                  ].map((item, i) => (
+                    <li key={`${dup}-${i}`} className="flex items-center">
+                      <span className="px-6 text-xs uppercase tracking-[0.2em] text-white/40 font-medium">
+                        {item}
+                      </span>
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-[hsl(45_70%_55%)]" />
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Credibility metrics */}
