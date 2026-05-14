@@ -138,16 +138,42 @@ export default function Index() {
       </section>
 
       {/* Credibility metrics */}
-      <section className="border-b border-border bg-secondary/40">
-        <div className="container-prose py-14" ref={metricsRef}>
-          <p className="eyebrow mb-8">Selected outcomes at scale</p>
-          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <section style={{ backgroundColor: "#0c1929" }}>
+        <div className="container-prose py-16" ref={metricsRef}>
+          <p className="eyebrow mb-10 text-white/60">Selected outcomes at scale</p>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+          >
             {metrics.map((m) => (
-              <div key={m.label} className="border-l-2 border-primary pl-5">
-                <p className="font-display text-3xl sm:text-4xl text-foreground tracking-tight tabular-nums">
-                  <AnimatedNumber value={m.value} startSignal={metricsInView} durationMs={1800} />
+              <div
+                key={m.label}
+                className="group relative p-8 transition-colors hover:bg-white/[0.04]"
+                style={{
+                  borderRight: "1px solid rgba(255,255,255,0.06)",
+                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-px opacity-0 transition-opacity group-hover:opacity-100"
+                  style={{ backgroundColor: "#e8c97a" }}
+                />
+                <p
+                  className="font-display tracking-tight tabular-nums text-white"
+                  style={{ fontSize: "clamp(2.5rem, 4vw, 3rem)", lineHeight: 1.05 }}
+                >
+                  <AnimatedNumber
+                    value={m.value}
+                    startSignal={metricsInView}
+                    durationMs={1800}
+                    accentClassName="text-[#e8c97a]"
+                  />
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <p
+                  className="mt-4 leading-relaxed"
+                  style={{ fontSize: "13px", color: "rgba(255,255,255,0.45)" }}
+                >
                   {m.label}
                 </p>
               </div>
