@@ -100,7 +100,7 @@ export default function Index() {
         {/* Ticker */}
         <div className="relative border-t border-white/10">
           <div className="overflow-hidden py-4">
-            <div className="flex w-max animate-[ticker_50s_linear_infinite] whitespace-nowrap">
+            <div className="flex w-max animate-[ticker_58s_linear_infinite] whitespace-nowrap">
               {[0, 1].map((dup) => (
                 <ul key={dup} aria-hidden={dup === 1} className="flex items-center shrink-0">
                   {[
