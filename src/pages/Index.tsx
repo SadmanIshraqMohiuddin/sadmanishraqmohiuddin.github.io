@@ -49,7 +49,7 @@ export default function Index() {
               "radial-gradient(circle at 20% 20%, hsl(var(--primary-foreground)) 0, transparent 40%), radial-gradient(circle at 80% 60%, hsl(var(--primary-foreground)) 0, transparent 35%)",
           }}
         />
-        <div className="container-prose relative pt-24 pb-24 sm:pt-32 sm:pb-32">
+        <div className="container-prose relative pt-24 sm:pt-32" style={{ paddingBottom: "16px" }}>
           <div className="max-w-4xl">
             <p className="eyebrow text-white/70 animate-fade-in">
               <span className="inline-flex items-center gap-2">
@@ -98,8 +98,8 @@ export default function Index() {
         </div>
 
         {/* Ticker */}
-        <div className="relative border-t border-white/10">
-          <div className="overflow-hidden py-4">
+        <div className="relative border-t border-white/10" style={{ marginTop: 0 }}>
+          <div className="overflow-hidden" style={{ paddingTop: "12px", paddingBottom: "12px" }}>
             <div className="flex w-max animate-[ticker_58s_linear_infinite] whitespace-nowrap">
               {[0, 1].map((dup) => (
                 <ul key={dup} aria-hidden={dup === 1} className="flex items-center shrink-0">
