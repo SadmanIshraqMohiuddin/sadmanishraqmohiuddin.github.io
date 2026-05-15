@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;--navy-light:#1e3a52;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:#fff;color:var(--text-dark);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.nav{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--cream-dark);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-avatar{width:34px;height:34px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.nav-name{font-size:14px;font-weight:600;color:var(--navy)}
+.nav-role{font-size:10px;color:var(--text-mid);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:13px;font-weight:500;color:var(--text-mid);text-decoration:none;padding:6px 14px;border-radius:100px;transition:all .2s}
+.nav-link:hover{color:var(--navy);background:var(--cream)}
+.nav-link.active{background:var(--navy);color:#fff}
+.nav-cv{font-size:13px;font-weight:600;padding:8px 20px;background:var(--navy);color:#fff;border-radius:100px;text-decoration:none}
+
+/* HERO */
+.hero{background:var(--navy);padding:100px 64px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 30%,rgba(42,157,143,.1) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(201,168,76,.07) 0%,transparent 50%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.2fr 0.8fr;gap:80px;align-items:end;position:relative;z-index:1}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-label::before{content:'';width:24px;height:1px;background:rgba(255,255,255,.25)}
+.hero h1{font-family:var(--serif);font-size:clamp(38px,5vw,62px);color:#fff;line-height:1.08;margin-bottom:28px;letter-spacing:-.3px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.6);font-size:16px;line-height:1.75;max-width:520px}
+.hero-right{display:flex;flex-direction:column;gap:3px;padding-bottom:4px}
+.quick-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:16px;transition:background .2s}
+.quick-stat:hover{background:rgba(255,255,255,.09)}
+.qs-num{font-family:var(--serif);font-size:28px;color:#fff;line-height:1;min-width:64px}
+.qs-num em{font-style:normal;color:var(--gold-light)}
+.qs-label{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+.qs-label strong{color:rgba(255,255,255,.8);font-weight:600;display:block;margin-bottom:1px}
+
+/* NARRATIVE */
+.narrative-section{background:var(--cream);padding:80px 0}
+.narrative-inner{max-width:1200px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr 380px;gap:80px;align-items:start}
+.narrative-text .section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+.narrative-text h2{font-family:var(--serif);font-size:clamp(28px,3vw,38px);color:var(--navy);line-height:1.2;margin-bottom:32px}
+.narrative-para{font-size:15px;color:var(--text-mid);line-height:1.8;margin-bottom:20px}
+.narrative-para:last-child{margin-bottom:0}
+.narrative-para strong{color:var(--navy);font-weight:600}
+.narrative-card{background:#0f2035;border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:32px;position:sticky;top:80px}
+.nc-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px}
+.nc-item{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:3px}
+.nc-item:last-child{border-bottom:none}
+.nc-key{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.nc-val{font-size:15px;color:rgba(255,255,255,.85);font-weight:500}
+.nc-val.gold{color:var(--gold-light)}
+
+/* TIMELINE */
+.timeline-section{background:var(--navy);padding:80px 0}
+.timeline-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.timeline-inner .section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px}
+.timeline-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:#fff;margin-bottom:48px}
+.tl{display:flex;flex-direction:column;gap:0;position:relative}
+.tl::before{content:'';position:absolute;left:120px;top:8px;bottom:8px;width:1px;background:rgba(255,255,255,.1)}
+.tl-item{display:grid;grid-template-columns:120px 1fr;gap:32px;align-items:start;padding-bottom:40px;position:relative;opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease}
+.tl-item.visible{opacity:1;transform:translateX(0)}
+.tl-item:last-child{padding-bottom:0}
+.tl-date{text-align:right;padding-top:4px}
+.tl-year{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.06em}
+.tl-period{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px}
+.tl-content{padding-left:32px;position:relative}
+.tl-content::before{content:'';position:absolute;left:-4px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--teal);border:2px solid var(--navy);z-index:1}
+.tl-item:first-child .tl-content::before{background:var(--gold)}
+.tl-role{font-size:15px;font-weight:600;color:#fff;margin-bottom:3px}
+.tl-company{font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.4);margin-bottom:10px;text-transform:uppercase}
+.tl-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.65}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tl-tag{font-size:10px;font-weight:600;letter-spacing:.06em;padding:3px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45)}
+
+/* CAPABILITIES */
+.cap-section{background:var(--cream);padding:80px 0}
+.cap-inner{max-width:1200px;margin:0 auto;padding:0 64px}
+.cap-inner .section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.cap-inner h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);margin-bottom:48px}
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.cap-col{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
+.cap-col::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.cap-col:nth-child(1)::before{background:linear-gradient(90deg,var(--teal),transparent)}
+.cap-col:nth-child(2)::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.cap-col:nth-child(3)::before{background:linear-gradient(90deg,#a78bfa,transparent)}
+.cap-col:nth-child(4)::before{background:linear-gradient(90deg,#52b788,transparent)}
+.cap-col-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--cream-dark)}
+.cap-pills{display:flex;flex-wrap:wrap;gap:8px}
+.cap-pill{font-size:11px;font-weight:500;padding:5px 12px;border-radius:100px;border:1px solid;transition:all .2s;cursor:default}
+.cap-col:nth-child(1) .cap-pill{color:#2a9d8f;border-color:rgba(42,157,143,.25);background:rgba(42,157,143,.06)}
+.cap-col:nth-child(2) .cap-pill{color:#b8912a;border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.07)}
+.cap-col:nth-child(3) .cap-pill{color:#7c5cbf;border-color:rgba(167,139,250,.25);background:rgba(167,139,250,.07)}
+.cap-col:nth-child(4) .cap-pill{color:#2d7a52;border-color:rgba(82,183,136,.25);background:rgba(82,183,136,.07)}
+.cap-col:nth-child(1) .cap-pill:hover{background:rgba(42,157,143,.14)}
+.cap-col:nth-child(2) .cap-pill:hover{background:rgba(201,168,76,.16)}
+.cap-col:nth-child(3) .cap-pill:hover{background:rgba(167,139,250,.15)}
+.cap-col:nth-child(4) .cap-pill:hover{background:rgba(82,183,136,.14)}
+
+/* CREDENTIALS */
+.cred-section{background:var(--cream-dark);padding:80px 0}
+.cred-inner{max-width:1200px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.cred-block .section-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+.cred-block h2{font-family:var(--serif);font-size:28px;color:var(--navy);margin-bottom:24px}
+.cred-item{background:#fff;border:1px solid var(--cream-dark);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
+.cred-item:last-child{margin-bottom:0}
+.cred-icon{font-size:20px;flex-shrink:0;width:36px;text-align:center}
+.cred-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.cred-sub{font-size:12px;color:var(--text-mid)}
+.cred-badge{font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:100px;margin-left:6px;display:inline-block}
+.cred-badge.active{background:rgba(42,157,143,.12);color:var(--teal);border:1px solid rgba(42,157,143,.25)}
+.cred-badge.done{background:rgba(201,168,76,.12);color:#8a6914;border:1px solid rgba(201,168,76,.25)}
+
+/* CTA */
+.cta-section{background:var(--navy);padding:72px 0}
+.cta-inner{max-width:1200px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.cta-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.cta-title{font-family:var(--serif);font-size:clamp(28px,3vw,38px);color:#fff;line-height:1.2}
+.cta-title em{color:var(--gold-light);font-style:italic}
+.cta-btns{display:flex;flex-direction:column;gap:12px;white-space:nowrap}
+.btn-p{padding:14px 28px;background:#fff;color:var(--navy);border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-p:hover{background:var(--gold-light)}
+.btn-s{padding:14px 28px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
+.btn-s:hover{background:rgba(255,255,255,.15)}
+
+/* FOOTER */
+.footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+.footer p{font-size:13px;color:rgba(255,255,255,.35)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.stagger-1{transition-delay:.1s}.stagger-2{transition-delay:.2s}.stagger-3{transition-delay:.3s}
+
+/* Hero entrance */
+.hero-label{opacity:0;transform:translateY(12px);animation:heroIn .6s ease .1s forwards}
+.hero h1{opacity:0;transform:translateY(18px);animation:heroIn .75s ease .25s forwards}
+.hero-sub{opacity:0;transform:translateY(14px);animation:heroIn .65s ease .45s forwards}
+.quick-stat{opacity:0;transform:translateX(20px)}
+.quick-stat.qs1{animation:slideInRight .55s ease .35s forwards}
+.quick-stat.qs2{animation:slideInRight .55s ease .5s forwards}
+.quick-stat.qs3{animation:slideInRight .55s ease .65s forwards}
+.quick-stat.qs4{animation:slideInRight .55s ease .8s forwards}
+@keyframes heroIn{to{opacity:1;transform:translateY(0)}}
+@keyframes slideInRight{to{opacity:1;transform:translateX(0)}}
+
+/* Timeline dot pulse on present item */
+.tl-item:first-child .tl-content::before{animation:dotPulse 2.5s ease-in-out 1.5s infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 6px rgba(201,168,76,.0)}}
+
+/* Cap pills stagger */
+.cap-pill{opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease,background .2s,color .2s}
+.cap-pill.visible{opacity:1;transform:translateY(0)}
+
+/* Cred items */
+.cred-item{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.cred-item.visible{opacity:1;transform:translateY(0)}
+
+/* Nav scroll shadow */
+.nav{transition:box-shadow .3s ease}
+.nav.scrolled{box-shadow:0 4px 24px rgba(12,25,41,.08)}
+
+@media(max-width:1024px){
+  .hero-inner,.narrative-inner,.cred-inner,.cta-inner{grid-template-columns:1fr;gap:40px}
+  .hero-right{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cap-grid{grid-template-columns:1fr 1fr}
+  .narrative-card{position:static}
+}
+@media(max-width:768px){
+  .nav{padding:0 24px}.hero{padding:80px 24px 64px}
+  .hero-right{grid-template-columns:1fr}
+  .cap-grid{grid-template-columns:1fr}
+  .timeline-inner,.narrative-inner,.cap-inner,.cred-inner,.cta-inner{padding:0 24px}
+  .tl::before{left:90px}
+  .tl-item{grid-template-columns:90px 1fr;gap:20px}
+  .footer{flex-direction:column;gap:16px;padding:32px 24px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">
+    <div class="nav-avatar">S</div>
+    <div>
+      <div class="nav-name">Sadman Mohiuddin</div>
+      <div class="nav-role">Senior Business Analyst</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link active" href="/about">About</a>
+    <a class="nav-link" href="/experience">Experience</a>
+    <a class="nav-link" href="/case-studies">Case Studies</a>
+    <a class="nav-link" href="/certifications">Certifications</a>
+    <a class="nav-link" href="/contact">Contact</a>
+  </div>
+  <a class="nav-cv" href="/cv">⬇ Download CV</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">About</div>
+      <h1>Translating complex<br>enterprise problems into<br><em>structured systems.</em></h1>
+      <p class="hero-sub">Senior Business Analyst and Operations Strategy professional based in Montreal - working at the intersection of requirements engineering, process improvement, and data-driven decision making across enterprise technology, cloud transformation, and platform delivery.</p>
+    </div>
+    <div class="hero-right">
+      <div class="quick-stat qs1">
+        <div class="qs-num">8<em>+</em></div>
+        <div class="qs-label"><strong>Years of Experience</strong>Progressive BA delivery across 6 industries</div>
+      </div>
+      <div class="quick-stat qs2">
+        <div class="qs-num">7</div>
+        <div class="qs-label"><strong>Case Studies Documented</strong>Selected from a broader portfolio of enterprise engagements</div>
+      </div>
+      <div class="quick-stat qs3">
+        <div class="qs-num">7</div>
+        <div class="qs-label"><strong>Countries</strong>Canada · UK · Belgium · Kuwait · Malaysia · Singapore · Bangladesh</div>
+      </div>
+      <div class="quick-stat qs4">
+        <div class="qs-num"><em>🎓</em></div>
+        <div class="qs-label"><strong>Queen Mary, University of London</strong>BEng Aerospace Engineering - Merit Scholar</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NARRATIVE -->
+<div class="narrative-section">
+  <div class="narrative-inner">
+    <div class="narrative-text fade-up">
+      <div class="section-label">The Story</div>
+      <h2>From refinery floors to enterprise platforms - the long way round.</h2>
+      <p class="narrative-para">My career began as a Mechanical Engineer at <strong>ExxonMobil in Kuala Lumpur</strong> - delivering engineering analysis and reliability work across more than 40 global refinery and chemical sites, contributing to a <strong>$3M refinery retrofit project</strong>, and presenting operational performance data to refining and chemical leadership. That foundation in code-compliant, high-stakes technical analysis shaped how I approach enterprise software today: rigorous, traceable, and outcome-focused.</p>
+      <p class="narrative-para">I transitioned into IT business analysis and enterprise platform delivery, working across <strong>banking, fintech, healthcare, logistics, renewable energy, government systems, and digital platforms</strong>. Today I lead requirements engineering for a large-scale enterprise cloud transformation program at a major Canadian financial institution - supporting modernisation initiatives impacting approximately <strong>30,000 users</strong> across Microsoft 365, Azure, IAM, WAF, and FinOps governance.</p>
+      <p class="narrative-para">Earlier, I led requirements management for the <strong>Electronic Fiscal Device Management System (EFDMS)</strong>, a national fiscal compliance platform serving 30,000+ retail outlets and architected to scale to 600,000+ devices. I've also led operations and platform development for a digital healthcare logistics startup, scaling it to <strong>14,000+ orders</strong> and ~$150K cumulative revenue - and led a ~200-person engineering and field operations team deploying <strong>18MW+ of solar infrastructure</strong> across 247 sites in Bangladesh.</p>
+      <p class="narrative-para">I'm particularly interested in <strong>Senior Business Analyst, Operations Analyst, and consulting-style roles</strong> where complex systems, cross-functional teams, and data-driven decision making intersect. Currently advancing <strong>CCBA® certification (IIBA)</strong> and French proficiency for the Montreal market.</p>
+    </div>
+    <div class="fade-up stagger-2">
+      <div class="narrative-card">
+        <div class="nc-label">Quick Profile</div>
+        <div class="nc-item">
+          <div class="nc-key">Location</div>
+          <div class="nc-val">Montreal, Quebec, Canada</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Status</div>
+          <div class="nc-val gold">Open to Opportunities</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Work Permit</div>
+          <div class="nc-val" style="display:inline-flex;align-items:center;gap:8px;background:rgba(42,157,143,.15);border:1px solid rgba(42,157,143,.4);color:#4dd6c8;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:700;letter-spacing:.02em;width:fit-content">✦ Open Work Permit - Canada</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Languages</div>
+          <div class="nc-val">English (Native) · Bengali (Native) · French (Elementary, actively studying)</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Certification</div>
+          <div class="nc-val gold">CCBA® in Progress - IIBA · Dec 2026</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Education</div>
+          <div class="nc-val">BEng Aerospace Engineering - Queen Mary, University of London · Merit Scholar</div>
+        </div>
+        <div class="nc-item">
+          <div class="nc-key">Publication</div>
+          <div class="nc-val">ACM - A Fast Resource Efficient Method for Human Action Recognition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAREER TIMELINE -->
+<div class="timeline-section">
+  <div class="timeline-inner">
+    <div class="section-label">Career Timeline</div>
+    <h2>The journey so far.</h2>
+    <div class="tl" id="timeline">
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">Present</div><div class="tl-period">2025</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Senior Business Analyst</div>
+          <div class="tl-company">AANNEX Solution Inc · Canada & Bangladesh</div>
+          <div class="tl-desc">Lead BA on a large-scale enterprise cloud transformation program at a major Canadian financial institution - Microsoft 365, Azure migration, IAM, WAF, FinOps governance across a 30,000-seat environment.</div>
+          <div class="tl-tags"><span class="tl-tag">Cloud Transformation</span><span class="tl-tag">Microsoft Azure</span><span class="tl-tag">Requirements Engineering</span><span class="tl-tag">Canada</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">2025</div><div class="tl-period">2022</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Senior Business Analyst</div>
+          <div class="tl-company">Arbree Limited · Dhaka, Bangladesh</div>
+          <div class="tl-desc">Led BA across enterprise platforms spanning banking, fintech, healthcare, government, EV infrastructure, logistics, and e-commerce - including EFDMS national fiscal compliance, IFRS AI research agent, EV charging network, and EdTech LMS.</div>
+          <div class="tl-tags"><span class="tl-tag">EFDMS</span><span class="tl-tag">AI/RAG</span><span class="tl-tag">EdTech</span><span class="tl-tag">Government</span><span class="tl-tag">Fintech</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">2024</div><div class="tl-period">2022</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Head of Operations & Strategy</div>
+          <div class="tl-company">Aamar Pharma Limited · Dhaka, Bangladesh</div>
+          <div class="tl-desc">Led digital healthcare logistics startup operations - 14,000+ orders, ~$150K revenue, 70% retention, 40+ pharmacy partners, 74-min avg delivery against 90-min SLA. Built Power BI dashboards and SQL-driven KPI tracking across 23+ data points per order.</div>
+          <div class="tl-tags"><span class="tl-tag">Operations Strategy</span><span class="tl-tag">Data Analytics</span><span class="tl-tag">Power BI</span><span class="tl-tag">SQL</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">2020</div><div class="tl-period">Mar-Aug</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Engineering Team Lead</div>
+          <div class="tl-company">Solargao Limited · Dhaka, Bangladesh</div>
+          <div class="tl-desc">Led ~200-person field operations team deploying 18MW+ solar infrastructure across 247 sites and ~800 irrigation systems. Geospatial analysis using ArcGIS. ADB collaboration for rural financial inclusion.</div>
+          <div class="tl-tags"><span class="tl-tag">Renewable Energy</span><span class="tl-tag">ArcGIS</span><span class="tl-tag">ADB</span><span class="tl-tag">Field Operations</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">2020</div><div class="tl-period">2016</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Business Analyst → Senior BA</div>
+          <div class="tl-company">Arbree Limited · Bangladesh, Kuwait, UK</div>
+          <div class="tl-desc">Progressive BA career from Digital Solutions Analyst through Business Analyst and BA & QA Lead - building requirements engineering, process mapping, UAT, and stakeholder management discipline across healthcare, fintech, logistics, and real estate platforms.</div>
+          <div class="tl-tags"><span class="tl-tag">Requirements Engineering</span><span class="tl-tag">UAT</span><span class="tl-tag">Process Mapping</span><span class="tl-tag">BPMN</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date"><div class="tl-year">2016</div><div class="tl-period">2015</div></div>
+        <div class="tl-content">
+          <div class="tl-role">Mechanical Engineer - Fixed Equipment</div>
+          <div class="tl-company">ExxonMobil Corporation · Kuala Lumpur</div>
+          <div class="tl-desc">Engineering analysis across 40+ global refinery and chemical sites. Led MSOT integrity programme evaluating 100+ assets, delivering $50K under a $300K budget. Authored M-Spec for a ~$3M capital project. Quarterly operational analytics presented to refining and chemical leadership.</div>
+          <div class="tl-tags"><span class="tl-tag">Global Engineering</span><span class="tl-tag">Excel & Tableau</span><span class="tl-tag">Capital Projects</span><span class="tl-tag">Leadership Reporting</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<div class="cap-section">
+  <div class="cap-inner">
+    <div class="section-label fade-up">Core Capabilities</div>
+    <h2 class="fade-up" style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--navy);margin-bottom:48px">Disciplined business analysis.<br>Operational rigour. Delivery focus.</h2>
+    <div class="cap-grid">
+      <div class="cap-col fade-up">
+        <div class="cap-col-title">📋 Business Analysis</div>
+        <div class="cap-pills">
+          <span class="cap-pill">Requirements Elicitation</span>
+          <span class="cap-pill">BRD / FRD Authorship</span>
+          <span class="cap-pill">User Stories</span>
+          <span class="cap-pill">Use Cases</span>
+          <span class="cap-pill">AS-IS / TO-BE Analysis</span>
+          <span class="cap-pill">Gap Analysis</span>
+          <span class="cap-pill">Stakeholder Workshops</span>
+          <span class="cap-pill">UAT Coordination</span>
+          <span class="cap-pill">BPMN Process Mapping</span>
+          <span class="cap-pill">Acceptance Criteria</span>
+        </div>
+      </div>
+      <div class="cap-col fade-up stagger-1">
+        <div class="cap-col-title">⚙️ Operations & Strategy</div>
+        <div class="cap-pills">
+          <span class="cap-pill">Process Improvement</span>
+          <span class="cap-pill">Operational Analytics</span>
+          <span class="cap-pill">SOP Design</span>
+          <span class="cap-pill">KPI Frameworks</span>
+          <span class="cap-pill">RACI Matrices</span>
+          <span class="cap-pill">Business Case Development</span>
+          <span class="cap-pill">Demand Forecasting</span>
+          <span class="cap-pill">Change Management</span>
+          <span class="cap-pill">Agile Delivery</span>
+        </div>
+      </div>
+      <div class="cap-col fade-up stagger-2">
+        <div class="cap-col-title">📊 Data & Tools</div>
+        <div class="cap-pills">
+          <span class="cap-pill">SQL</span>
+          <span class="cap-pill">Power BI</span>
+          <span class="cap-pill">Excel Advanced</span>
+          <span class="cap-pill">Tableau</span>
+          <span class="cap-pill">Python</span>
+          <span class="cap-pill">Jira</span>
+          <span class="cap-pill">Lucidchart</span>
+          <span class="cap-pill">Visio</span>
+          <span class="cap-pill">ArcGIS</span>
+          <span class="cap-pill">Figma</span>
+        </div>
+      </div>
+      <div class="cap-col fade-up stagger-3">
+        <div class="cap-col-title">☁️ Enterprise Technology</div>
+        <div class="cap-pills">
+          <span class="cap-pill">Cloud Transformation</span>
+          <span class="cap-pill">Microsoft Azure</span>
+          <span class="cap-pill">Microsoft 365</span>
+          <span class="cap-pill">SaaS Adoption</span>
+          <span class="cap-pill">API Integration</span>
+          <span class="cap-pill">IAM & FinOps</span>
+          <span class="cap-pill">Infrastructure as Code</span>
+          <span class="cap-pill">AWS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREDENTIALS -->
+<div class="cred-section">
+  <div class="cred-inner">
+    <div class="cred-block fade-up">
+      <div class="section-label">Education & Publication</div>
+      <h2>Academic Foundation</h2>
+      <div class="cred-item">
+        <div class="cred-icon">🎓</div>
+        <div>
+          <div class="cred-title">BEng (Hons) Aerospace Engineering</div>
+          <div class="cred-sub">Queen Mary, University of London · 2012–2015</div>
+          <div class="cred-sub" style="margin-top:4px">International Science & Engineering Excellence Award - full tenure merit scholarship</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">📄</div>
+        <div>
+          <div class="cred-title">A Fast Resource Efficient Method for Human Action Recognition</div>
+          <div class="cred-sub">ACM (Association for Computing Machinery) - Published</div>
+        </div>
+      </div>
+    </div>
+    <div class="cred-block fade-up stagger-1">
+      <div class="section-label">Certifications</div>
+      <h2>Credentials</h2>
+      <div class="cred-item">
+        <div class="cred-icon">🏆</div>
+        <div>
+          <div class="cred-title">CCBA® - Certification of Capability in Business Analysis <span class="cred-badge active">In Progress</span></div>
+          <div class="cred-sub">IIBA · Exam Target: December 2026</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">📊</div>
+        <div>
+          <div class="cred-title">Google Data Analytics Professional Certificate <span class="cred-badge done">Completed</span></div>
+          <div class="cred-sub">Google / Coursera</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">📈</div>
+        <div>
+          <div class="cred-title">Fundamentals of Quantitative Modelling <span class="cred-badge done">Completed</span></div>
+          <div class="cred-sub">Wharton Online / Coursera</div>
+        </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-icon">🐍</div>
+        <div>
+          <div class="cred-title">Introduction to Programming Using Python <span class="cred-badge done">Completed</span></div>
+          <div class="cred-sub">Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div>
+      <div class="cta-label">Let's Talk</div>
+      <div class="cta-title">Interested in discussing a Senior Business Analyst,<br>Operations Strategy, or <em>Consulting</em> opportunity?</div>
+    </div>
+    <div class="cta-btns">
+      <a class="btn-p" href="/contact">Send a message →</a>
+      <a class="btn-s" href="/case-studies">View Case Studies</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Sadman Ishraq Mohiuddin · Senior Business Analyst · Montreal, QC</p>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
+    <a href="/cv">Download CV</a>
+    <a href="/contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Fade-up observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// Timeline stagger
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const items = e.target.querySelectorAll('.tl-item');
+    items.forEach((item, i) => setTimeout(() => item.classList.add('visible'), i * 150));
+    tlObs.unobserve(e.target);
+  });
+}, {threshold: 0.1});
+const tl = document.getElementById('timeline');
+if (tl) tlObs.observe(tl);
+
+// Capability pills stagger
+const pillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const pills = e.target.querySelectorAll('.cap-pill');
+    pills.forEach((pill, i) => {
+      setTimeout(() => pill.classList.add('visible'), i * 40);
+    });
+    pillObs.unobserve(e.target);
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.cap-grid').forEach(el => pillObs.observe(el));
+
+// Credential items stagger
+const credObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const items = e.target.querySelectorAll('.cred-item');
+    items.forEach((item, i) => {
+      setTimeout(() => item.classList.add('visible'), i * 100);
+    });
+    credObs.unobserve(e.target);
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.cred-block').forEach(el => credObs.observe(el));
+
+// Nav scroll shadow
+window.addEventListener('scroll', () => {
+  document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 20);
+}, {passive: true});
+</script>
+</body>
+</html>
