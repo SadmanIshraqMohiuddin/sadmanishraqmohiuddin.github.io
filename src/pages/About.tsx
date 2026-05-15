@@ -41,7 +41,7 @@ export default function About() {
         if (script) {
           setTimeout(() => {
             scriptEl = document.createElement("script");
-            scriptEl.textContent = script.textContent;
+            scriptEl.textContent = `(function(){\n${script.textContent}\n})();`;
             document.body.appendChild(scriptEl);
           }, 0);
         }

@@ -193,24 +193,6 @@ body{background:#fff;color:var(--text-dark);font-family:var(--sans);font-size:15
 </head>
 <body>
 
-<nav class="nav">
-  <a class="nav-brand" href="#">
-    <div class="nav-avatar">S</div>
-    <div>
-      <div class="nav-name">Sadman Mohiuddin</div>
-      <div class="nav-role">Senior Business Analyst</div>
-    </div>
-  </a>
-  <div class="nav-links">
-    <a class="nav-link" href="/">Home</a>
-    <a class="nav-link active" href="/about">About</a>
-    <a class="nav-link" href="/experience">Experience</a>
-    <a class="nav-link" href="/case-studies">Case Studies</a>
-    <a class="nav-link" href="/certifications">Certifications</a>
-    <a class="nav-link" href="/contact">Contact</a>
-  </div>
-  <a class="nav-cv" href="/cv">⬇ Download CV</a>
-</nav>
 
 <!-- HERO -->
 <header class="hero">
@@ -490,14 +472,6 @@ body{background:#fff;color:var(--text-dark);font-family:var(--sans);font-size:15
   </div>
 </div>
 
-<footer class="footer">
-  <p>© 2026 Sadman Ishraq Mohiuddin · Senior Business Analyst · Montreal, QC</p>
-  <div class="footer-links">
-    <a href="https://linkedin.com/in/sadmanishraqmohiuddin">LinkedIn</a>
-    <a href="/cv">Download CV</a>
-    <a href="/contact">Contact</a>
-  </div>
-</footer>
 
 <script>
 // Fade-up observer
@@ -546,7 +520,7 @@ document.querySelectorAll('.cred-block').forEach(el => credObs.observe(el));
 
 // Nav scroll shadow
 window.addEventListener('scroll', () => {
-  document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 20);
+  var n=document.querySelector('.nav'); if(n) n.classList.toggle('scrolled', window.scrollY > 20);
 }, {passive: true});
 </script>
 </body>
