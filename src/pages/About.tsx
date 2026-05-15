@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function About() {
   const [body, setBody] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     let styleEl: HTMLStyleElement | null = null;
@@ -57,5 +59,16 @@ export default function About() {
     };
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: body }} />;
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const a = (e.target as HTMLElement).closest("a");
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (!href) return;
+    if (a.target === "_blank" || href.startsWith("http") || href.startsWith("mailto:")) return;
+    if (href.startsWith("#")) return;
+    e.preventDefault();
+    navigate(href);
+  };
+
+  return <div onClick={onClick} dangerouslySetInnerHTML={{ __html: body }} />;
 }
