@@ -203,24 +203,6 @@ h2.section-title{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:v
 </head>
 <body>
 
-<nav class="nav" id="mainNav">
-  <a class="nav-brand" href="/">
-    <div class="nav-avatar">S</div>
-    <div>
-      <div class="nav-name">Sadman Mohiuddin</div>
-      <div class="nav-role">Senior Business Analyst</div>
-    </div>
-  </a>
-  <div class="nav-links">
-    <a class="nav-link" href="/">Home</a>
-    <a class="nav-link" href="/about">About</a>
-    <a class="nav-link" href="/experience">Experience</a>
-    <a class="nav-link" href="/case-studies">Case Studies</a>
-    <a class="nav-link active" href="/certifications">Certifications</a>
-    <a class="nav-link" href="/contact">Contact</a>
-  </div>
-  <a class="nav-cv" href="/cv">⬇ Download CV</a>
-</nav>
 
 <!-- HERO -->
 <header class="hero">
@@ -472,19 +454,11 @@ h2.section-title{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:v
   </div>
 </div>
 
-<footer class="footer">
-  <p>© 2026 Sadman Ishraq Mohiuddin - Senior Business Analyst - Montreal, QC</p>
-  <div class="footer-links">
-    <a href="https://linkedin.com/in/sadmanishraqmohiuddin" target="_blank">LinkedIn</a>
-    <a href="/cv">Download CV</a>
-    <a href="/contact">Contact</a>
-  </div>
-</footer>
 
 <script>
 // Nav scroll shadow
 window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  const _n=document.getElementById('mainNav'); if(_n) _n.classList.toggle('scrolled', window.scrollY > 20);
 }, {passive: true});
 
 // Fade-up observer
