@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience - Sadman Ishraq Mohiuddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f3ee;--cream-dark:#edeae3;--navy:#0c1929;--navy-mid:#152538;
+  --gold:#c9a84c;--gold-light:#e8c97a;--teal:#2a9d8f;
+  --text-dark:#1a1a2e;--text-mid:#4a4a5a;
+  --serif:'DM Serif Display',Georgia,serif;--sans:'Instrument Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:12px
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{background:#fff;color:var(--text-dark);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+.nav{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--cream-dark);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 24px rgba(12,25,41,.08)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-avatar{width:34px;height:34px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.nav-name{font-size:14px;font-weight:600;color:var(--navy)}
+.nav-role{font-size:10px;color:var(--text-mid);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:13px;font-weight:500;color:var(--text-mid);text-decoration:none;padding:6px 14px;border-radius:100px;transition:all .2s}
+.nav-link:hover{color:var(--navy);background:var(--cream)}
+.nav-link.active{background:var(--navy);color:#fff}
+.nav-cv{font-size:13px;font-weight:600;padding:8px 20px;background:var(--navy);color:#fff;border-radius:100px;text-decoration:none}
+
+/* HERO */
+.hero{background:var(--navy);padding:100px 64px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 30%,rgba(42,157,143,.1) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(201,168,76,.07) 0%,transparent 50%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.2fr 0.8fr;gap:80px;align-items:center;position:relative;z-index:1}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-label::before{content:'';width:24px;height:1px;background:rgba(255,255,255,.25)}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,5vw,58px);color:#fff;line-height:1.08;margin-bottom:24px}
+.hero h1 em{color:var(--gold-light);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.6);font-size:16px;line-height:1.75;max-width:500px}
+.hero-right{display:flex;flex-direction:column;gap:12px}
+.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:16px;transition:background .2s}
+.hero-stat:hover{background:rgba(255,255,255,.1)}
+.hs-num{font-family:var(--serif);font-size:32px;color:#fff;line-height:1;min-width:52px}
+.hs-num em{font-style:normal;color:var(--gold-light)}
+.hs-label strong{color:rgba(255,255,255,.8);font-weight:600;display:block;font-size:13px;margin-bottom:1px}
+.hs-label{font-size:12px;color:rgba(255,255,255,.45);line-height:1.4}
+
+/* HERO ENTRANCE */
+.hero-label-el{opacity:0;transform:translateY(12px);animation:heroIn .6s ease .1s forwards}
+.hero h1{opacity:0;transform:translateY(18px);animation:heroIn .75s ease .25s forwards}
+.hero-sub{opacity:0;transform:translateY(14px);animation:heroIn .65s ease .45s forwards}
+.hero-stat{opacity:0;transform:translateX(20px)}
+.hs1{animation:slideInR .55s ease .4s forwards}
+.hs2{animation:slideInR .55s ease .55s forwards}
+.hs3{animation:slideInR .55s ease .7s forwards}
+@keyframes heroIn{to{opacity:1;transform:translateY(0)}}
+@keyframes slideInR{to{opacity:1;transform:translateX(0)}}
+
+/* ROLE CARDS */
+.roles-section{max-width:1200px;margin:0 auto;padding:0 64px}
+.role-entry{padding:56px 0;border-bottom:1px solid var(--cream-dark);display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.role-entry.visible{opacity:1;transform:translateY(0)}
+.role-entry:last-child{border-bottom:none}
+.role-left{}
+.role-date{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.role-date-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.role-title{font-family:var(--serif);font-size:26px;color:var(--navy);line-height:1.2;margin-bottom:6px}
+.role-company{font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:2px}
+.role-location{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.role-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.role-tag{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px;border:1px solid;transition:all .2s}
+.cloud .role-tag{color:#c0392b;border-color:rgba(192,57,43,.25);background:rgba(192,57,43,.07)}
+.govtech .role-tag{color:#4f46e5;border-color:rgba(79,70,229,.25);background:rgba(79,70,229,.07)}
+.healthcare .role-tag{color:#c05040;border-color:rgba(224,112,96,.25);background:rgba(224,112,96,.07)}
+.qa .role-tag{color:#7c3aed;border-color:rgba(124,58,237,.25);background:rgba(124,58,237,.07)}
+.energy .role-tag{color:#2d6a4f;border-color:rgba(64,145,108,.25);background:rgba(64,145,108,.07)}
+.ba .role-tag{color:#475569;border-color:rgba(71,85,105,.25);background:rgba(71,85,105,.07)}
+.analyst .role-tag{color:#64748b;border-color:rgba(100,116,139,.25);background:rgba(100,116,139,.07)}
+.engineering .role-tag{color:#b91c1c;border-color:rgba(185,28,28,.25);background:rgba(185,28,28,.07)}
+.leadership .role-tag{color:#4a5e2a;border-color:rgba(74,94,42,.25);background:rgba(74,94,42,.07)}
+.role-right{}
+.role-summary{font-size:16px;line-height:1.75;color:var(--text-dark);margin-bottom:24px;font-weight:400}
+.role-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.role-bullets li{font-size:14px;color:var(--text-mid);line-height:1.65;padding-left:20px;position:relative}
+.role-bullets li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:2px;border-radius:1px}
+
+/* Industry color variants */
+.role-entry.cloud .role-date{color:#e05c4b}
+.role-entry.cloud .role-date-dot{background:#e05c4b}
+.role-entry.cloud .role-title{color:var(--navy)}
+.role-entry.cloud .role-bullets li::before{background:#e05c4b}
+
+.role-entry.govtech .role-date{color:#4f46e5}
+.role-entry.govtech .role-date-dot{background:#4f46e5}
+.role-entry.govtech .role-bullets li::before{background:#4f46e5}
+
+.role-entry.healthcare .role-date{color:#e07060}
+.role-entry.healthcare .role-date-dot{background:#e07060}
+.role-entry.healthcare .role-bullets li::before{background:#e07060}
+
+.role-entry.energy .role-date{color:#40916c}
+.role-entry.energy .role-date-dot{background:#40916c}
+.role-entry.energy .role-bullets li::before{background:#40916c}
+
+.role-entry.qa .role-date{color:#7c3aed}
+.role-entry.qa .role-date-dot{background:#7c3aed}
+.role-entry.qa .role-bullets li::before{background:#7c3aed}
+
+.role-entry.ba .role-date{color:#64748b}
+.role-entry.ba .role-date-dot{background:#64748b}
+.role-entry.ba .role-bullets li::before{background:#64748b}
+
+.role-entry.analyst .role-date{color:#94a3b8}
+.role-entry.analyst .role-date-dot{background:#94a3b8}
+.role-entry.analyst .role-bullets li::before{background:#94a3b8}
+
+.role-entry.engineering .role-date{color:#b91c1c}
+.role-entry.engineering .role-date-dot{background:#b91c1c}
+.role-entry.engineering .role-bullets li::before{background:#b91c1c}
+
+.role-entry.leadership .role-date{color:#5a7a2e}
+.role-entry.leadership .role-date-dot{background:#5a7a2e}
+.role-entry.leadership .role-bullets li::before{background:#5a7a2e}
+
+/* SECTION DIVIDERS */
+.section-divider{background:var(--cream);padding:24px 64px;max-width:100%;border-top:1px solid var(--cream-dark);border-bottom:1px solid var(--cream-dark)}
+.section-divider-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.sd-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-mid)}
+.sd-line{flex:1;height:1px;background:var(--cream-dark)}
+
+/* PROJECT MINI GRID */
+.projects-mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--cream-dark)}
+.project-mini-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);width:100%;margin-bottom:4px}
+.proj-chip{font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;background:var(--cream);border:1px solid var(--cream-dark);color:var(--navy)}
+
+/* CTA */
+.cta-section{background:var(--navy);padding:72px 0}
+.cta-inner{max-width:1200px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.cta-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.cta-title{font-family:var(--serif);font-size:clamp(26px,3vw,38px);color:#fff;line-height:1.2}
+.cta-title em{color:var(--gold-light);font-style:italic}
+.cta-btns{display:flex;flex-direction:column;gap:12px;white-space:nowrap}
+.btn-p{padding:14px 28px;background:#fff;color:var(--navy);border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-p:hover{background:var(--gold-light)}
+.btn-s{padding:14px 28px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
+.btn-s:hover{background:rgba(255,255,255,.15)}
+
+/* FOOTER */
+.footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+.footer p{font-size:13px;color:rgba(255,255,255,.35)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-right{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .role-entry{grid-template-columns:1fr;gap:24px}
+  .cta-inner{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:768px){
+  .nav{padding:0 24px}
+  .hero{padding:80px 24px 64px}
+  .hero-right{grid-template-columns:1fr}
+  .roles-section,.section-divider,.cta-inner,.footer{padding-left:24px;padding-right:24px}
+  .footer{flex-direction:column;gap:16px;padding:32px 24px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label hero-label-el">Experience</div>
+      <h1>A decade of <em>cross-industry</em><br>enterprise delivery.</h1>
+      <p class="hero-sub">From standards-driven mechanical engineering at ExxonMobil to leading business analysis on a Canadian enterprise cloud transformation - every role has reinforced the same discipline: rigorous requirements, structured delivery, and measurable outcomes.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat hs1">
+        <div class="hs-num">8<em>+</em></div>
+        <div class="hs-label"><strong>Years of Experience</strong>Progressive BA and operations delivery</div>
+      </div>
+      <div class="hero-stat hs2">
+        <div class="hs-num">15<em>+</em></div>
+        <div class="hs-label"><strong>Platforms Delivered</strong>Enterprise systems across cloud, government, healthcare, fintech, and EdTech</div>
+      </div>
+      <div class="hero-stat hs3">
+        <div class="hs-num">7</div>
+        <div class="hs-label"><strong>Countries</strong>Canada, UK, Belgium, Kuwait, Malaysia, Singapore, Bangladesh</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ROLES -->
+<div class="roles-section" id="rolesSection">
+
+  <!-- 1. AANNEX -->
+  <div class="role-entry cloud">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Oct 2025 - Present</div>
+      <div class="role-title">Senior Business Analyst</div>
+      <div class="role-company">AANNEX Solution Inc</div>
+      <div class="role-location">Canada & Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">Microsoft 365</span>
+        <span class="role-tag">Azure</span>
+        <span class="role-tag">IAC</span>
+        <span class="role-tag">IAM</span>
+        <span class="role-tag">WAF</span>
+        <span class="role-tag">FinOps</span>
+        <span class="role-tag">Oracle - Azure SQL</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Lead end-to-end business analysis and requirements engineering for a large-scale enterprise cloud transformation program at a major Canadian financial institution, supporting modernisation initiatives impacting approximately 30,000 users.</div>
+      <ul class="role-bullets">
+        <li>Facilitate stakeholder discovery and requirements elicitation across cloud engineering, DevOps, infrastructure, security, and enterprise architecture teams.</li>
+        <li>Conduct AS-IS / TO-BE analysis and enterprise system impact assessments supporting migration of legacy Exchange environments to Microsoft 365 SaaS platforms.</li>
+        <li>Drive requirements for phased rollout of Microsoft Teams, OneDrive, Microsoft Rooms, and Copilot across a 30,000-seat environment, including SaaS licensing strategy.</li>
+        <li>Define requirements for migrating legacy on-premise infrastructure to Microsoft Azure (Canada Central / Canada East), modernising multi-tier end-of-life enterprise applications.</li>
+        <li>Document enterprise architecture, system dependencies, API integrations, and Oracle-to-Azure SQL data migration pathways.</li>
+        <li>Partner with architecture and security teams on FinOps governance, IAM controls, and Web Application Firewall (WAF) requirements aligned with enterprise risk and regulatory standards.</li>
+        <li>Collaborate with engineering teams implementing Infrastructure as Code (IaC) and cloud adoption frameworks to enable scalable deployment automation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. ARBREE SENIOR BA -->
+  <div class="role-entry govtech">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Mar 2022 - Oct 2025</div>
+      <div class="role-title">Senior Business Analyst</div>
+      <div class="role-company">Arbree Limited</div>
+      <div class="role-location">Dhaka, Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">BPMN</span>
+        <span class="role-tag">SQL</span>
+        <span class="role-tag">UML</span>
+        <span class="role-tag">Jira</span>
+        <span class="role-tag">Visio</span>
+        <span class="role-tag">Lucidchart</span>
+        <span class="role-tag">Scrum / Kanban</span>
+      </div>
+      <div class="projects-mini">
+        <div class="project-mini-label">Selected Projects</div>
+        <span class="proj-chip">EFDMS - National Fiscal Compliance</span>
+        <span class="proj-chip">IFRS AI Research Assistant</span>
+        <span class="proj-chip">educateU LMS</span>
+        <span class="proj-chip">EV Charging Network</span>
+        <span class="proj-chip">ENT Hospital Management System</span>
+        <span class="proj-chip">Enterprise CRM & Property Platform</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Led business analysis, requirements engineering, and stakeholder management across enterprise software platforms spanning banking, fintech, healthcare, government, EV infrastructure, logistics, and e-commerce sectors.</div>
+      <ul class="role-bullets">
+        <li>Led requirements management and delivery oversight for the Electronic Fiscal Device Management System (EFDMS) - a national fiscal compliance platform supporting 30,000+ retail outlets, architected to scale to 600,000+ devices nationwide.</li>
+        <li>Translated business needs into functional specifications and structured platform architectures via stakeholder workshops, BPMN process mapping, and solution design.</li>
+        <li>Authored SQL queries (joins, aggregations, data cleaning) to validate datasets and system outputs throughout platform development.</li>
+        <li>Produced UML architecture diagrams and system workflows in Visio and Lucidchart to guide engineering teams.</li>
+        <li>Coordinated Agile delivery (Scrum / Kanban): sprint planning, backlog prioritisation, release timelines.</li>
+        <li>Led UAT, QA validation, and defect resolution to ensure systems met functional and operational requirements.</li>
+        <li>Drove business process improvement and cross-functional collaboration between stakeholders, engineers, and QA teams delivering scalable enterprise platforms.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. AAMAR PHARMA -->
+  <div class="role-entry healthcare">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Jul 2022 - Jan 2024</div>
+      <div class="role-title">Head of Operations & Strategy</div>
+      <div class="role-company">Aamar Pharma Limited</div>
+      <div class="role-location">Dhaka, Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">Power BI</span>
+        <span class="role-tag">SQL</span>
+        <span class="role-tag">Excel Modelling</span>
+        <span class="role-tag">OMS</span>
+        <span class="role-tag">Operational Analytics</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Led operations and platform development for a digital healthcare logistics startup in Dhaka, supporting 14,000+ completed orders, ~$150K cumulative revenue, and ~70% customer retention through an aggregated pharmacy delivery platform.</div>
+      <ul class="role-bullets">
+        <li>Drove ~43% average YoY revenue growth (2021-2023) through operational improvements, partner expansion, and platform scaling.</li>
+        <li>Contributed to ~48% average YoY customer growth, expanding the active user base to 526+ customers across the Dhaka service area.</li>
+        <li>Built Excel-based financial forecasting and demand projection models using scenario modelling and sensitivity analysis to evaluate pricing strategy, unit economics, and pharmacy network expansion.</li>
+        <li>Developed Power BI dashboards monitoring order volumes, medicine demand trends, delivery performance, and customer activity.</li>
+        <li>Used SQL and Excel KPI tracking to optimise pharmacy sourcing and fulfilment workflows.</li>
+        <li>Captured 23+ structured operational data points per order, enabling data-driven decision making and logistics optimisation.</li>
+        <li>Built and managed a 40+ partner pharmacy network, enabling a distributed asset-light inventory model.</li>
+        <li>Achieved ~74-minute average delivery time - ~18% faster than the 90-minute SLA.</li>
+        <li>Designed end-to-end fulfilment: order intake, prescription verification, pharmacy sourcing, dispatch, and last-mile logistics.</li>
+        <li>Contributed to proprietary OMS, B2C ordering platform, and early B2B integrations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4. ARBREE BA & QA LEAD -->
+  <div class="role-entry qa">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Oct 2020 - Mar 2022</div>
+      <div class="role-title">Business Analyst & QA Lead</div>
+      <div class="role-company">Arbree Limited</div>
+      <div class="role-location">Kuwait & Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">Jira</span>
+        <span class="role-tag">Visio</span>
+        <span class="role-tag">Lucidchart</span>
+        <span class="role-tag">QA / UAT</span>
+        <span class="role-tag">Scrum / Kanban</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Led requirements engineering and stakeholder workshops for enterprise software platforms across healthcare, logistics, fintech, and real estate sectors.</div>
+      <ul class="role-bullets">
+        <li>Produced functional specifications, user stories, and system documentation translating business requirements into structured development tasks.</li>
+        <li>Designed process maps, system workflows, and platform architecture diagrams in Lucidchart and Visio to guide platform implementation.</li>
+        <li>Coordinated with developers and product stakeholders to refine feature requirements, system logic, and integrations.</li>
+        <li>Supported Agile delivery in Jira (Scrum / Kanban): sprint planning, backlog prioritisation, release coordination.</li>
+        <li>Monitored delivery timelines through Gantt-based project tracking across multiple parallel software initiatives.</li>
+        <li>Managed QA processes: test case design, functional testing, defect tracking, and system requirement validation.</li>
+        <li>Led User Acceptance Testing (UAT) with business stakeholders, validating delivered systems against operational workflows and documented requirements.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. SOLARGAO -->
+  <div class="role-entry energy">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Mar 2020 - Aug 2020</div>
+      <div class="role-title">Engineering Team Lead</div>
+      <div class="role-company">Solargao Limited</div>
+      <div class="role-location">Dhaka, Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">ArcGIS</span>
+        <span class="role-tag">Geospatial Analysis</span>
+        <span class="role-tag">ADB Collaboration</span>
+        <span class="role-tag">Field Operations</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Led a multidisciplinary engineering and field operations team of ~200 personnel deploying over 18 MW of solar energy infrastructure across Bangladesh - spanning 247 solar sites and nearly 800 solar-powered irrigation systems.</div>
+      <ul class="role-bullets">
+        <li>Analysed rural energy access gaps, irrigation demand, and solar deployment patterns to support implementation strategies for renewable energy adoption.</li>
+        <li>Supported the rollout of agent banking and mobile financial services with the Asian Development Bank (ADB), enabling microloans to rural farmers for solar-powered irrigation.</li>
+        <li>Analysed satellite and geospatial datasets using ArcGIS to identify optimal solar installation locations.</li>
+        <li>Directed project scoping, engineering documentation, and technical design for solar irrigation systems, mini-grids, and hybrid solar-diesel power stations.</li>
+        <li>Coordinated with government agencies, engineers, and local stakeholders aligned to rural electrification initiatives.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6. ARBREE BUSINESS ANALYST -->
+  <div class="role-entry ba">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Apr 2018 - Feb 2020</div>
+      <div class="role-title">Business Analyst</div>
+      <div class="role-company">Arbree Limited</div>
+      <div class="role-location">Dhaka, Bangladesh</div>
+      <div class="role-tags">
+        <span class="role-tag">BRDs / PRDs</span>
+        <span class="role-tag">User Stories</span>
+        <span class="role-tag">RACI</span>
+        <span class="role-tag">SOPs</span>
+        <span class="role-tag">Lucidchart</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Conducted business analysis and requirements engineering for digital platforms across healthcare, fintech, logistics, and real estate sectors.</div>
+      <ul class="role-bullets">
+        <li>Led stakeholder interviews, requirement workshops, and elicitation sessions to identify business needs, operational workflows, and system objectives.</li>
+        <li>Developed functional specifications, user stories, use cases, and BRDs translating requirements into structured documentation for development teams.</li>
+        <li>Produced process maps and system models in Lucidchart and Visio defining platform logic and operational processes.</li>
+        <li>Performed business process mapping and operational analysis to identify inefficiencies and design improved digital workflows.</li>
+        <li>Authored SOP documentation, RACI matrices, and project documentation clarifying responsibilities and governance.</li>
+        <li>Documented system requirements, feature roadmaps, and technical specifications for product planning and development.</li>
+        <li>Assisted in project coordination, milestone tracking, and delivery planning aligned with documented requirements.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. ARBREE DIGITAL SOLUTIONS ANALYST -->
+  <div class="role-entry analyst">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Nov 2016 - Mar 2018</div>
+      <div class="role-title">Digital Solutions Analyst</div>
+      <div class="role-company">Arbree Limited</div>
+      <div class="role-location">Bangladesh & United Kingdom</div>
+      <div class="role-tags">
+        <span class="role-tag">Market Research</span>
+        <span class="role-tag">PRDs</span>
+        <span class="role-tag">Product Discovery</span>
+        <span class="role-tag">Exploratory Analysis</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Conducted market research, competitive analysis, and early product discovery for digital platform concepts across fintech, healthcare, logistics, and real estate.</div>
+      <ul class="role-bullets">
+        <li>Performed requirements analysis to translate early product concepts into structured business requirements and initial product specifications.</li>
+        <li>Analysed user needs, operational workflows, and business processes to support product strategy and platform feasibility assessments.</li>
+        <li>Performed exploratory data analysis to identify market trends, demand signals, and operational constraints.</li>
+        <li>Developed PRDs, feature roadmaps, and workflow documentation outlining proposed system logic for potential software platforms.</li>
+        <li>Produced process maps, use cases, and conceptual system workflows using Visio and Lucidchart to support early solution design.</li>
+        <li>Collaborated with internal stakeholders through interviews and requirement discussions to refine product ideas prior to technical development.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 8. EXXONMOBIL -->
+  <div class="role-entry engineering">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Sep 2015 - Sep 2016</div>
+      <div class="role-title">Mechanical Engineer (Fixed Equipment)</div>
+      <div class="role-company">ExxonMobil Corporation</div>
+      <div class="role-location">Kuala Lumpur, Malaysia</div>
+      <div class="role-tags">
+        <span class="role-tag">API / ASME</span>
+        <span class="role-tag">PV Elite</span>
+        <span class="role-tag">CAESAR II</span>
+        <span class="role-tag">Excel & Tableau</span>
+        <span class="role-tag">Excel Automation</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Delivered engineering analysis and reliability work across 40+ global ExxonMobil refinery and chemical sites, contributing to a $3M refinery retrofit project delivered ~$50K under budget.</div>
+      <ul class="role-bullets">
+        <li>Conducted quarterly operational performance, incident, and reliability trend analysis across 40+ refining, chemical, and synergy sites in North and South America using Excel and Tableau. Findings presented directly to refining and chemicals leadership, informing multi-million dollar capital allocation decisions.</li>
+        <li>Led engineering analysis - MSOT (Minimum Safe Operating Temperature) integrity programme evaluating 100+ refinery assets. Coordinated engineers across Asia, Europe, and North America in a continuous 24-hour workflow model, delivering $50K under a $300K budget.</li>
+        <li>Authored the Mechanical Design Specification (M-Spec) for a kerosene hydrotreating reactor catalyst bed retrofit (~$3M capital project), defining mechanical design requirements, operating conditions, and integrity standards.</li>
+        <li>Performed piping integrity, flow restriction, vibration, and fatigue analysis supporting proprietary naphtha hydrofining process units using BreakX simulation software.</li>
+        <li>Conducted fitness-for-service evaluations and mechanical integrity assessments for pressure vessels, heat exchangers, towers, tanks, and piping using API and ASME codes (PV Elite, CAESAR II).</li>
+        <li>Developed internal Excel-based engineering calculation tools automating analysis derived from API and ASME standards.</li>
+        <li>Updated global engineering standards including Tank Maintenance Guide, General Practice guidelines, and Equipment Degradation Documentation.</li>
+        <li>Delivered 28 engineering analysis assignments across refinery equipment integrity, piping systems, and process units.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- EARLY LEADERSHIP DIVIDER -->
+<div class="section-divider fade-up">
+  <div class="section-divider-inner">
+    <div class="sd-line"></div>
+    <div class="sd-label">Early Leadership</div>
+    <div class="sd-line"></div>
+  </div>
+</div>
+
+<div class="roles-section">
+  <!-- 9. NCC SINGAPORE -->
+  <div class="role-entry leadership">
+    <div class="role-left">
+      <div class="role-date"><div class="role-date-dot"></div>Feb 2006 - Jul 2009</div>
+      <div class="role-title">Company Sergeant Major (CSM)</div>
+      <div class="role-company">National Cadet Corps Singapore</div>
+      <div class="role-location">Singapore</div>
+      <div class="role-tags">
+        <span class="role-tag">Leadership</span>
+        <span class="role-tag">Operational Planning</span>
+        <span class="role-tag">Training Coordination</span>
+      </div>
+    </div>
+    <div class="role-right">
+      <div class="role-summary">Senior cadet leadership role responsible for coordinating training, discipline, and operational planning across the platoon. Rank: Master Sergeant.</div>
+      <ul class="role-bullets">
+        <li>Led training and operational planning for cadet teams - overseeing training coordination, operational planning, and leadership development.</li>
+        <li>Coordinated community service initiatives with the People's Association Youth Movement (PAYM).</li>
+        <li>Coordinated training in navigation, reconnaissance, endurance conditioning, and expedition planning - building discipline and team coordination.</li>
+        <li>Awarded Overall Outstanding Cadet (Alpha Platoon) and Best Cadet - Senior Specialist Course Platoon.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner fade-up">
+    <div>
+      <div class="cta-label">Let's Talk</div>
+      <div class="cta-title">Interested in discussing a Senior Business Analyst<br>or <em>Consulting</em> opportunity?</div>
+    </div>
+    <div class="cta-btns">
+      <a class="btn-p" href="/contact">Send a message →</a>
+      <a class="btn-s" href="/case-studies">View Case Studies</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// Nav shadow
+window.addEventListener('scroll', () => {
+  const n = document.getElementById('mainNav');
+  if (n) n.classList.toggle('scrolled', window.scrollY > 20);
+}, {passive: true});
+
+// Role entries stagger
+const roleObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.08});
+document.querySelectorAll('.role-entry').forEach(el => roleObs.observe(el));
+
+// Fade-up
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

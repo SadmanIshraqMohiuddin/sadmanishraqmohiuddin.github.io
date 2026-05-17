@@ -1,72 +1,70 @@
-import SEO from "@/components/SEO";
-import { experiences } from "@/data/portfolio";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Experience() {
-  return (
-    <>
-      <SEO
-        title="Experience | Sadman Ishraq Mohiuddin - Senior Business Analyst"
-        description="Senior Business Analyst experience across enterprise cloud transformation, government fiscal platforms, healthcare logistics, renewable energy infrastructure, and global engineering at ExxonMobil."
-        path="/experience"
-      />
+  const [body, setBody] = useState("");
+  const navigate = useNavigate();
 
-      <section className="bg-navy text-navy-foreground">
-        <div className="container-prose py-24 sm:py-28">
-          <p className="eyebrow text-white/70">Experience</p>
-          <h1 className="mt-6 font-display text-4xl sm:text-6xl tracking-tight text-balance">
-            A decade of cross-industry enterprise delivery.
-          </h1>
-          <p className="mt-8 max-w-3xl text-lg text-white/75 leading-relaxed text-balance">
-            From standards-driven mechanical engineering at ExxonMobil to leading business analysis on a Canadian
-            enterprise cloud transformation - every role has reinforced the same discipline: rigorous requirements,
-            structured delivery, and measurable outcomes.
-          </p>
-        </div>
-      </section>
+  useEffect(() => {
+    let styleEl: HTMLStyleElement | null = null;
+    let fontLink: HTMLLinkElement | null = null;
+    let scriptEl: HTMLScriptElement | null = null;
+    let cancelled = false;
 
-      <section className="py-20 sm:py-24">
-        <div className="container-prose">
-          <ol className="relative">
-            {experiences.map((e, i) => (
-              <li key={`${e.company}-${e.period}`} className="grid lg:grid-cols-12 gap-8 py-12 border-t border-border first:border-t-0">
-                <div className="lg:col-span-4">
-                  <p className="eyebrow">{e.period}</p>
-                  <h2 className="mt-3 font-display text-2xl sm:text-3xl tracking-tight text-balance">
-                    {e.role}
-                  </h2>
-                  <p className="mt-2 text-sm text-foreground/80 font-medium">{e.company}</p>
-                  <p className="text-sm text-muted-foreground">{e.location}</p>
-                  {e.stack && (
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {e.stack.map((s) => (
-                        <li
-                          key={s}
-                          className="text-[11px] uppercase tracking-wider px-2.5 py-1 border border-border text-muted-foreground"
-                        >
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-                <div className="lg:col-span-8">
-                  <p className="text-base sm:text-lg leading-relaxed text-foreground/85 text-balance">
-                    {e.summary}
-                  </p>
-                  <ul className="mt-6 space-y-3">
-                    {e.highlights.map((h, idx) => (
-                      <li key={idx} className="flex gap-3 text-sm text-foreground/80 leading-relaxed">
-                        <span className="mt-2 h-1 w-3 bg-primary shrink-0" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-    </>
-  );
+    fetch("/experience.html")
+      .then((r) => r.text())
+      .then((html) => {
+        if (cancelled) return;
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const link = doc.querySelector('link[href*="fonts.googleapis.com"]');
+        if (link) {
+          fontLink = document.createElement("link");
+          fontLink.rel = "stylesheet";
+          fontLink.href = link.getAttribute("href")!;
+          document.head.appendChild(fontLink);
+        }
+
+        const styleNode = doc.querySelector("style");
+        if (styleNode) {
+          styleEl = document.createElement("style");
+          styleEl.setAttribute("data-experience-page", "");
+          styleEl.textContent = styleNode.textContent;
+          document.head.appendChild(styleEl);
+        }
+
+        setBody(doc.body.innerHTML.replace(/<script[\s\S]*?<\/script>/gi, ""));
+
+        const script = doc.querySelector("script");
+        if (script) {
+          setTimeout(() => {
+            scriptEl = document.createElement("script");
+            scriptEl.textContent = `(function(){\n${script.textContent}\n})();`;
+            document.body.appendChild(scriptEl);
+          }, 0);
+        }
+
+        document.title = doc.title || "Experience";
+      });
+
+    return () => {
+      cancelled = true;
+      styleEl?.remove();
+      fontLink?.remove();
+      scriptEl?.remove();
+    };
+  }, []);
+
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const a = (e.target as HTMLElement).closest("a");
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (!href) return;
+    if (a.target === "_blank" || href.startsWith("http") || href.startsWith("mailto:")) return;
+    if (href.startsWith("#")) return;
+    e.preventDefault();
+    navigate(href);
+  };
+
+  return <div onClick={onClick} dangerouslySetInnerHTML={{ __html: body }} />;
 }
