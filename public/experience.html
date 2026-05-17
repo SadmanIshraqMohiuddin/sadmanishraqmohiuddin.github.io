@@ -503,7 +503,8 @@ body{background:#fff;color:var(--text-dark);font-family:var(--sans);font-size:15
 <script>
 // Nav shadow
 window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  const n = document.getElementById('mainNav');
+  if (n) n.classList.toggle('scrolled', window.scrollY > 20);
 }, {passive: true});
 
 // Role entries stagger
